@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import FloatingOrderTracker from "@/components/FloatingOrderTracker";
+import AboutSections from "@/components/AboutSections";
 import { useRouter } from "next/navigation";
 import { useRef, useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -25,7 +26,10 @@ import {
   Waves, 
   Zap, 
   Smile, 
-  MessageCircle
+  MessageCircle,
+  ChevronRight,
+  ShieldCheck,
+  PhoneCall
 } from "lucide-react";
 import dynamic from "next/dynamic";
 const UserMap = dynamic(() => import("@/components/UserMap"), { ssr: false });
@@ -194,6 +198,8 @@ const [ordersLoading, setOrdersLoading] = useState(true);
   const [selectedService, setSelectedService] = useState(null);
   const [selected, setSelected] = useState(null);
   const [minCartError, setMinCartError] = useState("");
+  const [headerVisible, setHeaderVisible] = useState(true);
+  const lastScrollY = useRef(0);
 const AMRITSAR_BOUNDS = [
   { lat: 31.670068, lng: 74.862815 },
   { lat: 31.657253, lng: 74.919065 },
@@ -246,6 +252,25 @@ const isInsidePolygon = (point, polygon) => {
 }
     };
     fetchOrders();
+  }, []);
+
+  // Scroll-direction detection for mobile header
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentY = window.scrollY;
+      if (currentY <= 40) {
+        setHeaderVisible(true);
+      } else if (currentY < lastScrollY.current - 4) {
+        // scrolling UP even a little -> float down
+        setHeaderVisible(true);
+      } else if (currentY > lastScrollY.current + 8) {
+        // scrolling DOWN -> hide header
+        setHeaderVisible(false);
+      }
+      lastScrollY.current = currentY;
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
    const checkAmritsar = (lat, lng) => {
     if (!lat || !lng) return false;
@@ -386,7 +411,7 @@ if (servicesLoading || services.length === 0) {
   <div
     className="
       w-full 
-      max-w-[430px] 
+      max-w-full lg:max-w-7xl 
       min-h-screen 
       bg-[#f8fafc] 
       shadow-[0_0_60px_rgba(0,0,0,0.08)]
@@ -394,7 +419,7 @@ if (servicesLoading || services.length === 0) {
       overflow-hidden
     "
   >
-    <div style={{ backgroundColor: mainbg }} className="min-h-screen  text-[#111827] pb-32 font-sans overflow-x-hidden">
+    <div style={{ backgroundColor: mainbg }} className="min-h-screen text-[#111827] pb-32 lg:pb-16 font-sans overflow-x-hidden">
          <AnimatePresence>
         {showMap && (
           <motion.div 
@@ -471,105 +496,208 @@ setShowMap(false);
         )}
       </AnimatePresence>
       {/* ================= HEADER ================= */}
-  <header
-  className="
-    relative
-    px-4 pt-3 pb-5
-    rounded-b-[2.2rem]
-    bg-gradient-to-br from-[#6f7f46] to-[#8a9a5b]
-    shadow-[0_18px_40px_rgba(0,0,0,0.35)]
-    
-  "
->
-  {/* Soft 3D highlight */}
-  <div className="absolute inset-0 bg-gradient-to-t rounded-b-[2.2rem] from-black/25 via-transparent to-white/10 pointer-events-none" />
+      {/* ================= MOBILE HEADER (Visible on < 1024px) ================= */}
+      <header
+        style={{ transform: headerVisible ? 'translateY(0)' : 'translateY(-100%)' }}
+        className="
+          lg:hidden
+          fixed top-0 left-0 right-0
+          z-50
+          px-4 pt-3 pb-5
+          rounded-b-[2.2rem]
+          bg-gradient-to-br from-[#6f7f46] to-[#8a9a5b]
+          shadow-[0_18px_40px_rgba(0,0,0,0.35)]
+          transition-transform duration-300 ease-out
+        "
+      >
+        {/* Soft 3D highlight */}
+        <div className="absolute inset-0 bg-gradient-to-t rounded-b-[2.2rem] from-black/25 via-transparent to-white/10 pointer-events-none" />
 
-  {/* TOP ROW */}
-  <div
-    onClick={() => setShowMap(true)}
-    className="relative z-10 flex items-center justify-between text-white cursor-pointer mb-3"
-  >
-    {/* LEFT — LOCATION */}
-    <div className="flex items-center gap-2 min-w-0">
-      <div className="relative">
-        <div className="absolute inset-0 bg-white/40 blur-md rounded-full" />
-        <div className="relative w-7 h-7 rounded-full bg-white flex items-center justify-center shadow-md">
-          <MapPin size={14} className="text-[#1f4637]" />
-        </div>
-      </div>
-
-      <div className="flex flex-col leading-none min-w-0">
-        <span className="text-[12px] font-medium tracking-wide">
-          Home
-        </span>
-        <span className="text-[10px] text-white/80 truncate max-w-[160px]">
-          {address}
-        </span>
-      </div>
-    </div>
-
-    {/* RIGHT — BRAND */}
-    <div className="flex flex-col items-end leading-none">
-      <span className="text-[14px] font-semibold tracking-[0.25em]">
-        SPARKY
-      </span>
-      {/* <span className="text-[9px] text-white/70 tracking-widest">
-        in 40 mins
-      </span> */}
-    </div>
-  </div>
-
-  {/* SEARCH */}
-<div ref={searchRef} className="relative z-10">
-  {/* SEARCH BAR */}
-  <div className="flex items-center bg-white/95 rounded-full px-3 py-2 border border-white/30 shadow backdrop-blur-md">
-    <Search size={14} className="text-gray-400 mr-2" />
-    <input
-      placeholder="Search services"
-      value={query}
-      onChange={(e) => setQuery(e.target.value)}
-      className="flex-1 bg-transparent outline-none text-[12px] text-gray-800"
-    />
-    {query && (
-      <X
-        size={12}
-        className="text-gray-400 cursor-pointer"
-        onClick={() => setQuery("")}
-      />
-    )}
-  </div>
-
-  {/* DROPDOWN */}
-  {open && results.length > 0 && (
-    <div className="absolute top-full mt-2 w-full bg-white rounded-[1.6rem] shadow-xl z-[999] overflow-hidden">
-      {results.map((item, i) => (
+        {/* TOP ROW */}
         <div
-          key={i}
-          onClick={() => {
-            setQuery("");
-            setOpen(false);
-            setSelectedService(item);
-          }}
-          className="flex items-center gap-3 px-4 py-3 hover:bg-gray-50 cursor-pointer"
+          onClick={() => setShowMap(true)}
+          className="relative z-10 flex items-center justify-between text-white cursor-pointer mb-3"
         >
-          <Image
-            src={item.image || "/images/placeholder.jpg"}
-            width={40}
-            height={40}
-            className="rounded-xl object-cover"
-            alt=""
-          />
-          <div className="flex-1">
-            <p className="text-sm font-semibold">{item.name || item.title}</p>
-            <p className="text-xs text-gray-400">{item.category}</p>
+          {/* LEFT — LOCATION */}
+          <div className="flex items-center gap-2 min-w-0">
+            <div className="relative">
+              <div className="absolute inset-0 bg-white/40 blur-md rounded-full" />
+              <div className="relative w-7 h-7 rounded-full bg-white flex items-center justify-center shadow-md">
+                <MapPin size={14} className="text-[#1f4637]" />
+              </div>
+            </div>
+
+            <div className="flex flex-col leading-none min-w-0">
+              <span className="text-[12px] font-medium tracking-wide">
+                Home
+              </span>
+              <span className="text-[10px] text-white/80 truncate max-w-[160px]">
+                {address}
+              </span>
+            </div>
           </div>
-          <span className="font-bold text-sm">₹{item.price}</span>
+
+          {/* RIGHT — BRAND */}
+          <div className="flex flex-col items-end leading-none">
+            <span className="text-[14px] font-semibold tracking-[0.25em]">
+              SPARKY
+            </span>
+          </div>
         </div>
-      ))}
-    </div>
-  )}
-</div>
-</header>
+
+        {/* SEARCH */}
+        <div ref={searchRef} className="relative z-10">
+          <div className="flex items-center bg-white/95 rounded-full px-3 py-2 border border-white/30 shadow backdrop-blur-md">
+            <Search size={14} className="text-gray-400 mr-2" />
+            <input
+              placeholder="Search services"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              className="flex-1 bg-transparent outline-none text-[12px] text-gray-800"
+            />
+            {query && (
+              <X
+                size={12}
+                className="text-gray-400 cursor-pointer"
+                onClick={() => setQuery("")}
+              />
+            )}
+          </div>
+
+          {/* DROPDOWN */}
+          {open && results.length > 0 && (
+            <div className="absolute top-full mt-2 w-full bg-white rounded-[1.6rem] shadow-xl z-[999] overflow-hidden">
+              {results.map((item, i) => (
+                <div
+                  key={i}
+                  onClick={() => {
+                    setQuery("");
+                    setOpen(false);
+                    setSelectedService(item);
+                  }}
+                  className="flex items-center gap-3 px-4 py-3 hover:bg-gray-50 cursor-pointer"
+                >
+                  <Image
+                    src={item.image || "/images/placeholder.jpg"}
+                    width={40}
+                    height={40}
+                    className="rounded-xl object-cover"
+                    alt=""
+                  />
+                  <div className="flex-1">
+                    <p className="text-sm font-semibold">{item.name || item.title}</p>
+                    <p className="text-xs text-gray-400">{item.category}</p>
+                  </div>
+                  <span className="font-bold text-sm">₹{item.price}</span>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </header>
+
+      {/* Spacer for fixed mobile header */}
+      <div className="lg:hidden h-[88px]" />
+
+      {/* ================= HERO SECTION (From About Page - Full Width & Clean) ================= */}
+      <section className="hidden lg:block relative overflow-hidden pt-10 pb-16 md:pt-16 md:pb-24 bg-gradient-to-b from-white via-white/80 to-[#F8F9F5]">
+        <div className="absolute top-0 right-1/4 w-96 h-96 bg-[#008077]/5 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute bottom-0 left-10 w-80 h-80 bg-amber-500/5 rounded-full blur-3xl pointer-events-none" />
+
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center max-w-3xl mx-auto space-y-4">
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-teal-50 border border-teal-200/80 shadow-xs"
+            >
+              <span className="w-2 h-2 rounded-full bg-[#008077] animate-pulse" />
+              <span className="text-[11px] font-extrabold uppercase tracking-widest text-[#008077]">
+                About Sparky • The Home Service Revolution
+              </span>
+            </motion.div>
+
+            <motion.h1
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
+              className="text-3xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.12]"
+            >
+              Salon Luxury & Master Repairs,{" "}
+              <span className="bg-gradient-to-r from-[#008077] via-teal-600 to-emerald-600 bg-clip-text text-transparent">
+                Delivered to Your Door.
+              </span>
+            </motion.h1>
+
+            <motion.p
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="text-sm sm:text-base md:text-lg text-slate-600 font-medium leading-relaxed max-w-2xl mx-auto pt-2"
+            >
+              Sparky was built on a simple promise: make professional home and
+              beauty services effortless, safe, and transparent. No endless phone
+              calls, no bargaining, and no compromises on hygiene.
+            </motion.p>
+
+            {/* ACTION CTA BUTTONS */}
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+              className="flex flex-wrap items-center justify-center gap-3 pt-4"
+            >
+              <Link
+                href="/beauty"
+                className="px-6 py-3.5 rounded-full bg-[#008077] hover:bg-[#006e66] text-white font-extrabold text-xs uppercase tracking-wider shadow-lg shadow-[#008077]/25 transition-all active:scale-95 flex items-center gap-2"
+              >
+                <span>Explore Services</span>
+                <ArrowRight size={16} />
+              </Link>
+              <Link
+                href="/contact"
+                className="px-6 py-3.5 rounded-full bg-white hover:bg-slate-50 text-slate-700 font-extrabold text-xs uppercase tracking-wider border border-slate-200 shadow-xs transition-all active:scale-95 flex items-center gap-2"
+              >
+                <PhoneCall size={15} className="text-[#008077]" />
+                <span>Contact Us</span>
+              </Link>
+            </motion.div>
+          </div>
+
+          {/* STATS STRIP */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+            className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mt-12 max-w-4xl mx-auto"
+          >
+            {[
+              { value: "15,000+", label: "Bookings Fulfilled", icon: CheckCircle2 },
+              { value: "4.9 / 5", label: "Customer Satisfaction", icon: Star },
+              { value: "100%", label: "Background Verified", icon: ShieldCheck },
+              { value: "< 30 Min", label: "Rapid Booking Match", icon: Zap },
+            ].map((s, idx) => {
+              const Icon = s.icon;
+              return (
+                <div
+                  key={idx}
+                  className="p-4 sm:p-5 rounded-3xl bg-white/90 backdrop-blur-xl border border-slate-100 shadow-[0_8px_25px_rgba(0,0,0,0.03)] text-center flex flex-col items-center justify-center hover:shadow-md transition-shadow"
+                >
+                  <div className="w-9 h-9 rounded-xl bg-teal-50 text-[#008077] flex items-center justify-center mb-2">
+                    <Icon size={18} />
+                  </div>
+                  <span className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
+                    {s.value}
+                  </span>
+                  <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider mt-0.5">
+                    {s.label}
+                  </span>
+                </div>
+              );
+            })}
+          </motion.div>
+        </div>
+      </section>
  {/* <section className="px-4 -mt-0">
         <div 
         style={{ backgroundColor: herocolour }}
@@ -588,61 +716,65 @@ setShowMap(false);
         </div>
       </section> */}
       {/* ================= MAIN CONTENT ================= */}
-      <main className="px-2 space-y-8 pt-0.5 ">
-
-
-   <section className="mt-2 px-3">
+      <main className="px-2 sm:px-4 lg:px-6 space-y-8 pt-2">
+        <section className="mt-4 px-3 sm:px-6">
   <div className="
-    max-w-md mx-auto
-    p-3.5
+    max-w-md lg:max-w-7xl mx-auto
+    p-4 sm:p-6 lg:p-8
     rounded-3xl
-    bg-gradient-to-b from-white via-[#fbfcfa] to-[#f2f4ed]
-    border border-[#f1f3eb]
-    shadow-[0_15px_40px_rgba(0,0,0,0.05)]
+    bg-white
+    border border-[#EAEFE0]
+    shadow-sm
   ">
 
     {/* Heading */}
-    <div className="text-center mb-6">
-      <h2 className="
-        text-[24px]
-        font-serif
-        italic
-        tracking-tight
-        bg-gradient-to-r from-[#1A2421] to-[#3A4D39]
-        bg-clip-text text-transparent
-      ">
-        Our Services
-      </h2>
+    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6 pb-3 border-b border-[#F0F4E8]">
+      <div>
+        <h2 className="
+          text-xl lg:text-2xl
+          font-[900]
+          tracking-tight
+          text-[#1A2421]
+        ">
+          Our Specialities & Rituals
+        </h2>
+        <p className="text-xs text-[#5F6B4A] mt-0.5">Select a category to view curated treatments</p>
+      </div>
 
-      <div className="mx-auto mt-1 w-12 h-[2px]
-        bg-gradient-to-r from-[#8A9A5B] to-[#6f7f46]
-        rounded-full opacity-70"
-      />
+      <button
+        onClick={() => router.push('/beauty')}
+        className="text-xs font-bold text-[#3A4D39] hover:underline flex items-center gap-1 self-start sm:self-auto"
+      >
+        <span>View Full Catalog</span>
+        <ChevronRight size={13} />
+      </button>
     </div>
 
-    {/* Grid */}
-    <div className="grid grid-cols-4 gap-4">
+    {/* Grid: 4 cols on mobile, 8 cols on laptop */}
+    <div className="grid grid-cols-4 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-3 sm:gap-4 lg:gap-5">
 
       {want.map((cat, i) => (
         <button
           key={i}
           onClick={() => handleWantClick(cat.name)}
-          className="group flex flex-col items-center gap-2"
+          className="group flex flex-col items-center gap-2 p-2 rounded-2xl hover:bg-[#F8F9F5] transition-all"
         >
           {/* Image Tile */}
           <div className="
             relative w-full aspect-square
+            max-w-[76px] sm:max-w-[84px]
             rounded-2xl overflow-hidden
             bg-gradient-to-br from-[#ebf3d2] to-[#dfe9b9]
             border border-[#e5ead7]
-            shadow-[0_8px_18px_rgba(0,0,0,0.06)]
-            group-hover:shadow-[0_12px_24px_rgba(0,0,0,0.08)]
-            transition-all duration-300
+            shadow-xs
+            group-hover:shadow-md
+            group-hover:-translate-y-1
+            transition-all duration-200
           ">
             <Image
               src={cat.image || "/images/sremovebg.png"}
               fill
-              className="object-cover group-hover:scale-105 transition duration-500"
+              className="object-cover group-hover:scale-105 transition duration-300"
               alt={cat.name}
             />
 
@@ -652,10 +784,12 @@ setShowMap(false);
 
           {/* Label */}
           <span className="
-            text-[12px]
-            font-medium
+            text-[11px] sm:text-xs
+            font-bold
             text-center
             text-[#1A2421]
+            group-hover:text-[#3A4D39]
+            transition-colors
             tracking-tight
           ">
             {cat.name}
@@ -731,65 +865,42 @@ setShowMap(false);
     );
 
     if (filteredServices.length === 0) return null;
-    const displayServices = filteredServices.slice(0, 3);
+    const displayServices = filteredServices.slice(0, 6);
 
     return (
-      <div key={subCat} className="mb-12">
+      <div key={subCat} className="mb-10 sm:mb-12">
 
         {/* 🌷 CATEGORY HEADER */}
-        <div className="flex items-center justify-between px-4 mb-4">
+        <div className="flex items-center justify-between px-2 sm:px-4 mb-3.5">
           <h3
             className="
-              flex items-center gap-3
-              text-[14px]
-              font-serif italic
+              flex items-center gap-2.5
+              text-base sm:text-lg
+              font-[900]
               tracking-tight
               text-[#1A2421]
             "
           >
             <span
               className="
-                w-1.5 h-6 rounded-full
+                w-1.5 h-5 rounded-full
                 bg-gradient-to-b from-[#8A9A5B] to-[#6f7f46]
-                shadow-[0_2px_6px_rgba(0,0,0,0.25)]
               "
             />
-            {subCat}
+            <span>{subCat}</span>
           </h3>
 
-       {/* <button
-  onClick={() =>
-    router.push(`/beauty?category=${subCat.toUpperCase()}`)
-  }
-  className="
-    text-[8px] 
-    font-black
-    uppercase
-    tracking-[0.12em]
-    px-2 py-0.5
-    rounded-full
-    bg-white/80
-    border border-[#8A9A5B]/20
-    text-[#3A4D39]
-    shadow-[0_1px_4px_rgba(0,0,0,0.05)]
-    active:scale-90
-    transition-all
-    duration-200
-  "
->
-  View all
-</button>  */}
-<button 
+          <button 
             onClick={() => router.push(`/beauty?category=${subCat.toUpperCase()}`)}
-            className="flex items-center gap-1 bg-[#3A4D39]/5 text-[#3A4D39]  px-3 py-1.5 rounded-full border border-[#3A4D39]/10 active:scale-95 transition-all"
+            className="flex items-center gap-1 bg-[#3A4D39]/5 hover:bg-[#3A4D39]/10 text-[#3A4D39] px-3 py-1.5 rounded-full border border-[#3A4D39]/10 active:scale-95 transition-all"
           >
-            <span className="text-[9px] font-black uppercase tracking-widest">View All</span>
-            {/* <ChevronRight size={12} strokeWidth={3} /> */}
+            <span className="text-[10px] font-black uppercase tracking-wider">View All</span>
+            <ChevronRight size={12} />
           </button>
         </div>
 
-        {/* 🧊 SERVICES GRID */}
-        <div className="grid grid-cols-3 gap-3 px-2">
+        {/* 🧊 SERVICES GRID (2 cols mobile, 3-4 tablet, 6 laptop) */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4 lg:gap-4 px-2 sm:px-4">
           {displayServices.map((item) => (
             <div
               key={item.id}
@@ -797,7 +908,7 @@ setShowMap(false);
               className="
                 transform-gpu
                 transition
-                hover:-translate-y-[2px]
+                hover:-translate-y-1
               "
             >
               <ServiceAppCard item={item} />
@@ -835,6 +946,11 @@ setShowMap(false);
             ))}
           </div>
         </section> */}
+
+        {/* ================= ABOUT SECTIONS (Story, Pillars, Steps, Comparison, Reviews, CTA) — Desktop Only ================= */}
+        <div className="hidden lg:block">
+          <AboutSections />
+        </div>
       </main>
 
       {/* ================= BOTTOM SLIDE DRAWER (CSS TRANSITION) ================= */}
@@ -847,21 +963,20 @@ setShowMap(false);
       {/* Drawer */}
 <div
   className={`fixed 
-    bottom-0 
-    left-1/2 
-    -translate-x-1/2
-    w-full
-    max-w-[430px]
     z-[70]
     bg-gradient-to-b from-[#ffffff] via-[#fbfcf8] to-[#f4f6ef]
-    rounded-t-[2.75rem]
-    shadow-[0_-18px_45px_rgba(66,74,43,0.22)]
     overflow-hidden
-    transition-transform duration-300 ease-out transform
-    ${selectedService ? "translate-y-0" : "translate-y-full"}`}
+    transition-all duration-300 ease-out
+    /* Mobile: Slide-up Bottom Sheet */
+    bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[430px] rounded-t-[2.75rem] shadow-[0_-18px_45px_rgba(66,74,43,0.22)]
+    /* Laptop: Centered Modal Dialog */
+    lg:top-1/2 lg:bottom-auto lg:left-1/2 lg:-translate-x-1/2 lg:max-w-lg lg:rounded-[2.5rem] lg:shadow-2xl
+    ${selectedService 
+      ? "translate-y-0 lg:-translate-y-1/2 opacity-100 visible" 
+      : "translate-y-full lg:opacity-0 lg:invisible pointer-events-none"}`}
 >
-  {/* Drag Handle */}
-  <div className="w-10 h-1.5 bg-[#8A9A5B]/40 rounded-full mx-auto mt-3 mb-3" />
+  {/* Drag Handle (Mobile only) */}
+  <div className="w-10 h-1.5 bg-[#8A9A5B]/40 rounded-full mx-auto mt-3 mb-3 lg:hidden" />
 
   {selectedService && (
     <div className="px-6 pb-7 pt-1">
@@ -1044,103 +1159,99 @@ function ServiceAppCard({ item }) {
     <div
       className="
         group relative flex w-full flex-col
-        rounded-[1.9rem]
-        bg-gradient-to-b from-white via-[#fbfcf7] to-[#f1f4ea]
-        border border-[#8A9A5B]/20
+        rounded-2xl lg:rounded-3xl
+        bg-white
+        border border-[#EAEFE0]
+        hover:border-[#D2DAC2]
         overflow-hidden
         transition-all duration-300
         hover:-translate-y-1
-        hover:shadow-[0_20px_45px_rgba(138,154,91,0.25)]
+        hover:shadow-md
         cursor-pointer
         h-full
       "
     >
       {/* IMAGE */}
-      <div className="relative w-full aspect-square overflow-hidden">
+      <div className="relative w-full aspect-[4/3] sm:aspect-square overflow-hidden bg-[#F2F4ED]">
         <Image
           src={item.image}
           fill
           className="
             object-cover
-            transition-transform duration-700 ease-out
-            group-hover:scale-110
+            transition-transform duration-500 ease-out
+            group-hover:scale-105
           "
           alt={item.name || item.title}
         />
 
-        {/* Feminine soft overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#6f7f46]/45 via-transparent to-white/10" />
+        {/* Soft overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent" />
 
         {/* Rating Badge */}
         {item.rating && (
           <div
             className="
-              absolute top-2.5 right-2.5
-              bg-white/85 backdrop-blur
-              px-2.5 py-1
+              absolute top-2 right-2
+              bg-white/90 backdrop-blur-xs
+              px-2 py-0.5
               rounded-full
-              text-[10px]
-              font-semibold
+              text-[9px]
+              font-bold
               text-[#424A2B]
-              shadow-md
-              flex items-center gap-1
+              shadow-xs
+              flex items-center gap-0.5
             "
           >
-            <Star size={10} fill="#facc15" className="text-yellow-400" />
+            <Star size={9} fill="#facc15" className="text-yellow-400" />
             {item.rating}
           </div>
         )}
       </div>
 
       {/* CONTENT */}
-      <div className="flex flex-col flex-1 justify-between px-3.5 py-3">
+      <div className="flex flex-col flex-1 justify-between p-2.5 sm:p-3">
         {/* TITLE */}
         <h3
           className="
-            text-[13px]
-            font-semibold
-            text-[#2f3a1f]
+            text-xs font-bold
+            text-[#1A2421]
             leading-snug
             line-clamp-2
-            min-h-[34px]
+            min-h-[30px]
             tracking-tight
+            group-hover:text-[#3A4D39]
+            transition-colors
           "
         >
           {item.name || item.title}
         </h3>
 
         {/* PRICE + ACTION */}
-        <div className="flex items-center justify-between mt-3">
+        <div className="flex items-center justify-between mt-2 pt-2 border-t border-[#F2F4ED]">
           <div className="flex flex-col">
-            <span className="text-[10px] text-[#b2b9a3] line-through leading-none">
+            <span className="text-[9px] text-gray-400 line-through leading-none">
               ₹{dummyPrice}
             </span>
-            <span className="text-[14px] font-semibold text-[#3A4D39] leading-tight">
+            <span className="text-xs sm:text-sm font-black text-[#3A4D39] leading-tight">
               ₹{item.price}
             </span>
           </div>
 
-          {/* ADD BUTTON — feminine 3D */}
+          {/* ADD BUTTON */}
           <button
             className="
-              w-9 h-9 rounded-full
-              bg-gradient-to-br from-[#8A9A5B]/25 to-[#6f7f46]/25
-              text-[#3A4D39]
+              w-7 h-7 sm:w-8 sm:h-8 rounded-full
+              bg-[#3A4D39]/10 text-[#3A4D39]
+              group-hover:bg-[#3A4D39] group-hover:text-white
               flex items-center justify-center
-              shadow-[inset_0_1px_0_rgba(255,255,255,0.6),0_4px_10px_rgba(0,0,0,0.15)]
-              transition-all duration-300
-              group-hover:from-[#8A9A5B] group-hover:to-[#6f7f46]
-              group-hover:text-white
+              transition-all duration-200
               active:scale-90
             "
           >
-            <Plus size={15} strokeWidth={2.8} />
+            <Plus size={14} strokeWidth={2.5} />
           </button>
         </div>
       </div>
-
-      {/* Subtle luxury accent */}
-      <div className="absolute bottom-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-[#8A9A5B]/60 to-transparent opacity-70" />
     </div>
   );
 }
@@ -1267,7 +1378,7 @@ function SparkySkeletonPage() {
       <div
         className="
           w-full
-          max-w-[430px]
+          max-w-full lg:max-w-7xl
           min-h-screen
           bg-white
           pb-3

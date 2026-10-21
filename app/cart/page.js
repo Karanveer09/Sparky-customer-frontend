@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import {
   Trash2,
@@ -9,7 +10,9 @@ import {
   Tag,
   ShieldCheck,
   ChevronLeft,
-  ArrowRight
+  ArrowRight,
+  CheckCircle2,
+  Sparkles
 } from "lucide-react";
 import toast from "react-hot-toast";
 
@@ -19,15 +22,16 @@ export default function CartPage() {
   const [discount, setDiscount] = useState(0);
   const [user, setUser] = useState(null);
   const router = useRouter();
-   const [minCartError, setMinCartError] = useState("");
+  const [minCartError, setMinCartError] = useState("");
 
   const TAX_RATE = 0.18;
- const getCartTotal = () => {
-  const cart = JSON.parse(localStorage.getItem("cart")) || [];
-  return cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-};
+  const MIN_CART_VALUE = 299;
 
- const MIN_CART_VALUE = 299;
+  const getCartTotal = () => {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    return cart.reduce((sum, item) => sum + item.price * (item.quantity || 1), 0);
+  };
+
   useEffect(() => {
     fetch("/api/me")
       .then((res) => res.json())
@@ -44,27 +48,25 @@ export default function CartPage() {
     }
   }, []);
 
- const handleCheckout = () => {
+  const handleCheckout = () => {
+    const total = getCartTotal();
 
-  const total = getCartTotal();
+    if (total < MIN_CART_VALUE) {
+      const remaining = MIN_CART_VALUE - total;
+      setMinCartError(`Add ₹${remaining} more service`);
+      return;
+    }
 
-  // ✅ MIN CART VALIDATION
-  if (total < MIN_CART_VALUE) {
-    const remaining = MIN_CART_VALUE - total;
-    setMinCartError(`Add ₹${remaining} more service`);
-    return;
-  }
+    setMinCartError("");
 
-  setMinCartError("");
+    if (!user) {
+      toast.error("Please login to continue");
+      router.push("/login");
+      return;
+    }
 
-  if (!user) {
-    toast.error("Please login to continue");
-    router.push("/login");
-    return;
-  }
-
-  router.push("/checkout");
-};
+    router.push("/checkout");
+  };
 
   const removeItem = (index) => {
     const updated = [...cartItems];
@@ -88,306 +90,211 @@ export default function CartPage() {
   };
 
   const subtotal = cartItems.reduce(
-  (sum, item) => sum + item.price * (item.quantity || 1),
-  0
-);
+    (sum, item) => sum + item.price * (item.quantity || 1),
+    0
+  );
   const tax = subtotal * TAX_RATE;
-  const total = subtotal + tax - subtotal * discount;
+  const discountAmount = subtotal * discount;
+  const total = subtotal + tax - discountAmount;
 
   return (
-   <div className="min-h-screen bg-white flex justify-center">
-  <div
-    className="
-      w-full
-      max-w-[430px]
-      min-h-screen
-      bg-[#f8f9f5]
-      text-[#1A2421]
-      pb-32
-      font-sans
-      relative
-      overflow-hidden
-      shadow-[0_0_60px_rgba(0,0,0,0.08)]
-    "
-  >{minCartError && (
-  <div
-    className="
-    fixed bottom-24 left-1/2 -translate-x-1/2
-    w-[90%] max-w-xs
-    bg-white/80 backdrop-blur-xl
-    border border-[#E0E5D2]
-    shadow-xl
-    rounded-2xl
-    px-4 py-3
-    flex items-center gap-3
-    z-[60]
-  "
-  >
-    <div className="
-      w-9 h-9 rounded-xl
-      bg-gradient-to-br from-[#8A9A5B] to-[#6f7f46]
-      text-white flex items-center justify-center
-      shadow-md
-    ">
-      ₹
-    </div>
+    <div className="min-h-screen bg-[#F8F9F5] text-[#1A2421] font-sans antialiased pb-28 lg:pb-16 selection:bg-[#E5EAD7]">
+      {/* =========================================================================
+          HEADER BAR
+          ========================================================================= */}
+      <header className="sticky top-0 z-40 bg-white/90 backdrop-blur-xl border-b border-[#EAEFE0] shadow-[0_4px_20px_rgba(58,77,57,0.04)]">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex justify-between items-center">
+          <button
+            onClick={() => router.back()}
+            className="w-10 h-10 bg-[#F5F7F0] hover:bg-[#EAEFE0] border border-[#E5EAD7] shadow-sm rounded-full flex items-center justify-center text-[#3A4D39] active:scale-90 transition-all"
+            aria-label="Back"
+          >
+            <ChevronLeft size={22} />
+          </button>
 
-    <div>
-      <p className="text-xs font-semibold text-[#1A2421]">
-        {minCartError}
-      </p>
-      <p className="text-[10px] text-gray-400">
-        Minimum cart value required
-      </p>
-    </div>
-  </div>
-)}
-      {/* 1. PREMIUM HEADER */}
-     <header className="relative z-20 px-5 pt-3 pb-9 rounded-b-[3rem]
-  bg-gradient-to-br from-[#3A4D39] via-[#425b44] to-[#2f3a1f]
-  shadow-[0_20px_40px_rgba(0,0,0,0.25)]
-  overflow-hidden"
->
-  {/* Subtle glow layer */}
-  <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-white/5 pointer-events-none" />
+          <div className="text-center">
+            <h1 className="text-base sm:text-lg font-[900] tracking-tight text-[#1A2421]">
+              Review Your Bag
+            </h1>
+            <p className="text-[11px] font-bold uppercase tracking-wider text-[#4F6F52]">
+              {cartItems.length} Ritual{cartItems.length !== 1 ? "s" : ""} Selected
+            </p>
+          </div>
 
-  {/* Title */}
-  <div className="flex justify-center mb-3 relative z-10">
-    <h1 className="text-[20px] font-black tracking-tight italic text-white">
-      My <span className="text-white drop-shadow-sm">Basket</span>
-    </h1>
-  </div>
-
-  {/* Floating summary card */}
-  <div className="relative z-10 bg-white/15 backdrop-blur-xl rounded-2xl p-4
-    border border-white/20
-    shadow-[inset_0_1px_0_rgba(255,255,255,0.25),0_10px_30px_rgba(0,0,0,0.25)]
-  ">
-    <div className="flex items-center gap-4">
-      
-      {/* Icon */}
-      <div className="relative">
-        <div className="absolute inset-0 bg-[#f7b614]/40 blur-lg rounded-full" />
-        <div className="relative w-11 h-11 bg-gradient-to-br from-white to-grey-100
-          rounded-full flex items-center justify-center shadow-xl"
-        >
-          <ShoppingBag size={20} className="text-[#3A4D39]" />
+          <Link
+            href="/beauty"
+            className="text-xs font-bold text-[#3A4D39] hover:underline px-2.5 py-1 rounded-lg bg-[#F5F7F0] border border-[#E0E6D4]"
+          >
+            + Add More
+          </Link>
         </div>
-      </div>
+      </header>
 
-      {/* Text */}
-      <div>
-        <p className="text-white text-[13px] font-black tracking-widest uppercase">
-          {cartItems.length} Services Selected
-        </p>
-        <p className="text-white/70 text-[10px] font-medium">
-          Review your professional care bundle
-        </p>
-      </div>
-    </div>
-  </div>
-</header>
-
-      <div className="max-w-md mx-auto px-4 -mt-6 relative z-30 space-y-6">
-        
+      {/* =========================================================================
+          LANDSCAPE 2-COLUMN CONTAINER
+          ========================================================================= */}
+      <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 lg:py-10">
         {cartItems.length === 0 ? (
-         <div className="bg-white rounded-[2rem] p-10 text-center
-  shadow-[0_12px_30px_rgba(0,0,0,0.06)]
-  border border-[#E0E5D2]">
-  
-  <div className="w-16 h-16 mx-auto mb-5 rounded-full
-    bg-gradient-to-br from-[#f2f4ed] to-white
-    flex items-center justify-center shadow-inner">
-    <ShoppingBag size={26} className="text-[#4F6F52]" />
-  </div>
-
-  <h2 className="text-[17px] font-semibold text-gray-900">
-    Basket is empty
-  </h2>
-
-  <p className="text-[11px] text-gray-400 mt-1 mb-6">
-    Add services to continue
-  </p>
-
-  <Link
-    href="/"
-    className="inline-flex items-center justify-center
-      px-6 py-3 rounded-xl
-      bg-gradient-to-br from-[#3A4D39] to-[#2f3a1f]
-      text-white text-[11px] font-semibold tracking-wide
-      shadow-[0_8px_18px_rgba(58,77,57,0.35)]
-      active:scale-95 transition"
-  >
-    Explore Services
-  </Link>
-</div>
+          <div className="max-w-md mx-auto bg-white rounded-3xl p-10 text-center border border-[#EAEFE0] shadow-sm my-12">
+            <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-[#F5F7F0] flex items-center justify-center text-[#4F6F52]">
+              <ShoppingBag size={28} />
+            </div>
+            <h2 className="text-lg font-black text-[#1A2421]">Your basket is empty</h2>
+            <p className="text-xs text-[#5F6B4A] mt-1 mb-6">
+              Explore our curated beauty & salon rituals to add services.
+            </p>
+            <Link
+              href="/beauty"
+              className="inline-flex items-center justify-center px-6 py-3 rounded-2xl bg-[#3A4D39] text-white text-xs font-bold uppercase tracking-wider shadow-md hover:shadow-xl transition-all"
+            >
+              Explore Rituals
+            </Link>
+          </div>
         ) : (
-          <>
-            {/* 2. CART ITEMS: SAGA GREEN STYLE */}
-            <div className="space-y-4">
-              {cartItems.map((item, index) => (
-             <div
-  key={index}
-  className="
-    flex gap-3 p-3 rounded-[1.6rem]
-    bg-gradient-to-br from-white to-[#fbfcfa]
-    border border-[#E0E5D2]
-    shadow-[0_10px_25px_rgba(58,77,57,0.08)]
-    active:scale-[0.99] transition
-  "
->
-  {/* Image */}
-  <div className="w-20 h-20 rounded-[1.25rem] overflow-hidden
-    bg-[#f2f4ed] shrink-0
-    shadow-inner">
-    <img
-      src={item.image || "/placeholder.png"}
-      alt={item.name}
-      className="w-full h-full object-cover"
-    />
-  </div>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            {/* LEFT COLUMN: Cart Items & Coupon (lg:col-span-7) */}
+            <div className="lg:col-span-7 space-y-5">
+              <div className="bg-white rounded-3xl p-5 sm:p-6 border border-[#EAEFE0] shadow-sm">
+                <h2 className="text-xs font-black uppercase tracking-wider text-[#4F6F52] mb-4">
+                  Selected Treatments
+                </h2>
 
-  {/* Info */}
-  <div className="flex-1">
-    <h3 className="text-[13px] font-semibold text-[#1A2421] truncate">
-      {item.name}
-    </h3>
-    <p className="text-[10px] text-gray-400 mt-0.5 truncate">
-      {item.title}
-    </p>
+                <div className="space-y-3.5">
+                  {cartItems.map((item, index) => (
+                    <div
+                      key={index}
+                      className="flex items-center justify-between p-3.5 rounded-2xl bg-[#F8F9F5] border border-[#EAEFE0] hover:border-[#D2DAC2] transition-all"
+                    >
+                      <div className="flex items-center gap-3.5 min-w-0">
+                        <div className="relative w-16 h-16 rounded-xl overflow-hidden bg-white border border-[#EAEFE0] shrink-0">
+                          <Image
+                            src={item.image || "/images/goldfacial.jpg"}
+                            alt={item.title || "service"}
+                            fill
+                            className="object-cover"
+                          />
+                        </div>
 
-    <div className="flex items-center justify-between mt-2">
-      <span className="text-[15px] font-semibold text-[#3A4D39]">
-        ₹{item.price}
-      </span>
+                        <div className="min-w-0">
+                          <h3 className="text-sm font-extrabold text-[#1A2421] truncate">
+                            {item.title}
+                          </h3>
+                          <p className="text-xs font-bold text-[#3A4D39] mt-0.5">
+                            ₹{item.price}
+                          </p>
+                        </div>
+                      </div>
 
-      <button
-        onClick={() => removeItem(index)}
-        className="
-          w-fit h-fit rounded-lg
-          bg-gradient-to-br from-rose-50 to-white
-          text-rose-500
-          shadow-[0_4px_10px_rgba(0,0,0,0.08)]
-          active:scale-90 transition
-        "
-      >
-        <Trash2 size={14} />
-      </button>
-    </div>
-  </div>
-</div>
-              ))}
+                      <button
+                        onClick={() => removeItem(index)}
+                        className="p-2.5 rounded-xl text-[#A61D33] hover:bg-rose-50 transition active:scale-90"
+                        title="Remove service"
+                      >
+                        <Trash2 size={16} />
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Coupon Card */}
+              <div className="bg-white rounded-3xl p-5 sm:p-6 border border-[#EAEFE0] shadow-sm">
+                <div className="flex items-center gap-2 mb-3">
+                  <Tag size={16} className="text-[#3A4D39]" />
+                  <h3 className="text-xs font-black uppercase tracking-wider text-[#4F6F52]">
+                    Offer Code
+                  </h3>
+                </div>
+
+                <div className="flex gap-2">
+                  <input
+                    type="text"
+                    value={coupon}
+                    onChange={(e) => setCoupon(e.target.value)}
+                    placeholder="Enter coupon (e.g. SAVE10)"
+                    className="flex-1 bg-[#F8F9F5] border border-[#E0E6D4] rounded-2xl px-4 py-2.5 text-xs font-bold uppercase tracking-wider focus:outline-none focus:border-[#3A4D39]"
+                  />
+                  <button
+                    onClick={applyCoupon}
+                    className="px-5 py-2.5 rounded-2xl bg-[#3A4D39] text-white text-xs font-bold uppercase tracking-wider hover:bg-[#2F3A1F] transition"
+                  >
+                    Apply
+                  </button>
+                </div>
+              </div>
             </div>
 
-            {/* 3. COUPON SECTION */}
-            {/* <div className="bg-white border border-[#E0E5D2] rounded-[1.75rem] p-4 flex items-center gap-3 shadow-sm">
-              <div className="w-10 h-10 bg-[#fdfcf0] rounded-full flex items-center justify-center">
-                <Tag size={18} className="text-[#f7b614]" />
+            {/* RIGHT COLUMN: Order Summary (lg:col-span-5) */}
+            <div className="lg:col-span-5 space-y-6 lg:sticky lg:top-24">
+              <div className="bg-white rounded-3xl p-6 sm:p-8 border border-[#EAEFE0] shadow-md space-y-5">
+                <h2 className="text-xs font-black uppercase tracking-wider text-[#4F6F52] pb-3 border-b border-[#F0F4E8]">
+                  Price Breakdown
+                </h2>
+
+                <div className="space-y-3 text-xs font-semibold">
+                  <div className="flex justify-between text-[#5F6B4A]">
+                    <span>Item Subtotal</span>
+                    <span className="font-bold text-[#1A2421]">₹{subtotal.toFixed(0)}</span>
+                  </div>
+
+                  {discount > 0 && (
+                    <div className="flex justify-between text-[#3A4D39]">
+                      <span>Discount (10% OFF)</span>
+                      <span className="font-bold">-₹{discountAmount.toFixed(0)}</span>
+                    </div>
+                  )}
+
+                  <div className="flex justify-between text-[#5F6B4A]">
+                    <span>GST (18%)</span>
+                    <span className="font-bold text-[#1A2421]">₹{tax.toFixed(0)}</span>
+                  </div>
+
+                  <div className="pt-3 border-t border-[#F0F4E8] flex justify-between items-baseline">
+                    <span className="text-sm font-black text-[#1A2421]">Total Amount</span>
+                    <span className="text-2xl font-[1000] text-[#1A2421]">
+                      ₹{total.toFixed(0)}
+                    </span>
+                  </div>
+                </div>
+
+                <button
+                  onClick={handleCheckout}
+                  className="w-full py-4 rounded-2xl bg-gradient-to-r from-[#3A4D39] to-[#2F3A1F] text-white text-xs font-black uppercase tracking-widest shadow-lg shadow-[#3A4D39]/30 hover:shadow-xl active:scale-[0.98] transition-all flex items-center justify-center gap-2"
+                >
+                  <span>Proceed to Checkout</span>
+                  <ArrowRight size={16} className="text-[#F7B614]" />
+                </button>
               </div>
-              <input
-                value={coupon}
-                onChange={(e) => setCoupon(e.target.value)}
-                placeholder="PROMO CODE"
-                className="flex-1 bg-transparent outline-none text-sm font-black uppercase tracking-[0.2em] placeholder:text-gray-300"
-              />
-              <button
-                onClick={applyCoupon}
-                className="bg-[#3A4D39] text-white text-[10px] font-black uppercase tracking-widest px-6 py-2.5 rounded-xl shadow-md active:scale-95 transition-all"
-              >
-                Apply
-              </button>
-            </div> */}
 
-            {/* 4. BILL SUMMARY: CLEAN & STRUCTURED */}
-           <div className="
-  bg-gradient-to-br from-white to-[#fbfcfa]
-  rounded-[2rem] p-6
-  border border-[#E0E5D2]
-  shadow-[0_12px_30px_rgba(0,0,0,0.06)]
-">
-  <p className="text-[10px] font-semibold uppercase tracking-widest text-gray-400 mb-4">
-    Payment Summary
-  </p>
-
-  <Row label="Subtotal" value={`₹${subtotal.toFixed(0)}`} />
-  <Row label="Handling Fee" value="FREE" highlightColor="text-emerald-500" />
-
-  <div className="mt-4 pt-4 border-t border-dashed border-[#E0E5D2]
-    flex justify-between items-center">
-    <div>
-      <p className="text-[10px] uppercase tracking-widest text-gray-400">
-        Total
-      </p>
-      <p className="text-[24px] font-semibold text-[#1A2421]">
-        ₹{subtotal.toFixed(0)}
-      </p>
-    </div>
-
-    <div className="text-right">
-      <span className="text-[9px] font-semibold uppercase text-emerald-600 bg-emerald-50 px-2 py-1 rounded-md">
-        Secure
-      </span>
-    </div>
-  </div>
-</div>
-
-            {/* 5. CHECKOUT ACTION BUTTON */}
-  <div
-  className="
-    fixed
-    bottom-0
-    left-1/2
-    -translate-x-1/2
-    w-full
-    max-w-[430px]
-    z-50
-    px-4
-    pb-4
-    pt-3
-    bg-white/85
-    backdrop-blur-xl
-    border-t border-[#E0E5D2]
-  "
->
-  <button
-    onClick={handleCheckout}
-    className="
-      w-full
-      h-14
-      rounded-2xl
-      bg-gradient-to-br from-[#3A4D39] via-[#465f45] to-[#2f3a1f]
-      text-white
-      text-[13px]
-      font-semibold
-      tracking-wide
-      shadow-[0_10px_20px_rgba(58,77,57,0.35),inset_0_1px_0_rgba(255,255,255,0.2)]
-      active:scale-[0.97]
-      active:shadow-[0_6px_14px_rgba(58,77,57,0.35)]
-      transition-all
-      flex
-      items-center
-      justify-center
-      gap-2
-    "
-  >
-    <span>Checkout</span>
-    <ArrowRight size={16} className="text-[#f7b614]" />
-  </button>
-</div>
-          </>
+              {/* Sparky Guarantee Card */}
+              <div className="bg-[#F5F7F0] rounded-3xl p-5 border border-[#E0E6D4] space-y-2.5">
+                <div className="flex items-center gap-2">
+                  <ShieldCheck size={18} className="text-[#3A4D39]" />
+                  <span className="text-xs font-black uppercase tracking-wider text-[#3A4D39]">
+                    Sparky Protection
+                  </span>
+                </div>
+                <p className="text-[11px] text-[#4F6F52] leading-relaxed">
+                  Every ritual comes with certified sanitization, verified experts, and damage-free guarantee.
+                </p>
+              </div>
+            </div>
+          </div>
         )}
-      </div>
-    </div>
-    </div>
-  );
-}
+      </main>
 
-/* HELPER COMPONENTS */
-function Row({ label, value, highlightColor = "text-[#1A2421]" }) {
-  return (
-    <div className="flex justify-between items-center">
-      <span className="text-[10px] font-black uppercase tracking-widest text-gray-400">{label}</span>
-      <span className={`text-[12px] font-black tracking-tight ${highlightColor}`}>{value}</span>
+      {/* Min-Cart Error Toast */}
+      {minCartError && (
+        <div className="fixed bottom-20 left-1/2 -translate-x-1/2 z-[110] w-[90%] max-w-sm bg-white border border-[#EAEFE0] shadow-2xl rounded-2xl p-3.5 flex items-center gap-3">
+          <div className="w-8 h-8 rounded-xl bg-[#FFF9E6] text-[#F7B614] flex items-center justify-center font-bold text-sm shrink-0">
+            ₹
+          </div>
+          <div className="flex-1 min-w-0">
+            <p className="text-xs font-bold text-[#1A2421] truncate">{minCartError}</p>
+            <p className="text-[10px] text-[#5F6B4A]">Minimum booking is ₹{MIN_CART_VALUE}</p>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

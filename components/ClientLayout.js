@@ -8,7 +8,11 @@ import { Toaster } from "react-hot-toast";
 export default function ClientLayout({ children }) {
   const pathname = usePathname();
 
-  const hideLayout =
+  const hideNavbar =
+    pathname === "/checkout" ||
+    pathname === "/cart";
+
+  const hideFooter =
     pathname === "/checkout" ||
     pathname === "/cart" ||
     pathname === "/beauty" ||
@@ -16,14 +20,14 @@ export default function ClientLayout({ children }) {
 
   return (
     <>
-      {!hideLayout && <Navbar />}
+      {!hideNavbar && <Navbar />}
 
       <main>
         {children}
         <Toaster position="top-right" />
       </main>
 
-      {!hideLayout && <Footer />}
+      {!hideFooter && <Footer />}
     </>
   );
 }

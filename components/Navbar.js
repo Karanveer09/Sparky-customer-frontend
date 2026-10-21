@@ -3,13 +3,14 @@
 import Link from "next/link";
 import { useRouter,usePathname } from "next/navigation";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { FaUserCircle } from "react-icons/fa";
 import dynamic from "next/dynamic";
 import { X, MapPin, CheckCircle2, User,AlertTriangle,Phone } from "lucide-react";
 import { FaListUl } from "react-icons/fa";
+import BottomNav from "@/components/BottomNav";
 
 // Icons
 import { GiHamburgerMenu } from "react-icons/gi";
@@ -33,6 +34,8 @@ export default function Navbar() {
   const [active, setActive] = useState("Home");
   const [showMap, setShowMap] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [navVisible, setNavVisible] = useState(true);
+  const lastScrollY = useRef(0);
   const [outOfBounds, setOutOfBounds] = useState(false);
   const [user, setUser] = useState(null);
 // const [active, setActive] = useState(mo);
@@ -90,8 +93,24 @@ const checkAmritsar = (lat, lng) => {
 
   /* ================= SCROLL EFFECT ================= */
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", onScroll);
+    const onScroll = () => {
+      const currentY = window.scrollY;
+      setScrolled(currentY > 20);
+
+      // Always show at very top of page
+      if (currentY <= 60) {
+        setNavVisible(true);
+      } else if (currentY < lastScrollY.current - 4) {
+        // Scrolling UP even a little -> float down at top!
+        setNavVisible(true);
+      } else if (currentY > lastScrollY.current + 8) {
+        // Scrolling DOWN -> hide navbar
+        setNavVisible(false);
+      }
+      lastScrollY.current = currentY;
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 useEffect(() => {
@@ -128,7 +147,6 @@ useEffect(() => {
     
   ];
   const sliderItems = [
-    { name: "About Sparky", href: "/about", icon: <IoHomeSharp /> },
     { name: "Support", href: "/contact", icon: <GiHamburgerMenu /> },
     { name: "terms & conditions", href: "/t&c", icon: <IoMdInformationCircleOutline /> },
     { name: "Privacy Policy", href: "/privacy", icon: <FaPhoneAlt /> },
@@ -259,97 +277,119 @@ useEffect(() => {
           </motion.div>
         )}
       </AnimatePresence>
-      {/* ================= DESKTOP NAV ================= */}
-    
-
-      {/* ================= MOBILE TOP NAV ================= */}
-  
-
-    {/* ================= MOBILE BOTTOM NAV ================= */}
- {/* <div className="fixed bottom-0 left-0 right-0 z-50 pointer-events-none"> */}
-      
-      {/* Navigation Container */}
-<nav
-  className="
-    fixed 
-    bottom-0 
-    left-1/2 
-    -translate-x-1/2
-    w-full
-    max-w-[430px]
-    z-50
-    h-[60px]
-    bg-white/85 backdrop-blur-xl
-    border-t border-black/5
-    shadow-[0_-10px_30px_rgba(0,0,0,0.08)]
-    flex items-center
-  "
->
-  {/* HOME */}
-  <NavItem
-    label="Home"
-    onClick={() => router.push("/")}
-    active={isActive("/")}
-    icon={<IoHomeSharp size={18} />}
-  />
-
-  {/* BEAUTY */}
-  <NavItem
-    label="Beauty"
-    onClick={() => router.push("/beauty")}
-    active={isActive("/beauty")}
-    icon={<FaListUl size={18} />}
-  />
-
-  {/* CENTER CART (3-D FLOATING) */}
-  <div
-    onClick={() => router.push("/cart")}
-    className="flex-1 flex justify-center"
-  >
-    <div className="relative -top-4 flex flex-col items-center">
-      
-      {/* Glow */}
-      <div className="absolute inset-0 rounded-full bg-[#8a9a5b]/40 blur-xl" />
-
-      {/* Button */}
-      <div
-        className="
-          relative
-          w-12 h-12
-          rounded-full
-          bg-gradient-to-br from-[#8a9a5b] via-[#7f8f52] to-[#6f7f46]
-          flex items-center justify-center
-          shadow-[0_10px_20px_rgba(0,0,0,0.25),inset_0_1px_0_rgba(255,255,255,0.25)]
-          active:scale-90
-          transition
-        "
+      {/* ================= DESKTOP NAV (Visible on >= 1024px Laptop Screens) ================= */}
+      <nav
+        style={{
+          transform: navVisible ? "translateY(0)" : "translateY(-100%)",
+        }}
+        className={`
+          hidden lg:block fixed top-0 left-0 right-0 z-50
+          bg-white/95 backdrop-blur-xl border-b border-[#EAEFE0]
+          transition-transform duration-300 ease-out
+          ${scrolled ? "shadow-[0_12px_32px_rgba(58,77,57,0.08)]" : "shadow-[0_4px_20px_rgba(58,77,57,0.04)]"}
+        `}
       >
-        <IoBagHandleOutline size={20} className="text-white" />
-      </div>
+        <div className="max-w-7xl mx-auto px-8 h-18 flex items-center justify-between gap-6">
+          {/* Left: Brand Logo & Location Selector */}
+          <div className="flex items-center gap-6">
+            <Link href="/" className="flex items-center gap-2">
+              <span className="text-2xl font-[950] tracking-tight text-[#1A2421] italic">
+                SPARKY<span className="text-[#8A9A5B]">.</span>
+              </span>
+            </Link>
 
-      <span className="text-[10px] mt-1 text-gray-600 font-medium">
-        Cart
-      </span>
-    </div>
-  </div>
+            {/* Location Selector (PRESERVING EXACT MAP CALL) */}
+            <button
+              onClick={() => setShowMap(true)}
+              className="flex items-center gap-2.5 px-4 py-2 rounded-full bg-[#F5F7F0] hover:bg-[#EAEFE0] border border-[#E0E6D4] text-[#1A2421] transition active:scale-95 text-left"
+            >
+              <div className="w-6 h-6 rounded-full bg-[#3A4D39] text-white flex items-center justify-center shadow-xs">
+                <MapPin size={13} />
+              </div>
+              <div className="flex flex-col leading-tight">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-[#4F6F52]">Current Location</span>
+                <span className="text-xs font-black truncate max-w-[180px]">{address}</span>
+              </div>
+            </button>
+          </div>
 
-  {/* HELP */}
-  <NavItem
-    label="Help"
-    onClick={() => router.push("/contact")}
-    active={isActive("/contact")}
-    icon={<Phone size={18} />}
-  />
+          {/* Center: Navigation Links */}
+          <div className="flex items-center gap-1 bg-[#F8F9F5] p-1.5 rounded-full border border-[#EAEFE0]">
+            <Link
+              href="/"
+              className={`px-5 py-2 rounded-full text-xs font-bold transition-all ${
+                isActive("/")
+                  ? "bg-[#3A4D39] text-white shadow-sm"
+                  : "text-[#4F6F52] hover:text-[#1A2421] hover:bg-white/60"
+              }`}
+            >
+              Home
+            </Link>
+            <Link
+              href="/beauty"
+              className={`px-5 py-2 rounded-full text-xs font-bold transition-all ${
+                isActive("/beauty") || pathname.startsWith("/services")
+                  ? "bg-[#3A4D39] text-white shadow-sm"
+                  : "text-[#4F6F52] hover:text-[#1A2421] hover:bg-white/60"
+              }`}
+            >
+              Services
+            </Link>
+            <Link
+              href="/bookings"
+              className={`px-5 py-2 rounded-full text-xs font-bold transition-all ${
+                isActive("/bookings")
+                  ? "bg-[#3A4D39] text-white shadow-sm"
+                  : "text-[#4F6F52] hover:text-[#1A2421] hover:bg-white/60"
+              }`}
+            >
+              My Bookings
+            </Link>
+            <Link
+              href="/contact"
+              className={`px-5 py-2 rounded-full text-xs font-bold transition-all ${
+                isActive("/contact") || isActive("/help")
+                  ? "bg-[#3A4D39] text-white shadow-sm"
+                  : "text-[#4F6F52] hover:text-[#1A2421] hover:bg-white/60"
+              }`}
+            >
+              Help & Support
+            </Link>
+          </div>
 
-  {/* ACCOUNT */}
-  <NavItem
-    label="Account"
-    onClick={() => router.push("/user")}
-    active={isActive("/user")}
-    icon={<FaUserCircle size={18} />}
-  />
-</nav>
-    {/* </div> */}
+          {/* Right: Cart & Account Buttons */}
+          <div className="flex items-center gap-3">
+            <Link
+              href="/cart"
+              className="flex items-center gap-2.5 px-4 py-2 rounded-full bg-white hover:bg-[#F5F7F0] border border-[#E0E6D4] text-[#3A4D39] shadow-xs transition active:scale-95"
+            >
+              <div className="relative">
+                <IoBagHandleOutline size={18} className="text-[#3A4D39]" />
+                {cartCount > 0 && (
+                  <span className="absolute -top-2 -right-2 bg-[#A61D33] text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-black border border-white">
+                    {cartCount}
+                  </span>
+                )}
+              </div>
+              <span className="text-xs font-extrabold">Bag</span>
+            </Link>
+
+            <Link
+              href={user ? "/user" : "/login"}
+              className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#3A4D39] text-white hover:bg-[#2F3A1F] text-xs font-bold shadow-sm transition active:scale-95"
+            >
+              <User size={14} />
+              <span>{user ? (user.name || "My Account") : "Login"}</span>
+            </Link>
+          </div>
+        </div>
+      </nav>
+
+      {/* Spacer for fixed desktop navbar */}
+      <div className="hidden lg:block h-18" />
+
+      {/* ================= MOBILE BOTTOM NAV (Hidden on >= 1024px Laptop Screens) ================= */}
+      <BottomNav />
 
       {/* ================= MOBILE SIDEBAR ================= */}
       <AnimatePresence>
