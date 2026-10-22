@@ -11,18 +11,18 @@ export default function FloatingCart() {
     <>
       <div
         onClick={() => setShowCart(!showCart)}
-        className="fixed bottom-6 right-6 w-16 h-16 bg-orange-500 text-white rounded-full flex items-center justify-center shadow-xl cursor-pointer z-50 hover:bg-orange-600"
+        className="fixed bottom-6 right-6 w-16 h-16 bg-[#C2306B] text-white rounded-full flex items-center justify-center shadow-xl cursor-pointer z-50 hover:bg-[#A82058]"
       >
         🛒
         {cartItems.length > 0 && (
-          <span className="absolute top-0 right-0 bg-red-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+          <span className="absolute top-0 right-0 bg-[#A82058] text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
             {cartItems.length}
           </span>
         )}
       </div>
 
       {showCart && (
-        <div className="fixed bottom-24 right-6 w-80 max-h-[300px] overflow-y-auto bg-white border shadow-lg rounded-lg z-50 p-4">
+        <div className="fixed bottom-24 right-6 w-80 max-h-[300px] overflow-y-auto bg-white border border-[#F1DFE8] shadow-lg rounded-2xl z-50 p-4">
           <h3 className="text-lg font-semibold mb-2">Cart Items</h3>
           {cartItems.length === 0 ? (
             <p className="text-sm text-gray-500">Cart is empty</p>

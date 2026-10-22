@@ -32,7 +32,7 @@ export default function MyBookings({ onSelectBooking }) {
   const [manualLoading, setManualLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
 
-  const THEME_TEAL = "#008077";
+  const THEME_TEAL = "#C2306B";
 
   const fetchUserOrders = async () => {
     setLoading(true);
@@ -125,8 +125,8 @@ export default function MyBookings({ onSelectBooking }) {
       <div className="flex items-center justify-between mb-6">
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <span className="w-2 h-2 rounded-full bg-[#008077] animate-pulse" />
-            <span className="text-[11px] font-bold tracking-widest text-[#008077] uppercase">
+            <span className="w-2 h-2 rounded-full bg-[#C2306B] animate-pulse" />
+            <span className="text-[11px] font-bold tracking-widest text-[#C2306B] uppercase">
               Sparky Service Desk
             </span>
           </div>
@@ -170,7 +170,7 @@ export default function MyBookings({ onSelectBooking }) {
               onClick={() => setFilter(tab.id)}
               className={`flex-1 py-2 px-3 rounded-xl text-xs font-bold transition-all relative ${
                 isActive
-                  ? "bg-white text-[#008077] shadow-sm"
+                  ? "bg-white text-[#C2306B] shadow-sm"
                   : "text-slate-500 hover:text-slate-900"
               }`}
             >
@@ -180,7 +180,7 @@ export default function MyBookings({ onSelectBooking }) {
                   <span
                     className={`text-[10px] px-1.5 py-0.2 rounded-full font-semibold ${
                       isActive
-                        ? "bg-[#008077]/10 text-[#008077]"
+                        ? "bg-[#C2306B]/10 text-[#C2306B]"
                         : "bg-slate-200 text-slate-600"
                     }`}
                   >
@@ -197,7 +197,7 @@ export default function MyBookings({ onSelectBooking }) {
       {!user && (
         <div className="mb-6 p-4 rounded-2xl bg-gradient-to-r from-teal-50/70 to-emerald-50/70 border border-teal-100/80">
           <div className="flex items-start gap-3">
-            <div className="w-8 h-8 rounded-full bg-[#008077]/10 text-[#008077] flex items-center justify-center shrink-0 mt-0.5">
+            <div className="w-8 h-8 rounded-full bg-[#C2306B]/10 text-[#C2306B] flex items-center justify-center shrink-0 mt-0.5">
               <Search size={16} />
             </div>
             <div className="flex-1">
@@ -213,12 +213,12 @@ export default function MyBookings({ onSelectBooking }) {
                   placeholder="Enter 10-digit phone"
                   value={searchPhone}
                   onChange={(e) => setSearchPhone(e.target.value)}
-                  className="flex-1 px-3 py-2 bg-white text-xs rounded-xl border border-teal-200 focus:outline-none focus:ring-2 focus:ring-[#008077]/30 text-slate-900"
+                  className="flex-1 px-3 py-2 bg-white text-xs rounded-xl border border-teal-200 focus:outline-none focus:ring-2 focus:ring-[#C2306B]/30 text-slate-900"
                 />
                 <button
                   type="submit"
                   disabled={manualLoading || !searchPhone}
-                  className="px-4 py-2 bg-[#008077] text-white rounded-xl text-xs font-bold hover:bg-[#006e66] transition disabled:opacity-50 active:scale-95"
+                  className="px-4 py-2 bg-[#C2306B] text-white rounded-xl text-xs font-bold hover:bg-[#A82058] transition disabled:opacity-50 active:scale-95"
                 >
                   {manualLoading ? "Searching..." : "Find"}
                 </button>
@@ -260,7 +260,7 @@ export default function MyBookings({ onSelectBooking }) {
           animate={{ opacity: 1, y: 0 }}
           className="py-12 px-6 text-center bg-white rounded-3xl border border-slate-100 shadow-sm flex flex-col items-center"
         >
-          <div className="w-20 h-20 rounded-full bg-teal-50 text-[#008077] flex items-center justify-center mb-4 shadow-inner">
+          <div className="w-20 h-20 rounded-full bg-teal-50 text-[#C2306B] flex items-center justify-center mb-4 shadow-inner">
             <Calendar size={36} className="stroke-[1.75]" />
           </div>
           <h3 className="text-lg font-bold text-slate-900 mb-1">
@@ -273,7 +273,7 @@ export default function MyBookings({ onSelectBooking }) {
           </p>
           <Link
             href="/beauty"
-            className="px-6 py-3 rounded-full bg-[#008077] text-white font-bold text-xs uppercase tracking-wider flex items-center gap-2 shadow-lg shadow-[#008077]/25 hover:bg-[#006e66] transition active:scale-95"
+            className="px-6 py-3 rounded-full bg-[#C2306B] text-white font-bold text-xs uppercase tracking-wider flex items-center gap-2 shadow-lg shadow-[#C2306B]/25 hover:bg-[#A82058] transition active:scale-95"
           >
             <Wrench size={16} />
             <span>Explore Services</span>
@@ -297,7 +297,7 @@ export default function MyBookings({ onSelectBooking }) {
                   {/* Top Bar: Order ID + Status */}
                   <div className="flex items-center justify-between pb-3.5 border-b border-slate-100 gap-2">
                     <div className="flex items-center gap-2">
-                      <div className="w-7 h-7 rounded-lg bg-teal-50 text-[#008077] flex items-center justify-center">
+                      <div className="w-7 h-7 rounded-lg bg-teal-50 text-[#C2306B] flex items-center justify-center">
                         <Package size={15} />
                       </div>
                       <div>
@@ -311,12 +311,12 @@ export default function MyBookings({ onSelectBooking }) {
                       className={`px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider flex items-center gap-1.5 ${
                         completed
                           ? "bg-emerald-50 text-emerald-700 border border-emerald-200"
-                          : "bg-teal-50 text-[#008077] border border-teal-200"
+                          : "bg-teal-50 text-[#C2306B] border border-teal-200"
                       }`}
                     >
                       <span
                         className={`w-1.5 h-1.5 rounded-full ${
-                          completed ? "bg-emerald-500" : "bg-[#008077] animate-ping"
+                          completed ? "bg-emerald-500" : "bg-[#C2306B] animate-ping"
                         }`}
                       />
                       {completed ? "Completed" : "Confirmed"}
@@ -331,7 +331,7 @@ export default function MyBookings({ onSelectBooking }) {
                           key={itemIdx}
                           className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-800 bg-slate-50 px-3 py-1.5 rounded-xl border border-slate-200/60"
                         >
-                          <Sparkles size={12} className="text-[#008077]" />
+                          <Sparkles size={12} className="text-[#C2306B]" />
                           <span>{item.name || item.title || "Service"}</span>
                           {item.quantity && item.quantity > 1 && (
                             <span className="text-[10px] text-slate-400">
@@ -354,7 +354,7 @@ export default function MyBookings({ onSelectBooking }) {
                   {/* Scheduled Slot + Total Price */}
                   <div className="grid grid-cols-2 gap-3 py-3 border-t border-dashed border-slate-100 bg-slate-50/50 rounded-2xl px-3.5 mb-3.5">
                     <div className="flex items-center gap-2">
-                      <div className="w-8 h-8 rounded-xl bg-white text-[#008077] flex items-center justify-center shadow-xs">
+                      <div className="w-8 h-8 rounded-xl bg-white text-[#C2306B] flex items-center justify-center shadow-xs">
                         <Calendar size={15} />
                       </div>
                       <div>
@@ -368,7 +368,7 @@ export default function MyBookings({ onSelectBooking }) {
                     </div>
 
                     <div className="flex items-center gap-2">
-                      <div className="w-8 h-8 rounded-xl bg-white text-[#008077] flex items-center justify-center shadow-xs">
+                      <div className="w-8 h-8 rounded-xl bg-white text-[#C2306B] flex items-center justify-center shadow-xs">
                         <Clock size={15} />
                       </div>
                       <div>
@@ -397,7 +397,7 @@ export default function MyBookings({ onSelectBooking }) {
                       {orderId && (
                         <button
                           onClick={() => router.push(`/track/${orderId}`)}
-                          className="px-4 py-2.5 rounded-2xl bg-[#008077] hover:bg-[#006e66] text-white text-xs font-extrabold uppercase tracking-wider flex items-center gap-1.5 shadow-md shadow-[#008077]/25 transition active:scale-95"
+                          className="px-4 py-2.5 rounded-2xl bg-[#C2306B] hover:bg-[#A82058] text-white text-xs font-extrabold uppercase tracking-wider flex items-center gap-1.5 shadow-md shadow-[#C2306B]/25 transition active:scale-95"
                         >
                           <span>Track</span>
                           <ChevronRight size={14} />

@@ -1,18 +1,353 @@
 @import "tailwindcss";
 
-
-
-
-@keyframes scrollText {
-  0% {
-    transform: translateX(100%);
-  }
-  100% {
-    transform: translateX(-100%);
-  }
+:root {
+  --font-sans: var(--font-sans), 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --brand-primary: #C2306B;
+  --brand-primary-dark: #A82058;
+  --brand-secondary: #8E4FD6;
+  --brand-text: #2B1B2E;
+  --brand-muted: #8D788D;
+  --brand-background: #FFF7F3;
+  --brand-surface: #FFFFFF;
+  --brand-border: #F1DFE8;
+  --brand-blush: #FCEAF1;
+  --brand-peach: #FFD9C9;
+  --brand-lilac: #E8DEFA;
+  --brand-rose: #C65D78;
+  --brand-separator: #F5E8ED;
 }
+
+@theme {
+  --color-brand-primary: #C2306B;
+  --color-brand-primary-dark: #A82058;
+  --color-brand-secondary: #8E4FD6;
+  --color-brand-text: #2B1B2E;
+  --color-brand-muted: #8D788D;
+  --color-brand-background: #FFF7F3;
+  --color-brand-surface: #FFFFFF;
+  --color-brand-border: #F1DFE8;
+  --color-brand-blush: #FCEAF1;
+  --color-brand-peach: #FFD9C9;
+  --color-brand-lilac: #E8DEFA;
+}
+
 body {
+  font-family: var(--font-sans);
+  background-color: var(--brand-background);
+  color: var(--brand-text);
   padding-bottom: 0;
+}
+
+/* =========================================================================
+   PREMIUM GLASSMORPHISM BUTTON THEME SYSTEM
+   Inspired by "Explore Rituals" Pink Gradient Glass Button
+   ========================================================================= */
+
+.btn-primary {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.40);
+  background: linear-gradient(135deg, #E98CB0 0%, #C2306B 55%, #A51F56 100%);
+  color: #FFFFFF;
+  font-weight: 700;
+  box-shadow: 0 4px 16px rgba(194, 48, 107, 0.20);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  user-select: none;
+}
+
+.btn-primary::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.20) 0%, transparent 100%);
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+.btn-primary:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(194, 48, 107, 0.30);
+  border-color: rgba(255, 255, 255, 0.60);
+}
+
+.btn-primary:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.btn-primary:focus-visible {
+  outline: 2px solid #C2306B;
+  outline-offset: 2px;
+}
+
+.btn-primary:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  pointer-events: none;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* Primary Pill Button */
+.btn-primary-pill {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.40);
+  background: linear-gradient(135deg, #E98CB0 0%, #C2306B 55%, #A51F56 100%);
+  color: #FFFFFF;
+  font-weight: 700;
+  box-shadow: 0 4px 16px rgba(194, 48, 107, 0.20);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  user-select: none;
+}
+
+.btn-primary-pill::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.20) 0%, transparent 100%);
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+.btn-primary-pill:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(194, 48, 107, 0.30);
+  border-color: rgba(255, 255, 255, 0.60);
+}
+
+.btn-primary-pill:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.btn-primary-pill:focus-visible {
+  outline: 2px solid #C2306B;
+  outline-offset: 2px;
+}
+
+.btn-primary-pill:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  pointer-events: none;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* Secondary Button: White/blush glass surface with pink border & text */
+.btn-secondary {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 1rem;
+  border: 1px solid #F1DFE8;
+  background: #FFFFFF;
+  color: #C2306B;
+  font-weight: 700;
+  box-shadow: 0 2px 10px rgba(194, 48, 107, 0.06);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  user-select: none;
+}
+
+.btn-secondary:hover:not(:disabled) {
+  transform: translateY(-2px);
+  background: #FCEAF1;
+  border-color: #E98CB0;
+  color: #A51F56;
+  box-shadow: 0 6px 18px rgba(194, 48, 107, 0.12);
+}
+
+.btn-secondary:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.btn-secondary:focus-visible {
+  outline: 2px solid #C2306B;
+  outline-offset: 2px;
+}
+
+.btn-secondary:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  pointer-events: none;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* Secondary Pill Button */
+.btn-secondary-pill {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 9999px;
+  border: 1px solid #F1DFE8;
+  background: #FFFFFF;
+  color: #C2306B;
+  font-weight: 700;
+  box-shadow: 0 2px 10px rgba(194, 48, 107, 0.06);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  user-select: none;
+}
+
+.btn-secondary-pill:hover:not(:disabled) {
+  transform: translateY(-2px);
+  background: #FCEAF1;
+  border-color: #E98CB0;
+  color: #A51F56;
+  box-shadow: 0 6px 18px rgba(194, 48, 107, 0.12);
+}
+
+.btn-secondary-pill:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.btn-secondary-pill:focus-visible {
+  outline: 2px solid #C2306B;
+  outline-offset: 2px;
+}
+
+/* Outline Button: Transparent with soft pink border */
+.btn-outline {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 1rem;
+  border: 1px solid rgba(194, 48, 107, 0.35);
+  background: transparent;
+  color: #C2306B;
+  font-weight: 700;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  user-select: none;
+}
+
+.btn-outline:hover:not(:disabled) {
+  transform: translateY(-2px);
+  background: rgba(252, 234, 241, 0.6);
+  border-color: #C2306B;
+  color: #A51F56;
+  box-shadow: 0 4px 14px rgba(194, 48, 107, 0.10);
+}
+
+.btn-outline:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.btn-outline:focus-visible {
+  outline: 2px solid #C2306B;
+  outline-offset: 2px;
+}
+
+.btn-outline:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+  transform: none !important;
+}
+
+/* Destructive Button: Rose-red gradient for deletes and destructive actions */
+.btn-destructive {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: linear-gradient(135deg, #F87171 0%, #DC2626 60%, #991B1B 100%);
+  color: #FFFFFF;
+  font-weight: 700;
+  box-shadow: 0 4px 14px rgba(220, 38, 38, 0.20);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  user-select: none;
+}
+
+.btn-destructive:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(220, 38, 38, 0.30);
+}
+
+.btn-destructive:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.btn-destructive:focus-visible {
+  outline: 2px solid #DC2626;
+  outline-offset: 2px;
+}
+
+.btn-destructive:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  pointer-events: none;
+  transform: none !important;
+}
+
+/* Icon Button: Circular or rounded with subtle glass styling */
+.btn-icon {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  border: 1px solid #F1DFE8;
+  background: #FFFFFF;
+  color: #2B1B2E;
+  box-shadow: 0 2px 8px rgba(105, 43, 79, 0.05);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  user-select: none;
+}
+
+.btn-icon:hover:not(:disabled) {
+  transform: translateY(-1.5px);
+  background: #FCEAF1;
+  color: #C2306B;
+  border-color: #E98CB0;
+  box-shadow: 0 4px 14px rgba(194, 48, 107, 0.15);
+}
+
+.btn-icon:active:not(:disabled) {
+  transform: scale(0.95);
+}
+
+.btn-icon:focus-visible {
+  outline: 2px solid #C2306B;
+  outline-offset: 2px;
+}
+
+.btn-icon:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+  transform: none !important;
 }
 .scroll-marquee {
   display: inline-block;

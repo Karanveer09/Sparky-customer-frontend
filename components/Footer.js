@@ -10,14 +10,14 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
 return (
-  <footer className="w-full bg-white flex justify-center">
+  <footer className="w-full bg-[#FFF7F3] flex justify-center">
 
-    {/* App Container (Mobile Width) */}
-    <div className="w-full max-w-[430px] bg-[#F5F7F2] border-t border-[#E0E5D2] relative overflow-hidden">
+    {/* App Container */}
+    <div className="w-full max-w-[430px] lg:max-w-7xl bg-[#FFF7F3] border-t border-[#F1DFE8] relative overflow-hidden">
 
       {/* Soft ambient background */}
-      <div className="absolute -bottom-24 -left-24 w-72 h-72 bg-[#8A9A5B]/10 blur-[100px] rounded-full pointer-events-none" />
-      <div className="absolute top-0 right-0 w-60 h-60 bg-[#3A4D39]/10 blur-[80px] rounded-full pointer-events-none" />
+      <div className="absolute -bottom-24 -left-24 w-72 h-72 bg-[#C2306B]/10 blur-[100px] rounded-full pointer-events-none" />
+      <div className="absolute top-0 right-0 w-60 h-60 bg-[#8E4FD6]/10 blur-[80px] rounded-full pointer-events-none" />
 
       <div className="px-6 py-12 relative z-10">
 
@@ -30,21 +30,17 @@ return (
           className="space-y-6"
         >
           <Link href="/" className="inline-block">
-            <Image
-              src="/images/wLogo.png"
-              alt="Sparky Logo"
-              width={120}
-              height={32}
-              className="object-contain"
-            />
+            <span className="text-2xl font-[950] tracking-tight text-[#2B1B2E] italic">
+              SPARKY<span className="text-[#C2306B]">.</span>
+            </span>
           </Link>
 
           <div className="space-y-4">
-            <h2 className="text-[24px] font-semibold text-[#1A2421] tracking-tight leading-snug">
+            <h2 className="text-[24px] font-semibold text-[#2B1B2E] tracking-tight leading-snug">
               Rituals, Reimagined at Home
             </h2>
 
-            <p className="text-[#6B7A63] text-[14px] leading-relaxed">
+            <p className="text-[#8D788D] text-[14px] leading-relaxed max-w-xl">
               Thoughtfully curated beauty and home services delivered by
               verified professionals with uncompromised hygiene and care.
             </p>
@@ -52,8 +48,8 @@ return (
         </motion.div>
 
         {/* Footer Bottom */}
-        <div className="mt-12 pt-6 border-t border-[#E0E5D2] text-center">
-          <p className="text-[11px] text-[#6B7A63] tracking-wide">
+        <div className="mt-12 pt-6 border-t border-[#F1DFE8] text-center">
+          <p className="text-[11px] text-[#8D788D] tracking-wide">
             © {currentYear} Sparky • Crafted with care
           </p>
         </div>

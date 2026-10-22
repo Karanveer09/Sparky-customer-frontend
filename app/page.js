@@ -29,7 +29,9 @@ import {
   MessageCircle,
   ChevronRight,
   ShieldCheck,
-  PhoneCall
+  PhoneCall,
+  SlidersHorizontal,
+  Bell
 } from "lucide-react";
 import dynamic from "next/dynamic";
 const UserMap = dynamic(() => import("@/components/UserMap"), { ssr: false });
@@ -173,10 +175,10 @@ const promoData = {
 };
 
 export default function SparkyServiceApp() {
-const navcolour = "#8a9a5b";    // Near-Black Green (Very high-end feel)
-const herocolour = "#b8c398";   // Soft Clay (Elegant background for text)
-const herobutton = "#5c673c";   // Forest Green (Clear action button)
-const mainbg = "#f8f8f6";       // Light Sage Grey (Sophisticated depth)
+const navcolour = "#C2306B";
+const herocolour = "#FFD9C9";
+const herobutton = "#C2306B";
+const mainbg = "transparent";
 // const router=useRouter();
 
   const beautyRef = useRef(null);
@@ -407,19 +409,22 @@ if (servicesLoading || services.length === 0) {
 };
 
   return (
-    <div className="min-h-screen bg-white flex justify-center">
+    <div 
+      style={{
+        background: "linear-gradient(180deg, #FFF8F6 0%, #FFF1F5 52%, #FFF7FB 100%)",
+      }} 
+      className="min-h-screen w-full flex justify-center text-[#2B1B2E]"
+    >
   <div
     className="
       w-full 
       max-w-full lg:max-w-7xl 
       min-h-screen 
-      bg-[#f8fafc] 
-      shadow-[0_0_60px_rgba(0,0,0,0.08)]
       relative
       overflow-hidden
     "
   >
-    <div style={{ backgroundColor: mainbg }} className="min-h-screen text-[#111827] pb-32 lg:pb-16 font-sans overflow-x-hidden">
+    <div className="min-h-screen text-[#2B1B2E] pb-32 lg:pb-16 font-sans overflow-x-hidden">
          <AnimatePresence>
         {showMap && (
           <motion.div 
@@ -429,7 +434,7 @@ if (servicesLoading || services.length === 0) {
             className="fixed inset-0 z-[100] bg-white flex flex-col"
           >
             <div className="absolute top-0 left-0 right-0 z-10 p-4 flex justify-between items-start">
-              <button onClick={() => setShowMap(false)} className="bg-white p-3 rounded-full shadow-lg border">
+              <button onClick={() => setShowMap(false)} className="btn-icon w-12 h-12 shadow-lg">
                 <X size={24} />
               </button>
             </div>
@@ -446,7 +451,7 @@ if (servicesLoading || services.length === 0) {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    className="fixed inset-0 z-[200] bg-[#030712]/95 backdrop-blur-xl flex flex-col items-center justify-center p-8 text-center"
+                    className="fixed inset-0 z-[200] bg-[#2B1B2E]/95 backdrop-blur-xl flex flex-col items-center justify-center p-8 text-center"
                   >
                     <div className="relative mb-8">
                       <div className="absolute inset-0 bg-yellow-500/20 rounded-full animate-ping scale-150 opacity-20" />
@@ -455,8 +460,8 @@ if (servicesLoading || services.length === 0) {
                       </div>
                     </div>
                     <h2 className="text-3xl font-black text-white mb-3 tracking-tighter uppercase italic">Not Serving In Your Area</h2>
-                    <p className="text-slate-400 text-base max-w-[280px]">Sparky currently only serves the heart of <span className="text-blue-400 font-extrabold underline decoration-blue-500/30">Amritsar</span>.</p>
-                    <button onClick={() => setOutOfBounds(false)} className="mt-12 px-7 py-5 bg-white text-black font-black text-[10px] uppercase tracking-[0.2em] rounded-2xl active:scale-95 shadow-xl">
+                    <p className="text-slate-300 text-base max-w-[280px]">Sparky currently only serves the heart of <span className="text-[#FFD9C9] font-extrabold underline decoration-[#C2306B]/50">Amritsar</span>.</p>
+                    <button onClick={() => setOutOfBounds(false)} className="btn-secondary mt-12 px-7 py-3 text-[10px] uppercase tracking-[0.2em]">
                       Back
                     </button>
                   </motion.div>
@@ -483,10 +488,10 @@ setShowMap(false);
 
                   }
                 }}
-                className={`px-8 py-4 rounded-full font-bold uppercase tracking-widest text-sm flex items-center gap-3 transition-all ${
+                className={`px-8 py-3.5 font-bold uppercase tracking-widest text-sm flex items-center gap-3 ${
                   outOfBounds || !pendingLocation
-                    ? "bg-gray-800 text-gray-500 opacity-50 cursor-not-allowed"
-                    : "bg-[#8a9a5b] text-white shadow-2xl active:scale-95"
+                    ? "bg-gray-800 text-gray-500 opacity-50 cursor-not-allowed rounded-full"
+                    : "btn-primary-pill"
                 }`}
               >
                 <CheckCircle2 size={20} /> Confirm Location
@@ -498,121 +503,132 @@ setShowMap(false);
       {/* ================= HEADER ================= */}
       {/* ================= MOBILE HEADER (Visible on < 1024px) ================= */}
       <header
-        style={{ transform: headerVisible ? 'translateY(0)' : 'translateY(-100%)' }}
+        style={{ 
+          transform: headerVisible ? 'translateY(0)' : 'translateY(-100%)',
+          background: 'linear-gradient(110deg, #FFF0EB 0%, #FCEAF1 55%, #F0E5FF 100%)',
+        }}
         className="
           lg:hidden
           fixed top-0 left-0 right-0
           z-50
-          px-4 pt-3 pb-5
-          rounded-b-[2.2rem]
-          bg-gradient-to-br from-[#6f7f46] to-[#8a9a5b]
-          shadow-[0_18px_40px_rgba(0,0,0,0.35)]
+          px-5 pt-3 pb-4
+          rounded-b-[30px]
+          border-b border-[#F1DFE8]
+          shadow-[0_8px_24px_rgba(105,43,79,0.06)]
           transition-transform duration-300 ease-out
         "
       >
-        {/* Soft 3D highlight */}
-        <div className="absolute inset-0 bg-gradient-to-t rounded-b-[2.2rem] from-black/25 via-transparent to-white/10 pointer-events-none" />
-
-        {/* TOP ROW */}
-        <div
-          onClick={() => setShowMap(true)}
-          className="relative z-10 flex items-center justify-between text-white cursor-pointer mb-3"
-        >
+        {/* TOP ROW: Location on Left, Brand & Notification on Right */}
+        <div className="flex items-center justify-between mb-3 h-[44px]">
           {/* LEFT — LOCATION */}
-          <div className="flex items-center gap-2 min-w-0">
-            <div className="relative">
-              <div className="absolute inset-0 bg-white/40 blur-md rounded-full" />
-              <div className="relative w-7 h-7 rounded-full bg-white flex items-center justify-center shadow-md">
-                <MapPin size={14} className="text-[#1f4637]" />
-              </div>
+          <div
+            onClick={() => setShowMap(true)}
+            className="flex items-center gap-2.5 min-w-0 cursor-pointer active:scale-95 transition-transform"
+          >
+            <div className="w-8 h-8 rounded-full bg-white border border-[#F1DFE8] flex items-center justify-center shadow-xs shrink-0">
+              <MapPin size={15} className="text-[#C2306B]" />
             </div>
 
-            <div className="flex flex-col leading-none min-w-0">
-              <span className="text-[12px] font-medium tracking-wide">
+            <div className="flex flex-col leading-tight min-w-0">
+              <span className="text-[13px] font-[700] text-[#2B1B2E] tracking-tight">
                 Home
               </span>
-              <span className="text-[10px] text-white/80 truncate max-w-[160px]">
+              <span className="text-[10px] text-[#8D788D] font-medium truncate max-w-[170px]">
                 {address}
               </span>
             </div>
           </div>
 
-          {/* RIGHT — BRAND */}
-          <div className="flex flex-col items-end leading-none">
-            <span className="text-[14px] font-semibold tracking-[0.25em]">
-              SPARKY
+          {/* RIGHT — BRAND & NOTIFICATION */}
+          <div className="flex items-center gap-2">
+            <span className="text-[16px] font-[900] tracking-[0.2em] text-[#2B1B2E]">
+              SPARKY<span className="text-[#C2306B]">.</span>
             </span>
+            <div className="w-8 h-8 rounded-full bg-white/90 border border-[#F1DFE8] flex items-center justify-center text-[#2B1B2E] shadow-xs">
+              <Bell size={15} className="text-[#2B1B2E]" />
+            </div>
           </div>
         </div>
 
-        {/* SEARCH */}
-        <div ref={searchRef} className="relative z-10">
-          <div className="flex items-center bg-white/95 rounded-full px-3 py-2 border border-white/30 shadow backdrop-blur-md">
-            <Search size={14} className="text-gray-400 mr-2" />
-            <input
-              placeholder="Search services"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              className="flex-1 bg-transparent outline-none text-[12px] text-gray-800"
-            />
-            {query && (
-              <X
-                size={12}
-                className="text-gray-400 cursor-pointer"
-                onClick={() => setQuery("")}
+        {/* SEARCH & FILTER ROW */}
+        <div className="flex items-center gap-2.5">
+          <div ref={searchRef} className="relative flex-1">
+            <div className="flex items-center h-[44px] bg-white rounded-full px-4 border border-[#F1DFE8] shadow-xs">
+              <Search size={15} className="text-[#8D788D] mr-2 shrink-0" />
+              <input
+                placeholder="Search services"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                className="flex-1 bg-transparent outline-none text-[12px] font-medium text-[#2B1B2E] placeholder:text-[#8D788D]"
               />
+              {query && (
+                <X
+                  size={14}
+                  className="text-[#8D788D] hover:text-[#2B1B2E] cursor-pointer"
+                  onClick={() => setQuery("")}
+                />
+              )}
+            </div>
+
+            {/* DROPDOWN */}
+            {open && results.length > 0 && (
+              <div className="absolute top-full mt-2 w-full bg-white rounded-[1.6rem] shadow-xl border border-[#F1DFE8] z-[999] overflow-hidden">
+                {results.map((item, i) => (
+                  <div
+                    key={i}
+                    onClick={() => {
+                      setQuery("");
+                      setOpen(false);
+                      setSelectedService(item);
+                    }}
+                    className="flex items-center gap-3 px-4 py-3 hover:bg-[#FFF7F3] cursor-pointer transition-colors"
+                  >
+                    <Image
+                      src={item.image || "/images/placeholder.jpg"}
+                      width={40}
+                      height={40}
+                      className="rounded-xl object-cover"
+                      alt=""
+                    />
+                    <div className="flex-1">
+                      <p className="text-sm font-semibold text-[#2B1B2E]">{item.name || item.title}</p>
+                      <p className="text-xs text-[#8D788D]">{item.category}</p>
+                    </div>
+                    <span className="font-extrabold text-sm text-[#C2306B]">₹{item.price}</span>
+                  </div>
+                ))}
+              </div>
             )}
           </div>
 
-          {/* DROPDOWN */}
-          {open && results.length > 0 && (
-            <div className="absolute top-full mt-2 w-full bg-white rounded-[1.6rem] shadow-xl z-[999] overflow-hidden">
-              {results.map((item, i) => (
-                <div
-                  key={i}
-                  onClick={() => {
-                    setQuery("");
-                    setOpen(false);
-                    setSelectedService(item);
-                  }}
-                  className="flex items-center gap-3 px-4 py-3 hover:bg-gray-50 cursor-pointer"
-                >
-                  <Image
-                    src={item.image || "/images/placeholder.jpg"}
-                    width={40}
-                    height={40}
-                    className="rounded-xl object-cover"
-                    alt=""
-                  />
-                  <div className="flex-1">
-                    <p className="text-sm font-semibold">{item.name || item.title}</p>
-                    <p className="text-xs text-gray-400">{item.category}</p>
-                  </div>
-                  <span className="font-bold text-sm">₹{item.price}</span>
-                </div>
-              ))}
-            </div>
-          )}
+          {/* CIRCULAR FILTER BUTTON */}
+          <button
+            onClick={() => router.push('/beauty')}
+            className="btn-icon w-[44px] h-[44px] text-[#C2306B] shrink-0"
+            aria-label="Filter"
+          >
+            <SlidersHorizontal size={17} />
+          </button>
         </div>
       </header>
 
       {/* Spacer for fixed mobile header */}
-      <div className="lg:hidden h-[88px]" />
+      <div className="lg:hidden h-[116px]" />
 
       {/* ================= HERO SECTION (From About Page - Full Width & Clean) ================= */}
-      <section className="hidden lg:block relative overflow-hidden pt-10 pb-16 md:pt-16 md:pb-24 bg-gradient-to-b from-white via-white/80 to-[#F8F9F5]">
-        <div className="absolute top-0 right-1/4 w-96 h-96 bg-[#008077]/5 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-0 left-10 w-80 h-80 bg-amber-500/5 rounded-full blur-3xl pointer-events-none" />
+      <section className="hidden lg:block relative overflow-hidden pt-10 pb-16 md:pt-16 md:pb-24 bg-gradient-to-b from-white via-white/80 to-[#FFF7F3]">
+        <div className="absolute top-0 right-1/4 w-96 h-96 bg-[#C2306B]/5 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute bottom-0 left-10 w-80 h-80 bg-[#8E4FD6]/5 rounded-full blur-3xl pointer-events-none" />
 
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center max-w-3xl mx-auto space-y-4">
             <motion.div
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-teal-50 border border-teal-200/80 shadow-xs"
+              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#FCEAF1] border border-[#F1DFE8] shadow-xs"
             >
-              <span className="w-2 h-2 rounded-full bg-[#008077] animate-pulse" />
-              <span className="text-[11px] font-extrabold uppercase tracking-widest text-[#008077]">
+              <span className="w-2 h-2 rounded-full bg-[#C2306B] animate-pulse" />
+              <span className="text-[11px] font-extrabold uppercase tracking-widest text-[#C2306B]">
                 About Sparky • The Home Service Revolution
               </span>
             </motion.div>
@@ -621,10 +637,10 @@ setShowMap(false);
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
-              className="text-3xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.12]"
+              className="text-3xl sm:text-5xl lg:text-6xl font-black text-[#2B1B2E] tracking-tight leading-[1.12]"
             >
               Salon Luxury & Master Repairs,{" "}
-              <span className="bg-gradient-to-r from-[#008077] via-teal-600 to-emerald-600 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-[#C2306B] via-[#A83DAA] to-[#8E4FD6] bg-clip-text text-transparent">
                 Delivered to Your Door.
               </span>
             </motion.h1>
@@ -633,7 +649,7 @@ setShowMap(false);
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="text-sm sm:text-base md:text-lg text-slate-600 font-medium leading-relaxed max-w-2xl mx-auto pt-2"
+              className="text-sm sm:text-base md:text-lg text-[#8D788D] font-medium leading-relaxed max-w-2xl mx-auto pt-2"
             >
               Sparky was built on a simple promise: make professional home and
               beauty services effortless, safe, and transparent. No endless phone
@@ -649,16 +665,16 @@ setShowMap(false);
             >
               <Link
                 href="/beauty"
-                className="px-6 py-3.5 rounded-full bg-[#008077] hover:bg-[#006e66] text-white font-extrabold text-xs uppercase tracking-wider shadow-lg shadow-[#008077]/25 transition-all active:scale-95 flex items-center gap-2"
+                className="btn-primary-pill px-6 py-3.5 text-xs uppercase tracking-wider flex items-center gap-2"
               >
                 <span>Explore Services</span>
                 <ArrowRight size={16} />
               </Link>
               <Link
                 href="/contact"
-                className="px-6 py-3.5 rounded-full bg-white hover:bg-slate-50 text-slate-700 font-extrabold text-xs uppercase tracking-wider border border-slate-200 shadow-xs transition-all active:scale-95 flex items-center gap-2"
+                className="btn-secondary-pill px-6 py-3.5 text-xs uppercase tracking-wider flex items-center gap-2"
               >
-                <PhoneCall size={15} className="text-[#008077]" />
+                <PhoneCall size={15} className="text-[#C2306B]" />
                 <span>Contact Us</span>
               </Link>
             </motion.div>
@@ -681,15 +697,15 @@ setShowMap(false);
               return (
                 <div
                   key={idx}
-                  className="p-4 sm:p-5 rounded-3xl bg-white/90 backdrop-blur-xl border border-slate-100 shadow-[0_8px_25px_rgba(0,0,0,0.03)] text-center flex flex-col items-center justify-center hover:shadow-md transition-shadow"
+                  className="p-4 sm:p-5 rounded-3xl bg-white/90 backdrop-blur-xl border border-[#F1DFE8] shadow-[0_8px_25px_rgba(105,43,79,0.04)] text-center flex flex-col items-center justify-center hover:shadow-md transition-shadow"
                 >
-                  <div className="w-9 h-9 rounded-xl bg-teal-50 text-[#008077] flex items-center justify-center mb-2">
+                  <div className="w-9 h-9 rounded-xl bg-[#FCEAF1] text-[#C2306B] flex items-center justify-center mb-2">
                     <Icon size={18} />
                   </div>
-                  <span className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
+                  <span className="text-xl sm:text-2xl font-black text-[#2B1B2E] tracking-tight">
                     {s.value}
                   </span>
-                  <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider mt-0.5">
+                  <span className="text-[11px] font-bold text-[#8D788D] uppercase tracking-wider mt-0.5">
                     {s.label}
                   </span>
                 </div>
@@ -717,33 +733,33 @@ setShowMap(false);
       </section> */}
       {/* ================= MAIN CONTENT ================= */}
       <main className="px-2 sm:px-4 lg:px-6 space-y-8 pt-2">
-        <section className="mt-4 px-3 sm:px-6">
+        <section className="mt-2 px-2 sm:px-4">
   <div className="
     max-w-md lg:max-w-7xl mx-auto
-    p-4 sm:p-6 lg:p-8
-    rounded-3xl
+    p-4 sm:p-6 lg:p-7
+    rounded-[24px]
     bg-white
-    border border-[#EAEFE0]
-    shadow-sm
+    border border-[#F1DFE8]
+    shadow-[0_4px_18px_rgba(105,43,79,0.07)]
   ">
 
     {/* Heading */}
-    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6 pb-3 border-b border-[#F0F4E8]">
+    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-5 pb-3 border-b border-[#F5E8ED]">
       <div>
         <h2 className="
-          text-xl lg:text-2xl
-          font-[900]
+          text-[18px] sm:text-xl lg:text-2xl
+          font-[800]
           tracking-tight
-          text-[#1A2421]
+          text-[#2B1B2E]
         ">
           Our Specialities & Rituals
         </h2>
-        <p className="text-xs text-[#5F6B4A] mt-0.5">Select a category to view curated treatments</p>
+        <p className="text-xs text-[#8D788D] mt-0.5">Select a category to view curated treatments</p>
       </div>
 
       <button
         onClick={() => router.push('/beauty')}
-        className="text-xs font-bold text-[#3A4D39] hover:underline flex items-center gap-1 self-start sm:self-auto"
+        className="text-xs font-bold text-[#C2306B] hover:text-[#A82058] flex items-center gap-1 self-start sm:self-auto transition-colors"
       >
         <span>View Full Catalog</span>
         <ChevronRight size={13} />
@@ -751,26 +767,30 @@ setShowMap(false);
     </div>
 
     {/* Grid: 4 cols on mobile, 8 cols on laptop */}
-    <div className="grid grid-cols-4 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-3 sm:gap-4 lg:gap-5">
+    <div className="grid grid-cols-4 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-2.5 sm:gap-3.5 lg:gap-4">
 
       {want.map((cat, i) => (
         <button
           key={i}
           onClick={() => handleWantClick(cat.name)}
-          className="group flex flex-col items-center gap-2 p-2 rounded-2xl hover:bg-[#F8F9F5] transition-all"
+          className="group flex flex-col items-center gap-2 p-1.5 rounded-2xl hover:bg-[#FFF7F3] transition-all"
         >
           {/* Image Tile */}
-          <div className="
-            relative w-full aspect-square
-            max-w-[76px] sm:max-w-[84px]
-            rounded-2xl overflow-hidden
-            bg-gradient-to-br from-[#ebf3d2] to-[#dfe9b9]
-            border border-[#e5ead7]
-            shadow-xs
-            group-hover:shadow-md
-            group-hover:-translate-y-1
-            transition-all duration-200
-          ">
+          <div 
+            style={{
+              background: "linear-gradient(180deg, #FFF7F3 0%, #FFF1F4 65%, #F8E5ED 100%)",
+            }}
+            className="
+              relative w-full aspect-square
+              max-w-[76px] sm:max-w-[84px]
+              rounded-2xl overflow-hidden
+              border border-[#F1DFE8]
+              shadow-xs
+              group-hover:shadow-md
+              group-hover:-translate-y-1
+              transition-all duration-200
+            "
+          >
             <Image
               src={cat.image || "/images/sremovebg.png"}
               fill
@@ -779,7 +799,7 @@ setShowMap(false);
             />
 
             {/* subtle overlay shine */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent opacity-40" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#C2306B]/5 to-transparent opacity-40" />
           </div>
 
           {/* Label */}
@@ -787,8 +807,8 @@ setShowMap(false);
             text-[11px] sm:text-xs
             font-bold
             text-center
-            text-[#1A2421]
-            group-hover:text-[#3A4D39]
+            text-[#2B1B2E]
+            group-hover:text-[#C2306B]
             transition-colors
             tracking-tight
           ">
@@ -807,9 +827,9 @@ setShowMap(false);
   <div
     className="fixed bottom-13 left-1/2 -translate-x-1/2 z-[100]
     w-[90%] max-w-xs
-    bg-white/70 backdrop-blur-2xl
-    border border-white/40
-    shadow-[0_10px_40px_rgba(0,0,0,0.12)]
+    bg-white/90 backdrop-blur-2xl
+    border border-[#F1DFE8]
+    shadow-[0_10px_40px_rgba(105,43,79,0.12)]
     rounded-2xl px-4 py-3
     flex items-center gap-3
     animate-in fade-in slide-in-from-bottom-4 duration-300"
@@ -817,10 +837,10 @@ setShowMap(false);
     {/* Gradient 3D Icon */}
     <div className="relative shrink-0">
       <div className="w-10 h-10 rounded-xl
-        bg-gradient-to-br from-[#8a9a5b] via-[#7f8f52] to-[#6f7f46]
+        bg-gradient-to-r from-[#C2306B] via-[#A83DAA] to-[#8E4FD6]
         flex items-center justify-center
         text-white text-sm font-semibold
-        shadow-md shadow-blue-300/40"
+        shadow-md shadow-[#C2306B]/30"
       >
         ₹
       </div>
@@ -828,19 +848,19 @@ setShowMap(false);
 
     {/* Text */}
     <div className="flex-1">
-      <p className="text-xs font-semibold text-gray-900 leading-tight">
-         <span className="text-transparent bg-clip-text bg-gradient-to-br from-[#8a9a5b] via-[#7f8f52] to-[#6f7f46] font-bold">
+      <p className="text-xs font-semibold text-[#2B1B2E] leading-tight">
+         <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#C2306B] via-[#A83DAA] to-[#8E4FD6] font-bold">
           {minCartError}
         </span> more
       </p>
-      <p className="text-[10px] text-gray-500 font-medium">
+      <p className="text-[10px] text-[#8D788D] font-medium">
         to proceed to checkout
       </p>
 
       {/* Minimal Progress */}
-      <div className="mt-2 h-[3px] w-full bg-gray-200/60 rounded-full overflow-hidden">
+      <div className="mt-2 h-[3px] w-full bg-[#F5E8ED] rounded-full overflow-hidden">
         <div
-          className="h-full bg-gradient-to-br from-[#8a9a5b] via-[#7f8f52] to-[#6f7f46]transition-all duration-700 ease-out rounded-full"
+          className="h-full bg-gradient-to-r from-[#C2306B] via-[#A83DAA] to-[#8E4FD6] transition-all duration-700 ease-out rounded-full"
           style={{ width: "70%" }} 
         />
       </div>
@@ -848,13 +868,23 @@ setShowMap(false);
   </div>
 )}
 
-<section ref={beautyRef} className="pt-1">
-  {/* <SectionTitle title="Beauty Services" /> */}
+ {/* MOBILE-ONLY BEAUTY SERVICES */}
+<section ref={beautyRef} className="pt-1 lg:hidden">
   <FloatingOrderTracker activeOrder={active} />
 
   {[
-    "Waxing","Facial","Mehandi","Haircare","Threading",
-    "Makeup","Bleach","Cleanup","Manicure","Pedicure","Hair","Mehndi"
+    "Waxing",
+    "Facial",
+    "Mehandi",
+    "Haircare",
+    "Threading",
+    "Makeup",
+    "Bleach",
+    "Cleanup",
+    "Manicure",
+    "Pedicure",
+    "Hair",
+    "Mehndi",
   ].map((subCat) => {
     const filteredServices = services.filter(
       (item) =>
@@ -865,87 +895,94 @@ setShowMap(false);
     );
 
     if (filteredServices.length === 0) return null;
+
     const displayServices = filteredServices.slice(0, 6);
 
     return (
-      <div key={subCat} className="mb-10 sm:mb-12">
-
-        {/* 🌷 CATEGORY HEADER */}
-        <div className="flex items-center justify-between px-2 sm:px-4 mb-3.5">
-          <h3
-            className="
-              flex items-center gap-2.5
-              text-base sm:text-lg
-              font-[900]
-              tracking-tight
-              text-[#1A2421]
-            "
-          >
-            <span
-              className="
-                w-1.5 h-5 rounded-full
-                bg-gradient-to-b from-[#8A9A5B] to-[#6f7f46]
-              "
-            />
-            <span>{subCat}</span>
+      <div key={subCat} className="mb-7">
+        {/* CATEGORY HEADER */}
+        <div className="mb-3 flex items-center justify-between px-3">
+          <h3 className="flex items-center gap-2 text-[15px] font-extrabold tracking-tight text-[#2B1B2E]">
+            <span className="h-5 w-1 rounded-full bg-gradient-to-b from-[#E98CB0] to-[#A51F56]" />
+            {subCat}
           </h3>
 
-          <button 
-            onClick={() => router.push(`/beauty?category=${subCat.toUpperCase()}`)}
-            className="flex items-center gap-1 bg-[#3A4D39]/5 hover:bg-[#3A4D39]/10 text-[#3A4D39] px-3 py-1.5 rounded-full border border-[#3A4D39]/10 active:scale-95 transition-all"
+          <button
+            type="button"
+            onClick={() =>
+              router.push(
+                `/beauty?category=${encodeURIComponent(subCat.toUpperCase())}`
+              )
+            }
+            className="inline-flex items-center gap-1 rounded-full border border-[#C2306B]/15 bg-white/80 px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider text-[#C2306B] shadow-sm backdrop-blur-md transition-colors hover:bg-[#FFF0F6]"
           >
-            <span className="text-[10px] font-black uppercase tracking-wider">View All</span>
-            <ChevronRight size={12} />
+            View All
+            <ChevronRight size={13} />
           </button>
         </div>
 
-        {/* 🧊 SERVICES GRID (2 cols mobile, 3-4 tablet, 6 laptop) */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4 lg:gap-4 px-2 sm:px-4">
-          {displayServices.map((item) => (
-            <div
-              key={item.id}
-              onClick={() => setSelectedService(item)}
-              className="
-                transform-gpu
-                transition
-                hover:-translate-y-1
-              "
-            >
-              <ServiceAppCard item={item} />
+        {/* MAXIMUM 3 CARDS PER ROW */}
+      <div className="grid grid-cols-3 gap-3 px-2 sm:px-4">
+  {displayServices.map((item) => {
+    const image =
+      item.image || item.imageUrl || item.thumbnail || item.photo;
+    const title = item.name || item.title || subCat;
+
+    return (
+      <div
+        key={item.id}
+        onClick={() => setSelectedService(item)}
+        className="group min-w-0 overflow-hidden rounded-[20px] border border-[#F3E8ED] bg-white p-2.5 shadow-[0_3px_12px_rgba(194,48,107,0.04)] transition-all duration-300 active:scale-[0.98]"
+      >
+        {/* Image */}
+        <div className="relative aspect-[4/4.3] overflow-hidden rounded-[14px] bg-[#FCEEF4]">
+          {image ? (
+            <img
+              src={image}
+              alt={title}
+              loading="lazy"
+              className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+            />
+          ) : (
+            <div className="flex h-full items-center justify-center">
+              <Wrench className="text-[#C2306B]/40" size={25} />
             </div>
-          ))}
+          )}
+
+          {/* Gradient + Add button */}
+          <div className="absolute inset-0 bg-gradient-to-t from-[#321321]/10 to-transparent" />
+
+          <button
+            type="button"
+            aria-label={`Select ${title}`}
+            onClick={(e) => {
+              e.stopPropagation();
+              setSelectedService(item);
+            }}
+            className="absolute bottom-2 right-2 flex h-8 w-8 items-center justify-center rounded-xl border border-white/60 bg-gradient-to-br from-[#E98CB0] via-[#C2306B] to-[#A51F56] text-white shadow-[0_4px_12px_rgba(194,48,107,0.25)] transition-transform hover:scale-105 active:scale-90"
+          >
+            <Plus size={18} strokeWidth={2.5} />
+          </button>
         </div>
 
-        {/* 🌈 SUBCATEGORY PROMO */}
-        {/* <div className="mt-6 px-2">
-          <SubCategoryPromo subCat={subCat} />
-        </div> */}
+        {/* Title */}
+        <h4 className="mt-3 min-h-[30px] line-clamp-2 text-[11px] font-bold leading-[1.4] text-[#2B1B2E]">
+          {title}
+        </h4>
+
+        {/* Bottom detail placeholders */}
+        <div className="mt-2 flex items-center justify-between gap-1">
+          <span className="h-2 w-12 rounded-full bg-[#FCEEF4]" />
+          <span className="h-2 w-5 rounded-full bg-[#FCEEF4]" />
+        </div>
+      </div>
+    );
+  })}
+</div>
       </div>
     );
   })}
 </section>
-
-        {/* <section ref={beatiqueRef} className="pt-2">
-          <SectionTitle title="The Beatique" />
-          <div className="grid grid-cols-3 gap-3">
-            {BESTSELLERS.map((item) => (
-              <div key={item.id} onClick={() => setSelectedService(item)}>
-                <ServiceAppCard item={item} />
-              </div>
-            ))}
-          </div>
-        </section> */}
-
-        {/* <section ref={techRef} className="pt-4">
-          <SectionTitle title="Tech Masters" />
-          <div className="grid grid-cols-3 gap-3">
-            {BESTSELLERS.map((item) => (
-              <div key={item.id} onClick={() => setSelectedService(item)}>
-                <ServiceAppCard item={item} />
-              </div>
-            ))}
-          </div>
-        </section> */}
 
         {/* ================= ABOUT SECTIONS (Story, Pillars, Steps, Comparison, Reviews, CTA) — Desktop Only ================= */}
         <div className="hidden lg:block">
@@ -962,28 +999,31 @@ setShowMap(false);
       
       {/* Drawer */}
 <div
+  style={{
+    background: "linear-gradient(180deg, #FFFFFF 0%, #FFF7F3 100%)",
+  }}
   className={`fixed 
     z-[70]
-    bg-gradient-to-b from-[#ffffff] via-[#fbfcf8] to-[#f4f6ef]
     overflow-hidden
+    border-t border-[#F1DFE8]
     transition-all duration-300 ease-out
     /* Mobile: Slide-up Bottom Sheet */
-    bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[430px] rounded-t-[2.75rem] shadow-[0_-18px_45px_rgba(66,74,43,0.22)]
+    bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[440px] rounded-t-[2.5rem] shadow-[0_-18px_45px_rgba(105,43,79,0.18)]
     /* Laptop: Centered Modal Dialog */
-    lg:top-1/2 lg:bottom-auto lg:left-1/2 lg:-translate-x-1/2 lg:max-w-lg lg:rounded-[2.5rem] lg:shadow-2xl
+    lg:top-1/2 lg:bottom-auto lg:left-1/2 lg:-translate-x-1/2 lg:max-w-lg lg:rounded-[2.5rem] lg:shadow-2xl lg:border
     ${selectedService 
       ? "translate-y-0 lg:-translate-y-1/2 opacity-100 visible" 
       : "translate-y-full lg:opacity-0 lg:invisible pointer-events-none"}`}
 >
   {/* Drag Handle (Mobile only) */}
-  <div className="w-10 h-1.5 bg-[#8A9A5B]/40 rounded-full mx-auto mt-3 mb-3 lg:hidden" />
+  <div className="w-10 h-1.5 bg-[#F1DFE8] rounded-full mx-auto mt-3 mb-3 lg:hidden" />
 
   {selectedService && (
     <div className="px-6 pb-7 pt-1">
 
       {/* Image */}
       <div className="relative w-full h-56 rounded-[1.9rem] overflow-hidden mb-5
-        shadow-[0_12px_28px_rgba(0,0,0,0.18)]
+        shadow-[0_12px_28px_rgba(105,43,79,0.12)]
         border border-white/60"
       >
         <Image
@@ -999,53 +1039,47 @@ setShowMap(false);
         {/* Close */}
         <button
           onClick={() => setSelectedService(null)}
-          className="
-            absolute top-3 right-3
-            bg-white/80 backdrop-blur
-            p-2 rounded-full
-            shadow-md
-            active:scale-90 transition
-          "
+          className="btn-icon w-9 h-9 absolute top-3 right-3 shadow-md"
         >
-          <X size={16} className="text-[#2f3a1f]" />
+          <X size={16} className="text-[#2B1B2E]" />
         </button>
       </div>
 
       {/* Title + Price */}
       <div className="flex justify-between items-start mb-3">
         <div>
-          <h2 className="text-[20px] font-semibold text-[#2f3a1f] leading-snug tracking-tight">
+          <h2 className="text-[20px] font-semibold text-[#2B1B2E] leading-snug tracking-tight">
             {selectedService.name || selectedService.title}
           </h2>
 
           <div className="flex items-center gap-2 mt-1">
             <div className="flex items-center text-yellow-500">
               <Star size={13} fill="currentColor" />
-              <span className="ml-1 text-[12px] font-semibold text-[#424A2B]">
+              <span className="ml-1 text-[12px] font-semibold text-[#2B1B2E]">
                 4.9
               </span>
             </div>
 
-            <span className="text-[#8A9A5B]">•</span>
+            <span className="text-[#C2306B]">•</span>
 
-            <span className="text-[9px] font-semibold uppercase tracking-widest text-[#8A9A5B]">
+            <span className="text-[9px] font-semibold uppercase tracking-widest text-[#C2306B]">
               Verified
             </span>
           </div>
         </div>
 
         <div className="text-right">
-          <p className="text-[22px] font-semibold text-[#424A2B] tracking-tight">
+          <p className="text-[22px] font-semibold text-[#C2306B] tracking-tight">
             ₹{selectedService.price || "799"}
           </p>
-          <p className="text-[9px] text-[#8A9A5B] uppercase tracking-widest">
+          <p className="text-[9px] text-[#8D788D] uppercase tracking-widest">
             Base
           </p>
         </div>
       </div>
 
       {/* Description */}
-      <p className="text-[#5f6b4a] leading-relaxed mb-6 font-normal text-[13px]">
+      <p className="text-[#6F5B70] leading-relaxed mb-6 font-normal text-[13px]">
         {selectedService.description ||
           "Premium at-home service delivered by trained professionals using hygienic, salon-grade products."}
       </p>
@@ -1055,20 +1089,7 @@ setShowMap(false);
         {/* Primary */}
         <button
           onClick={() => handleBooking(selectedService)}
-          className="
-            flex-1
-            py-3.5
-            rounded-xl
-            bg-gradient-to-br from-[#8A9A5B] to-[#6f7f46]
-            text-white
-            text-[11px]
-            font-semibold
-            uppercase tracking-widest
-            shadow-[0_8px_20px_rgba(138,154,91,0.45)]
-            active:scale-[0.97]
-            transition-all
-            flex items-center justify-center gap-2
-          "
+          className="btn-primary flex-1 py-3.5 text-[11px] font-semibold uppercase tracking-widest flex items-center justify-center gap-2"
         >
           Book Now<ArrowRight size={14} />
         </button>
@@ -1076,20 +1097,7 @@ setShowMap(false);
         {/* Secondary */}
         <button
           onClick={() => router.push(`services/${selectedService.title}`)}
-          className="
-            flex-1
-            py-3.5
-            rounded-xl
-            bg-white
-            text-[#424A2B]
-            border border-[#8A9A5B]/30
-            text-[11px]
-            font-semibold
-            uppercase tracking-widest
-            shadow-sm
-            active:scale-[0.97]
-            transition-all
-          "
+          className="btn-secondary flex-1 py-3.5 text-[11px] font-semibold uppercase tracking-widest"
         >
           Details
         </button>
@@ -1157,22 +1165,25 @@ function ServiceAppCard({ item }) {
 
   return (
     <div
+      style={{
+        background: "linear-gradient(180deg, #FFFFFF 0%, #FFFCFD 100%)",
+      }}
       className="
         group relative flex w-full flex-col
-        rounded-2xl lg:rounded-3xl
-        bg-white
-        border border-[#EAEFE0]
-        hover:border-[#D2DAC2]
+        rounded-2xl
+        border border-[#F1DFE8]
+        hover:border-[#C2306B]/40
         overflow-hidden
         transition-all duration-300
         hover:-translate-y-1
-        hover:shadow-md
+        shadow-[0_4px_14px_rgba(43,27,46,0.05)]
+        hover:shadow-[0_8px_20px_rgba(105,43,79,0.1)]
         cursor-pointer
         h-full
       "
     >
       {/* IMAGE */}
-      <div className="relative w-full aspect-[4/3] sm:aspect-square overflow-hidden bg-[#F2F4ED]">
+      <div className="relative w-full aspect-[4/3] sm:aspect-square overflow-hidden bg-[#FFF7F3]">
         <Image
           src={item.image}
           fill
@@ -1185,20 +1196,21 @@ function ServiceAppCard({ item }) {
         />
 
         {/* Soft overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
 
         {/* Rating Badge */}
         {item.rating && (
           <div
             className="
               absolute top-2 right-2
-              bg-white/90 backdrop-blur-xs
+              bg-white/95 backdrop-blur-xs
               px-2 py-0.5
               rounded-full
               text-[9px]
               font-bold
-              text-[#424A2B]
+              text-[#2B1B2E]
               shadow-xs
+              border border-[#F1DFE8]
               flex items-center gap-0.5
             "
           >
@@ -1214,12 +1226,12 @@ function ServiceAppCard({ item }) {
         <h3
           className="
             text-xs font-bold
-            text-[#1A2421]
+            text-[#2B1B2E]
             leading-snug
             line-clamp-2
             min-h-[30px]
             tracking-tight
-            group-hover:text-[#3A4D39]
+            group-hover:text-[#C2306B]
             transition-colors
           "
         >
@@ -1227,26 +1239,20 @@ function ServiceAppCard({ item }) {
         </h3>
 
         {/* PRICE + ACTION */}
-        <div className="flex items-center justify-between mt-2 pt-2 border-t border-[#F2F4ED]">
+        <div className="flex items-center justify-between mt-2 pt-2 border-t border-[#F5E8ED]">
           <div className="flex flex-col">
-            <span className="text-[9px] text-gray-400 line-through leading-none">
+            <span className="text-[10px] text-[#8D788D] line-through leading-none">
               ₹{dummyPrice}
             </span>
-            <span className="text-xs sm:text-sm font-black text-[#3A4D39] leading-tight">
+            <span className="text-xs sm:text-sm font-extrabold text-[#C2306B] leading-tight">
               ₹{item.price}
             </span>
           </div>
 
           {/* ADD BUTTON */}
           <button
-            className="
-              w-7 h-7 sm:w-8 sm:h-8 rounded-full
-              bg-[#3A4D39]/10 text-[#3A4D39]
-              group-hover:bg-[#3A4D39] group-hover:text-white
-              flex items-center justify-center
-              transition-all duration-200
-              active:scale-90
-            "
+            className="btn-primary-pill w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center !p-0"
+            aria-label="Add to cart"
           >
             <Plus size={14} strokeWidth={2.5} />
           </button>
@@ -1256,86 +1262,32 @@ function ServiceAppCard({ item }) {
   );
 }
 
- 
-function SectionTitle({ title }) {
-  return (
-    <div className="relative mt-0.5 mb-3 px-4">
-      <div className="flex items-center justify-center">
-        
-        {/* Left Section: Typography focus */}
-        <div className="flex flex-col">
-          <div className="w-full flex items-center  justify-center gap-2 mb-0.5">
-            {/* Minimalist Accent: A vertical pill instead of horizontal bars */}
-            {/* <div className="w-1 h-6 bg-[#424a2b] text-center rounded-full" /> */}
-            
-            <h2 className="text-[29px] text-center font-bold text-grey-500  tracking-tight italic text-grey-900 ">
-              {title}
-            </h2>
-          </div>
-
-          {/* <div className="flex items-center gap-2 pl-3">
-             <div className="flex -space-x-1">
-                {[1, 2, 3,4].map((i) => (
-                  <div key={i} className="w-4 h-4 rounded-full border-2 border-white bg-slate-100 flex items-center justify-center overflow-hidden">
-                    <Star size={8} fill="#94a3b8" className="text-yellow-400" />
-                  </div>
-                ))}
-             </div>
-             <p className="text-[11px] text-slate-500 font-bold tracking-tight">
-               4.8 <span className="text-slate-300 mx-1">•</span> 100+ Bookings
-             </p>
-          </div> */}
-        </div>
-
-        {/* Right Section: Interactive/Status element */}
-        {/* <div className="flex flex-col items-end gap-1">
-           <div className="bg-emerald-50 px-2 py-1 rounded-lg border border-emerald-100 flex items-center gap-1.5 shadow-sm">
-             <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-             <span className="text-[9px] font-black uppercase tracking-tight text-emerald-700">
-               Best Price
-             </span>
-           </div>
-           <button className="text-[10px] font-black text-blue-600 uppercase tracking-widest hover:bg-blue-50 px-2 py-1 rounded-md transition-colors">
-              See All
-           </button>
-        </div> */}
-
-      </div>
-
-      {/* Optional: Subtle bottom divider that fades out */}
-      {/* <div className="mt-4 w-full h-[1px] bg-gradient-to-r from-slate-100 via-slate-50 to-transparent" /> */}
-    </div>
-  );
-}
-
 function Skeleton({ className }) {
   return (
-    <div
-      className={`animate-pulse rounded-lg bg-gray-200 ${className}`}
-    />
+    <div className={`animate-pulse rounded-lg bg-[#F7E5EE] ${className}`} />
   );
 }
 
 function HeaderSkeleton() {
   return (
-    <header className="bg-[#8A9A5B] px-4 pt-4 pb-6 rounded-b-[2.5rem]">
-      <Skeleton className="h-4 w-32 mb-2" />
-      <Skeleton className="h-3 w-48 mb-4" />
-      <Skeleton className="h-12 w-full rounded-xl bg-white/70" />
+    <header className="bg-gradient-to-br from-[#C2306B] via-[#A51F56] to-[#7B1040] px-4 pt-5 pb-8 rounded-b-[2.5rem] shadow-lg">
+      <Skeleton className="h-3.5 w-28 mb-2 bg-white/30" />
+      <Skeleton className="h-5 w-44 mb-5 bg-white/30" />
+      <Skeleton className="h-12 w-full rounded-2xl bg-white/40" />
     </header>
   );
 }
+
 function ServicesGridSkeleton() {
   return (
-    <section className="mt-4 px-4">
-      <div className="max-w-md mx-auto p-3 bg-white rounded-[2.5rem] shadow-sm">
-        <Skeleton className="h-6 w-40 mx-auto mb-6" />
-
-        <div className="grid grid-cols-4 gap-4">
+    <section className="mt-5 px-4">
+      <div className="bg-white rounded-3xl p-4 shadow-sm border border-[#F1DFE8]">
+        <Skeleton className="h-5 w-36 mx-auto mb-5" />
+        <div className="grid grid-cols-4 gap-3">
           {Array.from({ length: 8 }).map((_, i) => (
             <div key={i} className="flex flex-col items-center gap-2">
               <Skeleton className="w-full aspect-square rounded-2xl" />
-              <Skeleton className="h-3 w-14" />
+              <Skeleton className="h-2.5 w-12" />
             </div>
           ))}
         </div>
@@ -1343,28 +1295,26 @@ function ServicesGridSkeleton() {
     </section>
   );
 }
+
 function ServiceSectionSkeleton() {
   return (
-    <section className="pt-4">
-      {/* Section title */}
-      <div className="px-4 mb-4 flex items-center gap-2">
-        <Skeleton className="w-1 h-6 rounded-full" />
-        <Skeleton className="h-5 w-40" />
+    <section className="pt-5">
+      <div className="px-4 mb-3 flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <Skeleton className="w-1 h-5 rounded-full bg-[#E98CB0]" />
+          <Skeleton className="h-4 w-28" />
+        </div>
+        <Skeleton className="h-6 w-16 rounded-full" />
       </div>
-
-      {/* Cards */}
-      <div className="grid grid-cols-3 gap-3 px-4">
-        {Array.from({ length: 6 }).map((_, i) => (
-          <div
-            key={i}
-            className="bg-white rounded-2xl p-2.5 border border-gray-100"
-          >
-            <Skeleton className="w-full aspect-square rounded-xl mb-3" />
-            <Skeleton className="h-3 w-full mb-1" />
-            <Skeleton className="h-3 w-2/3 mb-3" />
+      <div className="grid grid-cols-3 gap-3 px-3">
+        {Array.from({ length: 3 }).map((_, i) => (
+          <div key={i} className="bg-white rounded-[20px] p-2.5 border border-[#F1DFE8] shadow-sm">
+            <Skeleton className="w-full aspect-square rounded-[14px] mb-2.5 bg-[#FCEEF4]" />
+            <Skeleton className="h-2.5 w-full mb-1" />
+            <Skeleton className="h-2.5 w-2/3 mb-2" />
             <div className="flex justify-between items-center">
-              <Skeleton className="h-4 w-12" />
-              <Skeleton className="w-6 h-6 rounded-full" />
+              <Skeleton className="h-3 w-10" />
+              <Skeleton className="w-5 h-5 rounded-full bg-[#FCEEF4]" />
             </div>
           </div>
         ))}
@@ -1372,23 +1322,14 @@ function ServiceSectionSkeleton() {
     </section>
   );
 }
+
 function SparkySkeletonPage() {
   return (
-    <div className="min-h-screen bg-white flex justify-center">
-      <div
-        className="
-          w-full
-          max-w-full lg:max-w-7xl
-          min-h-screen
-          bg-white
-          pb-3
-          relative
-          overflow-hidden
-          shadow-[0_0_60px_rgba(0,0,0,0.08)]
-        "
-      >
+    <div className="min-h-screen bg-[#FFF7F3] flex justify-center">
+      <div className="w-full max-w-full lg:max-w-7xl min-h-screen pb-3 relative overflow-hidden">
         <HeaderSkeleton />
         <ServicesGridSkeleton />
+        <ServiceSectionSkeleton />
         <ServiceSectionSkeleton />
         <ServiceSectionSkeleton />
       </div>

@@ -15,26 +15,26 @@ const UserMap = dynamic(() => import("@/components/UserMap"), { ssr: false });
 
 /* ------------------ Theme Constants ------------------ */
 const THEME = {
-  green: "#3A4D39",
-  softGreen: "#f2f4ed",
-  maroon: "#a61d33",
+  green: "#C2306B",
+  softGreen: "#FCEAF1",
+  maroon: "#C2306B",
   gold: "#f7b614",
-  text: "#1A2421",
+  text: "#2B1B2E",
   bg: "#fbfcfa"
 };
 
 /* ------------------ Modern Input Component ------------------ */
 const InputField = ({ label, type = "text", value, onChange, error, placeholder, icon: Icon, disabled }) => (
   <div className="space-y-2">
-    <label className="text-[10px] font-[1000] text-[#4F6F52] uppercase tracking-[0.15em] ml-2">
+    <label className="text-[10px] font-[1000] text-[#8D788D] uppercase tracking-[0.15em] ml-2">
       {label}
     </label>
     <div className={`
       relative flex items-center bg-[#fbfcfa] rounded-2xl border-2 transition-all duration-300
-      ${error ? "border-rose-200 bg-rose-50/30" : "border-[#f1f3eb] focus-within:border-[#3A4D39] focus-within:bg-white focus-within:shadow-xl focus-within:shadow-[#3A4D39]/5"}
+      ${error ? "border-rose-200 bg-rose-50/30" : "border-[#f1f3eb] focus-within:border-[#C2306B] focus-within:bg-white focus-within:shadow-xl focus-within:shadow-[#C2306B]/5"}
     `}>
       {Icon && (
-        <div className="pl-5 text-[#3A4D39] opacity-40">
+        <div className="pl-5 text-[#C2306B] opacity-40">
           <Icon size={18} />
         </div>
       )}
@@ -44,11 +44,11 @@ const InputField = ({ label, type = "text", value, onChange, error, placeholder,
         onChange={onChange}
         placeholder={placeholder}
         disabled={disabled}
-        className="w-full px-5 py-5 bg-transparent text-sm font-[1000] text-[#1A2421] outline-none placeholder:text-gray-300 disabled:text-gray-300 uppercase tracking-tight"
+        className="w-full px-5 py-5 bg-transparent text-sm font-[1000] text-[#2B1B2E] outline-none placeholder:text-gray-300 disabled:text-gray-300 uppercase tracking-tight"
       />
     </div>
     {error && (
-      <motion.p initial={{ opacity: 0, y: -5 }} animate={{ opacity: 1, y: 0 }} className="text-[#a61d33] text-[9px] font-black uppercase pl-2 tracking-widest">
+      <motion.p initial={{ opacity: 0, y: -5 }} animate={{ opacity: 1, y: 0 }} className="text-[#C2306B] text-[9px] font-black uppercase pl-2 tracking-widest">
         {error}
       </motion.p>
     )}
@@ -245,11 +245,11 @@ const updateQuantity = (index, qty) => {
 return (
   <div className="
     min-h-screen 
-    bg-[#f8f9f5] 
-    text-[#1A2421] 
+    bg-[#FFF7F3] 
+    text-[#2B1B2E] 
     pb-44 
     font-sans 
-    selection:bg-[#3A4D39]/20
+    selection:bg-[#C2306B]/20
   ">
     {/* --- PREMIUM 3D HEADER --- */}
    <header
@@ -270,17 +270,7 @@ return (
   <div className="flex items-center justify-between mb-6 relative z-10">
     <button
       onClick={() => router.back()}
-      className="
-        w-9 h-9
-        bg-white/10
-        backdrop-blur-md
-        rounded-xl
-        flex items-center justify-center
-        border border-white/15
-        text-white
-        active:scale-90
-        transition
-      "
+      className="btn-icon w-9 h-9 text-white bg-white/10 border-white/20 hover:bg-white/20"
     >
       <ArrowRight size={16} className="rotate-180" />
     </button>
@@ -336,8 +326,8 @@ return (
         shadow-[0_15px_40px_rgba(58,77,57,0.06)]
       ">
         <div className="flex items-center gap-3 mb-6">
-          <div className="p-2 bg-[#3A4D39]/5 rounded-xl">
-            <User size={16} className="text-[#3A4D39]" />
+          <div className="p-2 bg-[#C2306B]/5 rounded-xl">
+            <User size={16} className="text-[#C2306B]" />
           </div>
           <h2 className="text-[15px] font-bold text-gray-800">Service Recipient</h2>
         </div>
@@ -377,7 +367,7 @@ return (
                 <p className="text-[13px] font-bold text-gray-900">{item.name}</p>
                 <p className="text-[10px] text-gray-400 uppercase font-medium">{item.title}</p>
               </div>
-              <p className="text-[14px] font-black text-[#3A4D39]">₹{item.price}</p>
+              <p className="text-[14px] font-black text-[#C2306B]">₹{item.price}</p>
             </div>
           ))}
         </div>
@@ -397,9 +387,9 @@ return (
               <p className="text-[9px] font-black text-gray-400 uppercase tracking-widest">To Pay</p>
               <p className="text-2xl font-black text-[#1A2F25]">₹{subtotal.toFixed(0)}</p>
             </div>
-            <div className="bg-[#F2F4ED] px-4 py-2 rounded-2xl flex items-center gap-2">
-              <ShieldCheck size={14} className="text-[#3A4D39]" />
-              <span className="text-[9px] font-black text-[#3A4D39] uppercase">Secure</span>
+            <div className="bg-[#FCEAF1] px-4 py-2 rounded-2xl flex items-center gap-2">
+              <ShieldCheck size={14} className="text-[#C2306B]" />
+              <span className="text-[9px] font-black text-[#C2306B] uppercase">Secure</span>
             </div>
           </div>
         </div>
@@ -410,7 +400,7 @@ return (
         {!showReferralInput ? (
           <button 
             onClick={() => setShowReferralInput(true)}
-            className="text-[11px] font-black uppercase tracking-widest text-[#3A4D39]/60 hover:text-[#3A4D39] flex items-center gap-2"
+            className="text-[11px] font-black uppercase tracking-widest text-[#C2306B]/80 hover:text-[#C2306B] flex items-center gap-2 transition-colors"
           >
             <Tag size={12} /> Have a Promo Code?
           </button>
@@ -420,9 +410,9 @@ return (
               value={referralCode} 
               onChange={(e) => setReferralCode(e.target.value)} 
               placeholder="ENTER CODE"
-              className="flex-1 bg-white border border-gray-100 rounded-2xl px-5 py-3 text-xs font-bold uppercase tracking-wider outline-none focus:ring-2 focus:ring-[#3A4D39]/10"
+              className="flex-1 bg-white border border-[#F1DFE8] rounded-2xl px-5 py-3 text-xs font-bold uppercase tracking-wider outline-none focus:border-[#C2306B]"
             />
-            <button onClick={applyReferralCode} className="bg-[#3A4D39] text-white px-6 rounded-2xl text-[10px] font-bold uppercase tracking-widest active:scale-95 transition-all">Apply</button>
+            <button onClick={applyReferralCode} className="btn-primary px-6 rounded-2xl text-[10px] font-bold uppercase tracking-widest">Apply</button>
           </div>
         )}
         {referralError && <p className="text-red-500 text-[9px] font-bold mt-2 uppercase px-1">{referralError}</p>}
@@ -434,7 +424,7 @@ return (
       <div className="max-w-md mx-auto flex items-center gap-4">
         <div className="flex-1 overflow-hidden" onClick={() => setShowMap(true)}>
           <div className="flex items-center gap-2">
-            <MapPin size={12} className={!address ? "text-red-500" : "text-[#3A4D39]"} />
+            <MapPin size={12} className={!address ? "text-red-500" : "text-[#C2306B]"} />
             <span className={`text-[9px] font-black uppercase tracking-widest ${!address ? "text-red-500" : "text-gray-400"}`}>
               Service Spot
             </span>
@@ -457,15 +447,15 @@ return (
             setShowSlotPicker(true);
           }}
           className={`
-            h-14 px-8 rounded-2xl font-black uppercase tracking-[0.15em] text-[11px] transition-all flex items-center gap-3
+            h-14 px-8 text-[11px] font-black uppercase tracking-[0.15em] flex items-center gap-3 transition-all
             ${!address || !isRecipientValid 
-              ? "bg-gray-200 text-gray-400 cursor-not-allowed" 
-              : "bg-gradient-to-br from-[#1A2F25] to-[#3A4D39] text-white shadow-[0_10px_30px_rgba(26,47,37,0.3)] active:scale-95"
+              ? "btn-secondary opacity-50 cursor-not-allowed rounded-2xl" 
+              : "btn-primary rounded-2xl"
             }
           `}
         >
           <span>Pick Slot</span>
-          <ArrowRight size={16} className="text-[#f7b614]" />
+          <ArrowRight size={16} className="text-white/80" />
         </button>
       </div>
     </div>
@@ -476,7 +466,7 @@ return (
         <motion.div initial={{ y: "100%" }} animate={{ y: 0 }} exit={{ y: "100%" }} className="fixed inset-0 z-[100] bg-white flex flex-col">
            {/* Map Header */}
            <div className="absolute top-6 left-6 right-6 z-10 flex justify-between">
-              <button onClick={() => setShowMap(false)} className="bg-white/90 backdrop-blur-md p-4 rounded-2xl shadow-xl border border-gray-100"><X size={20} /></button>
+              <button onClick={() => setShowMap(false)} className="btn-icon w-12 h-12 bg-white/95 text-[#C2306B] shadow-xl"><X size={20} /></button>
            </div>
            <div className="flex-1 w-full relative">
               <UserMap setAddress={(addr, lat, lng) => { setAddress(addr); setPendingLocation({ lat, lng }); }} />
@@ -484,7 +474,7 @@ return (
                 <div className="fixed inset-0 z-[200] bg-black/90 backdrop-blur-xl flex flex-col items-center justify-center p-8 text-center">
                   <AlertTriangle size={48} className="text-yellow-500 mb-4" />
                   <h2 className="text-white font-black text-2xl uppercase italic">Outside Amritsar</h2>
-                  <button onClick={() => setOutOfBounds(false)} className="mt-8 px-10 py-4 bg-white rounded-xl font-black text-[10px] uppercase">Back</button>
+                  <button onClick={() => setOutOfBounds(false)} className="btn-primary mt-8 px-10 py-4 font-black text-[10px] uppercase rounded-xl">Back</button>
                 </div>
               )}
            </div>
@@ -496,7 +486,7 @@ return (
                     setShowMap(false);
                   }
                 }}
-                className="w-full bg-[#1A2F25] text-white py-5 rounded-2xl font-bold uppercase tracking-widest text-[11px]"
+                className="btn-primary w-full py-4 rounded-2xl font-bold uppercase tracking-widest text-[11px]"
               >
                 Confirm Service Location
               </button>
@@ -563,7 +553,7 @@ return (
               transition-all text-center
               ${
                 isSelected
-                  ? "bg-[#3A4D39] text-white border-[#3A4D39]"
+                  ? "bg-[#C2306B] text-white border-[#C2306B]"
                   : "bg-gray-50 text-gray-400 border-gray-100"
               }
             `}
@@ -593,7 +583,7 @@ return (
             transition-all
             ${
               timeSlot === slot
-                ? "bg-[#3A4D39]/10 border-[#3A4D39] text-[#3A4D39]"
+                ? "bg-[#C2306B]/10 border-[#C2306B] text-[#C2306B]"
                 : "bg-gray-50 border-gray-100 text-gray-400"
             }
           `}
@@ -612,21 +602,7 @@ return (
         }
       }}
       disabled={!date || !timeSlot}
-      className="
-        mt-8
-        w-full
-        h-12
-        rounded-2xl
-        bg-gradient-to-br from-[#3A4D39] to-[#2f3a1f]
-        text-white
-        text-[11px]
-        font-semibold
-        uppercase tracking-widest
-        shadow-lg
-        transition-all
-        active:scale-[0.97]
-        disabled:opacity-30
-      "
+      className="btn-primary mt-8 w-full h-12 rounded-2xl text-[11px] font-semibold uppercase tracking-widest disabled:opacity-30 disabled:cursor-not-allowed"
     >
       Confirm Appointment
     </button>
@@ -668,7 +644,7 @@ return (
       {[
         { name: 'Google Pay', icon: Sparkles, color: 'text-blue-500', method: 'UPI' },
         { name: 'PhonePe', icon: CreditCard, color: 'text-purple-600', method: 'UPI' },
-        { name: 'Pay after service', icon: ShieldCheck, color: 'text-[#3A4D39]', method: 'PAY_AFTER_SERVICE', bg: 'bg-[#F6F8F4]' }
+        { name: 'Pay after service', icon: ShieldCheck, color: 'text-[#C2306B]', method: 'PAY_AFTER_SERVICE', bg: 'bg-[#F6F8F4]' }
       ].map((opt, i) => (
         <button
           key={i}
@@ -708,16 +684,7 @@ return (
     {/* Back Button */}
     <button
       onClick={() => setShowPaymentModal(false)}
-      className="
-        mt-4
-        w-full
-        text-[10px]
-        font-semibold
-        uppercase tracking-widest
-        text-gray-400
-        hover:text-gray-600
-        transition
-      "
+      className="mt-4 w-full text-[10px] font-semibold uppercase tracking-widest text-[#8D788D] hover:text-[#C2306B] transition"
     >
       Cancel
     </button>
@@ -733,7 +700,7 @@ return (
           </div>
           <h2 className="text-2xl font-black italic mb-2 uppercase">Order Placed</h2>
           <p className="text-gray-400 text-xs font-medium leading-relaxed mb-8">Your professional has been notified. Booking ID <span className="text-black font-black">#{orderId}</span></p>
-          <button onClick={() => router.push("/")} className="w-full py-5 bg-[#1A2F25] text-white rounded-2xl font-black uppercase tracking-widest text-[11px]">Back to Explore</button>
+          <button onClick={() => router.push("/")} className="btn-primary w-full py-5 rounded-2xl font-black uppercase tracking-widest text-[11px]">Back to Explore</button>
         </motion.div>
       )}
     </AnimatePresence>

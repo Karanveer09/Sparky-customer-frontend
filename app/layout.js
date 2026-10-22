@@ -1,4 +1,4 @@
-import { Inter } from "next/font/google";
+import { Plus_Jakarta_Sans } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import SessionWrapper from "@/components/SessionWrapper";
@@ -7,9 +7,9 @@ import RegisterSW from "./register-sw";
 
 export const dynamic = "force-dynamic";
 
-const inter = Inter({
+const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-sans",
 });
 
 /* ✅ VIEWPORT */
@@ -17,7 +17,7 @@ export const viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 1,
-  themeColor: "#030712",
+  themeColor: "#FFF7F3",
 };
 
 /* ✅ METADATA */
@@ -87,7 +87,7 @@ export default function RootLayout({ children }) {
       </head>
 
       <body
-        className={`${inter.variable} antialiased bg-white overflow-x-hidden`}
+        className={`${plusJakartaSans.variable} font-sans antialiased bg-[#FFF7F3] text-[#2B1B2E] overflow-x-hidden`}
       >
         {/* ✅ GOOGLE MAPS – LOAD ONCE, CLIENT ONLY */}
         <Script

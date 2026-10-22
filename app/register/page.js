@@ -150,7 +150,7 @@ export default function AuthPage() {
                 <motion.button 
                   type="submit" 
                   disabled={loading} 
-                  className="mt-2 w-full py-4 rounded-2xl bg-white text-black font-black text-sm uppercase tracking-widest shadow-xl shadow-white/5 hover:bg-blue-50 transition-all active:scale-95 disabled:opacity-50"
+                  className="btn-primary mt-2 w-full py-4 rounded-2xl font-black text-sm uppercase tracking-widest disabled:opacity-50"
                 >
                   {loading ? "Processing..." : mode === "signup" ? "Create Account" : "Sign In"}
                 </motion.button>

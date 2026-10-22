@@ -102,7 +102,7 @@ const QUICK_CARDS = [
     detail: "+91 81950 60669",
     meta: "Available 7 AM - 11 PM",
     badge: "Priority",
-    badgeColor: "bg-[#F7B614] text-[#1A2421]",
+    badgeColor: "bg-[#F7B614] text-[#2B1B2E]",
     icon: Phone,
     actionText: "Call Now",
     actionHref: "tel:+918195060669",
@@ -114,7 +114,7 @@ const QUICK_CARDS = [
     detail: "Direct message resolution",
     meta: "Average reply: 2 mins",
     badge: "Fastest",
-    badgeColor: "bg-[#3A4D39] text-white",
+    badgeColor: "bg-[#C2306B] text-white",
     icon: MessageSquare,
     actionText: "Open WhatsApp",
     actionHref: "https://wa.me/918195060669?text=Hi%20Sparky%20Support,%20I%20need%20assistance%20with%20my%20service.",
@@ -127,7 +127,7 @@ const QUICK_CARDS = [
     detail: "Track, reschedule, or cancel",
     meta: "Instant self-service",
     badge: "Automated",
-    badgeColor: "bg-[#F2F4ED] text-[#4F6F52]",
+    badgeColor: "bg-[#FCEAF1] text-[#8D788D]",
     icon: Calendar,
     actionText: "Manage Bookings",
     actionHref: "/user",
@@ -139,7 +139,7 @@ const QUICK_CARDS = [
     detail: "support@sparky.in",
     meta: "Detailed inquiry & bills",
     badge: "24x7",
-    badgeColor: "bg-[#F2F4ED] text-[#4F6F52]",
+    badgeColor: "bg-[#FCEAF1] text-[#8D788D]",
     icon: Mail,
     actionText: "Write Email",
     actionHref: "mailto:support@sparky.in",
@@ -228,28 +228,28 @@ export default function HelpPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F8F9F5] text-[#1A2421] font-sans antialiased pb-24 lg:pb-16 selection:bg-[#E5EAD7]">
+    <div className="min-h-screen bg-[#FFF7F3] text-[#2B1B2E] font-sans antialiased pb-24 lg:pb-16 selection:bg-[#F1DFE8]">
       {/* =========================================================================
           1. HEADER BAR
           ========================================================================= */}
-      <header className="sticky top-0 z-40 bg-white/90 backdrop-blur-xl border-b border-[#EAEFE0] shadow-[0_4px_20px_rgba(58,77,57,0.04)]">
+      <header className="sticky top-0 z-40 bg-white/90 backdrop-blur-xl border-b border-[#F1DFE8] shadow-[0_4px_20px_rgba(58,77,57,0.04)]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <button
               onClick={() => router.back()}
-              className="p-2.5 rounded-full bg-[#F5F7F0] hover:bg-[#EAEFE0] text-[#3A4D39] border border-[#E5EAD7] shadow-sm transition-all active:scale-95"
+              className="btn-icon w-10 h-10 text-[#C2306B]"
               aria-label="Go Back"
             >
               <ChevronLeft size={20} />
             </button>
 
             <div>
-              <div className="flex items-center gap-1.5 text-[11px] font-bold tracking-wider uppercase text-[#4F6F52] opacity-80">
+              <div className="flex items-center gap-1.5 text-[11px] font-bold tracking-wider uppercase text-[#8D788D] opacity-80">
                 <span>Sparky Care</span>
                 <span>/</span>
-                <span className="text-[#3A4D39] font-extrabold">24/7 Desk</span>
+                <span className="text-[#C2306B] font-extrabold">24/7 Desk</span>
               </div>
-              <h1 className="text-lg lg:text-xl font-[900] tracking-tight text-[#1A2421]">
+              <h1 className="text-lg lg:text-xl font-[900] tracking-tight text-[#2B1B2E]">
                 Help & Concierge Center
               </h1>
             </div>
@@ -258,7 +258,7 @@ export default function HelpPage() {
           <div className="flex items-center gap-2">
             <a
               href="tel:+918195060669"
-              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#3A4D39] text-white text-xs font-bold shadow-sm hover:shadow transition-all active:scale-95"
+              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#C2306B] text-white text-xs font-bold shadow-sm hover:shadow transition-all active:scale-95"
             >
               <Phone size={13} className="text-[#F7B614]" />
               <span className="hidden sm:inline">Priority Line</span>
@@ -271,7 +271,7 @@ export default function HelpPage() {
           2. HERO BANNER CARD WITH LIVE SEARCH
           ========================================================================= */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 lg:pt-10">
-        <div className="relative rounded-[2.5rem] bg-gradient-to-br from-[#3A4D39] via-[#2F3E2E] to-[#1E291D] text-white p-6 sm:p-10 lg:p-14 overflow-hidden shadow-2xl shadow-[#3A4D39]/20">
+        <div className="relative rounded-[2.5rem] bg-gradient-to-br from-[#C2306B] via-[#2F3E2E] to-[#1E291D] text-white p-6 sm:p-10 lg:p-14 overflow-hidden shadow-2xl shadow-[#C2306B]/20">
           {/* Subtle Ambient Background Gradients */}
           <div className="absolute top-0 right-0 w-96 h-96 bg-[#F7B614]/10 rounded-full blur-3xl pointer-events-none -translate-y-20 translate-x-20" />
           <div className="absolute bottom-0 left-0 w-80 h-80 bg-white/5 rounded-full blur-2xl pointer-events-none -translate-x-16 translate-y-16" />
@@ -303,7 +303,7 @@ export default function HelpPage() {
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Search questions, tracking, invoices, refunds..."
-                  className="w-full pl-11 pr-10 py-3.5 sm:py-4 rounded-2xl bg-white text-[#1A2421] placeholder-gray-400 text-xs sm:text-sm font-semibold shadow-xl border border-white/20 focus:outline-none focus:ring-2 focus:ring-[#F7B614] transition-all"
+                  className="w-full pl-11 pr-10 py-3.5 sm:py-4 rounded-2xl bg-white text-[#2B1B2E] placeholder-gray-400 text-xs sm:text-sm font-semibold shadow-xl border border-white/20 focus:outline-none focus:ring-2 focus:ring-[#F7B614] transition-all"
                 />
                 {searchQuery && (
                   <button
@@ -325,14 +325,14 @@ export default function HelpPage() {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
         <div className="mb-6 flex flex-col sm:flex-row sm:items-end justify-between gap-2">
           <div>
-            <span className="text-[10px] font-black uppercase tracking-widest text-[#4F6F52]">
+            <span className="text-[10px] font-black uppercase tracking-widest text-[#8D788D]">
               Instant Channels
             </span>
-            <h2 className="text-xl lg:text-2xl font-[900] text-[#1A2421] tracking-tight">
+            <h2 className="text-xl lg:text-2xl font-[900] text-[#2B1B2E] tracking-tight">
               Connect With Us
             </h2>
           </div>
-          <span className="text-xs text-[#5F6B4A] font-semibold">
+          <span className="text-xs text-[#8D788D] font-semibold">
             Typical resolution within 5 minutes
           </span>
         </div>
@@ -343,11 +343,11 @@ export default function HelpPage() {
             return (
               <div
                 key={card.id}
-                className="group relative bg-white rounded-3xl p-6 border border-[#EAEFE0] shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between"
+                className="group relative bg-white rounded-3xl p-6 border border-[#F1DFE8] shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between"
               >
                 <div>
                   <div className="flex items-center justify-between mb-4">
-                    <div className="w-12 h-12 rounded-2xl bg-[#F5F7F0] group-hover:bg-[#3A4D39] text-[#3A4D39] group-hover:text-white transition-all flex items-center justify-center shadow-inner">
+                    <div className="w-12 h-12 rounded-2xl bg-[#FFF7F3] group-hover:bg-[#C2306B] text-[#C2306B] group-hover:text-white transition-all flex items-center justify-center shadow-inner">
                       <IconComp size={22} />
                     </div>
                     <span
@@ -357,18 +357,18 @@ export default function HelpPage() {
                     </span>
                   </div>
 
-                  <h3 className="text-base font-extrabold text-[#1A2421] group-hover:text-[#3A4D39] transition-colors leading-snug">
+                  <h3 className="text-base font-extrabold text-[#2B1B2E] group-hover:text-[#C2306B] transition-colors leading-snug">
                     {card.title}
                   </h3>
-                  <p className="text-xs font-semibold text-[#4F6F52] mt-0.5">
+                  <p className="text-xs font-semibold text-[#8D788D] mt-0.5">
                     {card.subtitle}
                   </p>
-                  <p className="text-xs font-extrabold text-[#1A2421] mt-2">
+                  <p className="text-xs font-extrabold text-[#2B1B2E] mt-2">
                     {card.detail}
                   </p>
                 </div>
 
-                <div className="pt-4 mt-4 border-t border-[#F2F4ED] flex items-center justify-between">
+                <div className="pt-4 mt-4 border-t border-[#FCEAF1] flex items-center justify-between">
                   <span className="text-[11px] text-gray-400 font-medium">
                     {card.meta}
                   </span>
@@ -378,7 +378,7 @@ export default function HelpPage() {
                       href={card.actionHref}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 text-xs font-black text-[#3A4D39] group-hover:text-[#F7B614] transition-all"
+                      className="inline-flex items-center gap-1 text-xs font-black text-[#C2306B] group-hover:text-[#F7B614] transition-all"
                     >
                       <span>{card.actionText}</span>
                       <ExternalLink size={12} />
@@ -387,7 +387,7 @@ export default function HelpPage() {
                     card.actionHref.startsWith("mailto:") ? (
                     <a
                       href={card.actionHref}
-                      className="inline-flex items-center gap-1 text-xs font-black text-[#3A4D39] group-hover:text-[#F7B614] transition-all"
+                      className="inline-flex items-center gap-1 text-xs font-black text-[#C2306B] group-hover:text-[#F7B614] transition-all"
                     >
                       <span>{card.actionText}</span>
                       <ArrowRight size={13} />
@@ -395,7 +395,7 @@ export default function HelpPage() {
                   ) : (
                     <Link
                       href={card.actionHref}
-                      className="inline-flex items-center gap-1 text-xs font-black text-[#3A4D39] group-hover:text-[#F7B614] transition-all"
+                      className="inline-flex items-center gap-1 text-xs font-black text-[#C2306B] group-hover:text-[#F7B614] transition-all"
                     >
                       <span>{card.actionText}</span>
                       <ArrowRight size={13} />
@@ -417,18 +417,18 @@ export default function HelpPage() {
               LEFT / PRIMARY COLUMN: FAQ ACCORDION CARDS (lg:col-span-7)
               ------------------------------------------------------------- */}
           <div className="lg:col-span-7 space-y-6">
-            <div className="bg-white rounded-3xl p-6 sm:p-8 border border-[#EAEFE0] shadow-sm space-y-6">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-[#F0F4E8]">
+            <div className="bg-white rounded-3xl p-6 sm:p-8 border border-[#F1DFE8] shadow-sm space-y-6">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-[#F1DFE8]">
                 <div>
-                  <span className="text-[10px] font-black uppercase tracking-widest text-[#4F6F52]">
+                  <span className="text-[10px] font-black uppercase tracking-widest text-[#8D788D]">
                     Self-Service Knowledge
                   </span>
-                  <h2 className="text-xl font-[900] text-[#1A2421] tracking-tight">
+                  <h2 className="text-xl font-[900] text-[#2B1B2E] tracking-tight">
                     Frequently Asked Questions
                   </h2>
                 </div>
 
-                <span className="text-xs font-bold text-[#4F6F52] bg-[#F5F7F0] px-3 py-1 rounded-full border border-[#E5EAD7] self-start sm:self-auto">
+                <span className="text-xs font-bold text-[#8D788D] bg-[#FFF7F3] px-3 py-1 rounded-full border border-[#F1DFE8] self-start sm:self-auto">
                   {filteredFaqs.length} answers found
                 </span>
               </div>
@@ -441,10 +441,10 @@ export default function HelpPage() {
                     <button
                       key={cat}
                       onClick={() => setSelectedCategory(cat)}
-                      className={`px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition-all duration-200 ${
+                      className={`px-3.5 py-1.5 text-xs font-bold whitespace-nowrap transition-all duration-300 ${
                         isActive
-                          ? "bg-[#3A4D39] text-white shadow-md shadow-[#3A4D39]/20"
-                          : "bg-[#F8F9F5] text-[#4F6F52] hover:bg-[#EAEFE0]"
+                          ? "btn-primary-pill"
+                          : "btn-secondary-pill text-[#8D788D]"
                       }`}
                     >
                       {cat}
@@ -455,7 +455,7 @@ export default function HelpPage() {
 
               {/* FAQ Cards Accordion */}
               {filteredFaqs.length === 0 ? (
-                <div className="py-12 text-center text-[#5F6B4A]">
+                <div className="py-12 text-center text-[#8D788D]">
                   <HelpCircle size={36} className="mx-auto mb-2 opacity-40" />
                   <p className="text-sm font-bold">No answers match your search</p>
                   <p className="text-xs opacity-75 mt-0.5">
@@ -471,8 +471,8 @@ export default function HelpPage() {
                         key={faq.id}
                         className={`rounded-2xl border transition-all duration-200 overflow-hidden ${
                           isOpen
-                            ? "bg-[#F8F9F5] border-[#D2DAC2] shadow-sm"
-                            : "bg-white border-[#EAEFE0] hover:border-[#D2DAC2]"
+                            ? "bg-[#FFF7F3] border-[#F1DFE8] shadow-sm"
+                            : "bg-white border-[#F1DFE8] hover:border-[#F1DFE8]"
                         }`}
                       >
                         <button
@@ -482,10 +482,10 @@ export default function HelpPage() {
                           <div className="flex items-center gap-3 min-w-0">
                             <span
                               className={`w-2 h-2 rounded-full shrink-0 ${
-                                isOpen ? "bg-[#F7B614]" : "bg-[#D2DAC2]"
+                                isOpen ? "bg-[#F7B614]" : "bg-[#F1DFE8]"
                               }`}
                             />
-                            <span className="text-xs sm:text-sm font-extrabold text-[#1A2421] leading-snug">
+                            <span className="text-xs sm:text-sm font-extrabold text-[#2B1B2E] leading-snug">
                               {faq.question}
                             </span>
                           </div>
@@ -493,8 +493,8 @@ export default function HelpPage() {
                           <div
                             className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 transition-transform duration-300 ${
                               isOpen
-                                ? "bg-[#3A4D39] text-white rotate-180"
-                                : "bg-[#F5F7F0] text-[#3A4D39]"
+                                ? "bg-[#C2306B] text-white rotate-180"
+                                : "bg-[#FFF7F3] text-[#C2306B]"
                             }`}
                           >
                             <ChevronDown size={15} />
@@ -502,8 +502,8 @@ export default function HelpPage() {
                         </button>
 
                         {isOpen && (
-                          <div className="px-5 pb-5 pt-1 text-xs sm:text-sm text-[#5F6B4A] leading-relaxed border-t border-[#EAEFE0]/60">
-                            <p className="pl-4 border-l-2 border-[#3A4D39] py-0.5">
+                          <div className="px-5 pb-5 pt-1 text-xs sm:text-sm text-[#8D788D] leading-relaxed border-t border-[#F1DFE8]/60">
+                            <p className="pl-4 border-l-2 border-[#C2306B] py-0.5">
                               {faq.answer}
                             </p>
                           </div>
@@ -517,38 +517,38 @@ export default function HelpPage() {
 
             {/* Sparky Protection & Safety Commitment Cards Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              <div className="bg-white rounded-3xl p-5 border border-[#EAEFE0] shadow-sm space-y-2">
-                <div className="w-10 h-10 rounded-xl bg-[#F2F4ED] text-[#3A4D39] flex items-center justify-center">
+              <div className="bg-white rounded-3xl p-5 border border-[#F1DFE8] shadow-sm space-y-2">
+                <div className="w-10 h-10 rounded-xl bg-[#FCEAF1] text-[#C2306B] flex items-center justify-center">
                   <ShieldCheck size={20} />
                 </div>
-                <h4 className="text-xs font-black uppercase tracking-wider text-[#1A2421]">
+                <h4 className="text-xs font-black uppercase tracking-wider text-[#2B1B2E]">
                   100% Rework Guarantee
                 </h4>
-                <p className="text-[11px] text-[#5F6B4A] leading-relaxed">
+                <p className="text-[11px] text-[#8D788D] leading-relaxed">
                   Complimentary rework or immediate refund if you are not fully satisfied.
                 </p>
               </div>
 
-              <div className="bg-white rounded-3xl p-5 border border-[#EAEFE0] shadow-sm space-y-2">
-                <div className="w-10 h-10 rounded-xl bg-[#F2F4ED] text-[#3A4D39] flex items-center justify-center">
+              <div className="bg-white rounded-3xl p-5 border border-[#F1DFE8] shadow-sm space-y-2">
+                <div className="w-10 h-10 rounded-xl bg-[#FCEAF1] text-[#C2306B] flex items-center justify-center">
                   <CheckCircle2 size={20} />
                 </div>
-                <h4 className="text-xs font-black uppercase tracking-wider text-[#1A2421]">
+                <h4 className="text-xs font-black uppercase tracking-wider text-[#2B1B2E]">
                   Police Verified
                 </h4>
-                <p className="text-[11px] text-[#5F6B4A] leading-relaxed">
+                <p className="text-[11px] text-[#8D788D] leading-relaxed">
                   All salon and technical partners carry 7-point background clearance.
                 </p>
               </div>
 
-              <div className="bg-white rounded-3xl p-5 border border-[#EAEFE0] shadow-sm space-y-2">
-                <div className="w-10 h-10 rounded-xl bg-[#F2F4ED] text-[#3A4D39] flex items-center justify-center">
+              <div className="bg-white rounded-3xl p-5 border border-[#F1DFE8] shadow-sm space-y-2">
+                <div className="w-10 h-10 rounded-xl bg-[#FCEAF1] text-[#C2306B] flex items-center justify-center">
                   <Zap size={20} />
                 </div>
-                <h4 className="text-xs font-black uppercase tracking-wider text-[#1A2421]">
+                <h4 className="text-xs font-black uppercase tracking-wider text-[#2B1B2E]">
                   Instant SOS Desk
                 </h4>
-                <p className="text-[11px] text-[#5F6B4A] leading-relaxed">
+                <p className="text-[11px] text-[#8D788D] leading-relaxed">
                   Single-tap live service timer pause and priority safety desk escalation.
                 </p>
               </div>
@@ -559,16 +559,16 @@ export default function HelpPage() {
               RIGHT COLUMN: DISPATCH TICKET FORM CARD (lg:col-span-5)
               ------------------------------------------------------------- */}
           <div className="lg:col-span-5 space-y-6 lg:sticky lg:top-24">
-            <div className="bg-white rounded-3xl p-6 sm:p-8 border border-[#EAEFE0] shadow-md space-y-6">
-              <div className="flex items-center gap-3 pb-4 border-b border-[#F0F4E8]">
-                <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-[#3A4D39] to-[#2F3A1F] text-white flex items-center justify-center shadow-md shadow-[#3A4D39]/20">
+            <div className="bg-white rounded-3xl p-6 sm:p-8 border border-[#F1DFE8] shadow-md space-y-6">
+              <div className="flex items-center gap-3 pb-4 border-b border-[#F1DFE8]">
+                <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-[#C2306B] to-[#A82058] text-white flex items-center justify-center shadow-md shadow-[#C2306B]/20">
                   <MessageSquare size={20} />
                 </div>
                 <div>
-                  <h3 className="text-base font-[900] text-[#1A2421] tracking-tight">
+                  <h3 className="text-base font-[900] text-[#2B1B2E] tracking-tight">
                     Send Direct Message
                   </h3>
-                  <p className="text-xs text-[#5F6B4A]">
+                  <p className="text-xs text-[#8D788D]">
                     Concierge ticket with guaranteed 15-min SLA
                   </p>
                 </div>
@@ -576,20 +576,20 @@ export default function HelpPage() {
 
               {submitted ? (
                 <div className="py-10 text-center space-y-4">
-                  <div className="w-16 h-16 rounded-full bg-[#F2F4ED] text-[#3A4D39] flex items-center justify-center mx-auto shadow-inner">
+                  <div className="w-16 h-16 rounded-full bg-[#FCEAF1] text-[#C2306B] flex items-center justify-center mx-auto shadow-inner">
                     <CheckCircle2 size={32} />
                   </div>
                   <div>
-                    <h4 className="text-lg font-[900] text-[#1A2421]">
+                    <h4 className="text-lg font-[900] text-[#2B1B2E]">
                       Ticket Logged Successfully!
                     </h4>
-                    <p className="text-xs text-[#5F6B4A] mt-1 max-w-xs mx-auto leading-relaxed">
+                    <p className="text-xs text-[#8D788D] mt-1 max-w-xs mx-auto leading-relaxed">
                       A senior concierge manager is reviewing your case and will message or call you shortly.
                     </p>
                   </div>
                   <button
                     onClick={() => setSubmitted(false)}
-                    className="px-6 py-2.5 rounded-full bg-[#3A4D39] text-white text-xs font-bold uppercase tracking-wider shadow-md hover:shadow-lg transition-all active:scale-95"
+                    className="btn-primary-pill px-6 py-2.5 text-xs font-bold uppercase tracking-wider"
                   >
                     Submit Another Query
                   </button>
@@ -598,7 +598,7 @@ export default function HelpPage() {
                 <form onSubmit={handleSubmit} className="space-y-4">
                   {/* Issue Category Chips */}
                   <div>
-                    <label className="block text-[11px] font-black uppercase tracking-wider text-[#4F6F52] mb-2">
+                    <label className="block text-[11px] font-black uppercase tracking-wider text-[#8D788D] mb-2">
                       Select Topic
                     </label>
                     <div className="flex flex-wrap gap-1.5">
@@ -609,10 +609,10 @@ export default function HelpPage() {
                             type="button"
                             key={tag}
                             onClick={() => setSelectedIssue(tag)}
-                            className={`px-3 py-1.5 rounded-xl text-[11px] font-bold transition-all ${
+                            className={`px-3 py-1.5 text-[11px] font-bold transition-all ${
                               isSelected
-                                ? "bg-[#3A4D39] text-white shadow-sm"
-                                : "bg-[#F8F9F5] text-[#4F6F52] hover:bg-[#EAEFE0]"
+                                ? "btn-primary rounded-xl"
+                                : "bg-[#FFF7F3] text-[#8D788D] hover:bg-[#F1DFE8] rounded-xl"
                             }`}
                           >
                             {tag}
@@ -625,7 +625,7 @@ export default function HelpPage() {
                   {/* Name Inputs */}
                   <div className="grid grid-cols-2 gap-3 pt-2">
                     <div>
-                      <label className="block text-[10px] font-bold uppercase text-[#5F6B4A] mb-1">
+                      <label className="block text-[10px] font-bold uppercase text-[#8D788D] mb-1">
                         First Name
                       </label>
                       <input
@@ -636,11 +636,11 @@ export default function HelpPage() {
                           setForm({ ...form, firstName: e.target.value })
                         }
                         placeholder="John"
-                        className="w-full px-3.5 py-2.5 rounded-xl bg-[#F8F9F5] border border-[#E0E6D4] text-xs font-semibold text-[#1A2421] placeholder-gray-400 focus:outline-none focus:border-[#3A4D39] focus:bg-white transition"
+                        className="w-full px-3.5 py-2.5 rounded-xl bg-[#FFF7F3] border border-[#F1DFE8] text-xs font-semibold text-[#2B1B2E] placeholder-gray-400 focus:outline-none focus:border-[#C2306B] focus:bg-white transition"
                       />
                     </div>
                     <div>
-                      <label className="block text-[10px] font-bold uppercase text-[#5F6B4A] mb-1">
+                      <label className="block text-[10px] font-bold uppercase text-[#8D788D] mb-1">
                         Last Name
                       </label>
                       <input
@@ -651,7 +651,7 @@ export default function HelpPage() {
                           setForm({ ...form, lastName: e.target.value })
                         }
                         placeholder="Doe"
-                        className="w-full px-3.5 py-2.5 rounded-xl bg-[#F8F9F5] border border-[#E0E6D4] text-xs font-semibold text-[#1A2421] placeholder-gray-400 focus:outline-none focus:border-[#3A4D39] focus:bg-white transition"
+                        className="w-full px-3.5 py-2.5 rounded-xl bg-[#FFF7F3] border border-[#F1DFE8] text-xs font-semibold text-[#2B1B2E] placeholder-gray-400 focus:outline-none focus:border-[#C2306B] focus:bg-white transition"
                       />
                     </div>
                   </div>
@@ -659,7 +659,7 @@ export default function HelpPage() {
                   {/* Contact Fields */}
                   <div className="grid grid-cols-2 gap-3">
                     <div>
-                      <label className="block text-[10px] font-bold uppercase text-[#5F6B4A] mb-1">
+                      <label className="block text-[10px] font-bold uppercase text-[#8D788D] mb-1">
                         Phone Number
                       </label>
                       <input
@@ -670,11 +670,11 @@ export default function HelpPage() {
                           setForm({ ...form, phone: e.target.value })
                         }
                         placeholder="+91 98765 43210"
-                        className="w-full px-3.5 py-2.5 rounded-xl bg-[#F8F9F5] border border-[#E0E6D4] text-xs font-semibold text-[#1A2421] placeholder-gray-400 focus:outline-none focus:border-[#3A4D39] focus:bg-white transition"
+                        className="w-full px-3.5 py-2.5 rounded-xl bg-[#FFF7F3] border border-[#F1DFE8] text-xs font-semibold text-[#2B1B2E] placeholder-gray-400 focus:outline-none focus:border-[#C2306B] focus:bg-white transition"
                       />
                     </div>
                     <div>
-                      <label className="block text-[10px] font-bold uppercase text-[#5F6B4A] mb-1">
+                      <label className="block text-[10px] font-bold uppercase text-[#8D788D] mb-1">
                         Booking ID (Optional)
                       </label>
                       <input
@@ -684,13 +684,13 @@ export default function HelpPage() {
                           setForm({ ...form, bookingId: e.target.value })
                         }
                         placeholder="e.g. ORD-99283"
-                        className="w-full px-3.5 py-2.5 rounded-xl bg-[#F8F9F5] border border-[#E0E6D4] text-xs font-semibold text-[#1A2421] placeholder-gray-400 focus:outline-none focus:border-[#3A4D39] focus:bg-white transition"
+                        className="w-full px-3.5 py-2.5 rounded-xl bg-[#FFF7F3] border border-[#F1DFE8] text-xs font-semibold text-[#2B1B2E] placeholder-gray-400 focus:outline-none focus:border-[#C2306B] focus:bg-white transition"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-[10px] font-bold uppercase text-[#5F6B4A] mb-1">
+                    <label className="block text-[10px] font-bold uppercase text-[#8D788D] mb-1">
                       Email Address
                     </label>
                     <input
@@ -701,12 +701,12 @@ export default function HelpPage() {
                         setForm({ ...form, email: e.target.value })
                       }
                       placeholder="name@example.com"
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-[#F8F9F5] border border-[#E0E6D4] text-xs font-semibold text-[#1A2421] placeholder-gray-400 focus:outline-none focus:border-[#3A4D39] focus:bg-white transition"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-[#FFF7F3] border border-[#F1DFE8] text-xs font-semibold text-[#2B1B2E] placeholder-gray-400 focus:outline-none focus:border-[#C2306B] focus:bg-white transition"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-[10px] font-bold uppercase text-[#5F6B4A] mb-1">
+                    <label className="block text-[10px] font-bold uppercase text-[#8D788D] mb-1">
                       How Can We Help?
                     </label>
                     <textarea
@@ -717,21 +717,21 @@ export default function HelpPage() {
                         setForm({ ...form, message: e.target.value })
                       }
                       placeholder="Please describe your query or problem in detail..."
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-[#F8F9F5] border border-[#E0E6D4] text-xs font-semibold text-[#1A2421] placeholder-gray-400 focus:outline-none focus:border-[#3A4D39] focus:bg-white transition resize-none"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-[#FFF7F3] border border-[#F1DFE8] text-xs font-semibold text-[#2B1B2E] placeholder-gray-400 focus:outline-none focus:border-[#C2306B] focus:bg-white transition resize-none"
                     />
                   </div>
 
                   <button
                     disabled={loading}
                     type="submit"
-                    className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-[#3A4D39] to-[#2F3A1F] text-white text-xs font-black uppercase tracking-widest shadow-lg shadow-[#3A4D39]/25 hover:shadow-xl active:scale-[0.98] transition-all flex items-center justify-center gap-2 disabled:opacity-70"
+                    className="btn-primary w-full py-3.5 rounded-2xl text-xs font-black uppercase tracking-widest flex items-center justify-center gap-2 disabled:opacity-70"
                   >
                     {loading ? (
                       <span>Dispatching...</span>
                     ) : (
                       <>
                         <span>Dispatch Ticket</span>
-                        <Send size={14} className="text-[#F7B614]" />
+                        <Send size={14} className="text-white/80" />
                       </>
                     )}
                   </button>
@@ -740,14 +740,14 @@ export default function HelpPage() {
             </div>
 
             {/* Operating Hours Card */}
-            <div className="bg-[#F5F7F0] rounded-3xl p-5 border border-[#E0E6D4] space-y-2">
-              <div className="flex items-center gap-2 text-[#3A4D39]">
+            <div className="bg-[#FFF7F3] rounded-3xl p-5 border border-[#F1DFE8] space-y-2">
+              <div className="flex items-center gap-2 text-[#C2306B]">
                 <Clock size={16} />
                 <span className="text-xs font-black uppercase tracking-wider">
                   Desk Operating Hours
                 </span>
               </div>
-              <p className="text-[11px] text-[#4F6F52] leading-relaxed">
+              <p className="text-[11px] text-[#8D788D] leading-relaxed">
                 Mon - Sun: 7:00 AM - 11:00 PM IST. <br />
                 Emergency Escalations and Active Timer Holds are monitored 24/7.
               </p>

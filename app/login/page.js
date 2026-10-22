@@ -28,8 +28,8 @@ export default function Login() {
   const router = useRouter();
 
   // Theme Colors
-  const SAGA_GREEN = "#3A4D39";
-  const SAGA_MAROON = "#a61d33";
+  const SAGA_GREEN = "#C2306B";
+  const SAGA_MAROON = "#C2306B";
 
   /* ---------------- Timer Logic ---------------- */
   useEffect(() => {
@@ -151,7 +151,7 @@ shadow-[0_25px_70px_rgba(0,0,0,0.06)]
 <div className="text-center mb-8">
 <h1 className="text-lg font-semibold tracking-wide text-neutral-800">
 Welcome to
-<span className="ml-2 font-bold bg-gradient-to-r from-[#a61d33] to-[#ff7a59] bg-clip-text text-transparent">
+<span className="ml-2 font-bold bg-gradient-to-r from-[#C2306B] to-[#ff7a59] bg-clip-text text-transparent">
 SPARKY
 </span>
 </h1>
@@ -204,16 +204,7 @@ outline-none transition
 <button
 onClick={()=>sendOtp("whatsapp")}
 disabled={loading || phone.length!==10}
-className={`w-full py-4 rounded-xl text-[11px]
-uppercase tracking-[0.2em]
-font-semibold text-white
-flex items-center justify-center gap-2
-transition-all duration-300
-${
-phone.length===10
-? "bg-gradient-to-br from-[#1A2F25] to-[#0d1511] shadow-lg hover:shadow-2xl active:translate-y-[2px]"
-: "bg-neutral-200 text-neutral-400 cursor-not-allowed"
-}`}
+className={`btn-primary w-full py-4 rounded-xl text-[11px] uppercase tracking-[0.2em] font-semibold flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed`}
 >
 {loading ? "Sending OTP..." :
 <>
@@ -269,16 +260,7 @@ className="absolute right-4 top-1/2 -translate-y-1/2 text-neutral-300"/>
 <button
 onClick={()=>sendOtp("email")}
 disabled={loading}
-className="
-w-full py-4 rounded-xl
-text-[11px]
-uppercase tracking-[0.2em]
-font-semibold text-white
-bg-gradient-to-br from-[#3A4D39] to-[#1b2520]
-shadow-lg hover:shadow-2xl
-active:translate-y-[2px]
-transition-all
-"
+className="btn-primary w-full py-4 rounded-xl text-[11px] uppercase tracking-[0.2em] font-semibold disabled:opacity-50"
 >
 {loading ? "Sending..." : "Request Email Link"}
 </button>
@@ -330,16 +312,7 @@ className="absolute -top-2 left-1/2 -translate-x-1/2 bg-white px-1 text-neutral-
 <button
 onClick={verifyOtp}
 disabled={loading}
-className="
-w-full py-4 rounded-xl
-text-[11px]
-uppercase tracking-[0.2em]
-font-semibold text-white
-bg-gradient-to-r from-[#a61d33] to-[#ff7a59]
-shadow-lg hover:shadow-2xl
-active:translate-y-[2px]
-transition-all
-"
+className="btn-primary w-full py-4 rounded-xl text-[11px] uppercase tracking-[0.2em] font-semibold disabled:opacity-50"
 >
 {loading ? "Verifying..." : "Confirm OTP"}
 </button>
@@ -360,7 +333,7 @@ className="text-[10px] uppercase tracking-widest text-neutral-500 flex items-cen
     setStep("email");
     setMessage("");
   }}
-  className="text-[10px] uppercase tracking-widest text-[#a61d33] flex items-center gap-2"
+  className="text-[10px] uppercase tracking-widest text-[#C2306B] flex items-center gap-2"
 >
   <Mail size={12}/> Try Email
 </button>

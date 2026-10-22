@@ -169,7 +169,7 @@ useEffect(() => {
             className="fixed inset-0 z-[100] bg-white flex flex-col"
           >
             <div className="absolute top-0 left-0 right-0 z-10 p-4 flex justify-between items-start">
-              <button onClick={() => setShowMap(false)} className="bg-white p-3 rounded-full shadow-lg border">
+              <button onClick={() => setShowMap(false)} className="btn-icon w-12 h-12 shadow-lg">
                 <X size={24} />
               </button>
             </div>
@@ -265,10 +265,10 @@ useEffect(() => {
   }
 }}
 
-                className={`px-8 py-4 rounded-full font-bold uppercase tracking-widest text-sm flex items-center gap-3 transition-all ${
+                className={`px-8 py-3.5 font-bold uppercase tracking-widest text-sm flex items-center gap-3 ${
                   outOfBounds || !pendingLocation
-                    ? "bg-gray-800 text-gray-500 opacity-50 cursor-not-allowed"
-                    : "bg-blue-600 text-white shadow-2xl shadow-blue-600/30 active:scale-95"
+                    ? "bg-gray-800 text-gray-500 opacity-50 cursor-not-allowed rounded-full"
+                    : "btn-primary-pill"
                 }`}
               >
                 <CheckCircle2 size={20} /> Confirm Location
@@ -284,73 +284,73 @@ useEffect(() => {
         }}
         className={`
           hidden lg:block fixed top-0 left-0 right-0 z-50
-          bg-white/95 backdrop-blur-xl border-b border-[#EAEFE0]
+          bg-white/95 backdrop-blur-xl border-b border-[#F1DFE8]
           transition-transform duration-300 ease-out
-          ${scrolled ? "shadow-[0_12px_32px_rgba(58,77,57,0.08)]" : "shadow-[0_4px_20px_rgba(58,77,57,0.04)]"}
+          ${scrolled ? "shadow-[0_12px_32px_rgba(105,43,79,0.08)]" : "shadow-[0_4px_20px_rgba(105,43,79,0.04)]"}
         `}
       >
         <div className="max-w-7xl mx-auto px-8 h-18 flex items-center justify-between gap-6">
           {/* Left: Brand Logo & Location Selector */}
           <div className="flex items-center gap-6">
             <Link href="/" className="flex items-center gap-2">
-              <span className="text-2xl font-[950] tracking-tight text-[#1A2421] italic">
-                SPARKY<span className="text-[#8A9A5B]">.</span>
+              <span className="text-2xl font-[950] tracking-tight text-[#2B1B2E] italic">
+                SPARKY<span className="text-[#C2306B]">.</span>
               </span>
             </Link>
 
             {/* Location Selector (PRESERVING EXACT MAP CALL) */}
             <button
               onClick={() => setShowMap(true)}
-              className="flex items-center gap-2.5 px-4 py-2 rounded-full bg-[#F5F7F0] hover:bg-[#EAEFE0] border border-[#E0E6D4] text-[#1A2421] transition active:scale-95 text-left"
+              className="btn-secondary-pill flex items-center gap-2.5 px-4 py-2 text-left"
             >
-              <div className="w-6 h-6 rounded-full bg-[#3A4D39] text-white flex items-center justify-center shadow-xs">
+              <div className="w-6 h-6 rounded-full bg-[#FCEAF1] text-[#C2306B] flex items-center justify-center shadow-xs">
                 <MapPin size={13} />
               </div>
               <div className="flex flex-col leading-tight">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-[#4F6F52]">Current Location</span>
-                <span className="text-xs font-black truncate max-w-[180px]">{address}</span>
+                <span className="text-[10px] font-bold uppercase tracking-wider text-[#8D788D]">Current Location</span>
+                <span className="text-xs font-black truncate max-w-[180px] text-[#2B1B2E]">{address}</span>
               </div>
             </button>
           </div>
 
           {/* Center: Navigation Links */}
-          <div className="flex items-center gap-1 bg-[#F8F9F5] p-1.5 rounded-full border border-[#EAEFE0]">
+          <div className="flex items-center gap-1 bg-[#FFF7F3] p-1.5 rounded-full border border-[#F1DFE8]">
             <Link
               href="/"
-              className={`px-5 py-2 rounded-full text-xs font-bold transition-all ${
+              className={`px-5 py-2 text-xs font-bold ${
                 isActive("/")
-                  ? "bg-[#3A4D39] text-white shadow-sm"
-                  : "text-[#4F6F52] hover:text-[#1A2421] hover:bg-white/60"
+                  ? "btn-primary-pill text-white"
+                  : "text-[#2B1B2E]/75 hover:text-[#C2306B] hover:bg-white/80 rounded-full transition-all duration-200"
               }`}
             >
               Home
             </Link>
             <Link
               href="/beauty"
-              className={`px-5 py-2 rounded-full text-xs font-bold transition-all ${
+              className={`px-5 py-2 text-xs font-bold ${
                 isActive("/beauty") || pathname.startsWith("/services")
-                  ? "bg-[#3A4D39] text-white shadow-sm"
-                  : "text-[#4F6F52] hover:text-[#1A2421] hover:bg-white/60"
+                  ? "btn-primary-pill text-white"
+                  : "text-[#2B1B2E]/75 hover:text-[#C2306B] hover:bg-white/80 rounded-full transition-all duration-200"
               }`}
             >
               Services
             </Link>
             <Link
               href="/bookings"
-              className={`px-5 py-2 rounded-full text-xs font-bold transition-all ${
+              className={`px-5 py-2 text-xs font-bold ${
                 isActive("/bookings")
-                  ? "bg-[#3A4D39] text-white shadow-sm"
-                  : "text-[#4F6F52] hover:text-[#1A2421] hover:bg-white/60"
+                  ? "btn-primary-pill text-white"
+                  : "text-[#2B1B2E]/75 hover:text-[#C2306B] hover:bg-white/80 rounded-full transition-all duration-200"
               }`}
             >
               My Bookings
             </Link>
             <Link
               href="/contact"
-              className={`px-5 py-2 rounded-full text-xs font-bold transition-all ${
+              className={`px-5 py-2 text-xs font-bold ${
                 isActive("/contact") || isActive("/help")
-                  ? "bg-[#3A4D39] text-white shadow-sm"
-                  : "text-[#4F6F52] hover:text-[#1A2421] hover:bg-white/60"
+                  ? "btn-primary-pill text-white"
+                  : "text-[#2B1B2E]/75 hover:text-[#C2306B] hover:bg-white/80 rounded-full transition-all duration-200"
               }`}
             >
               Help & Support
@@ -361,22 +361,22 @@ useEffect(() => {
           <div className="flex items-center gap-3">
             <Link
               href="/cart"
-              className="flex items-center gap-2.5 px-4 py-2 rounded-full bg-white hover:bg-[#F5F7F0] border border-[#E0E6D4] text-[#3A4D39] shadow-xs transition active:scale-95"
+              className="btn-secondary-pill flex items-center gap-2.5 px-4 py-2 text-[#2B1B2E]"
             >
               <div className="relative">
-                <IoBagHandleOutline size={18} className="text-[#3A4D39]" />
+                <IoBagHandleOutline size={18} className="text-[#2B1B2E]" />
                 {cartCount > 0 && (
-                  <span className="absolute -top-2 -right-2 bg-[#A61D33] text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-black border border-white">
+                  <span className="absolute -top-2 -right-2 bg-[#C2306B] text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-black border border-white">
                     {cartCount}
                   </span>
                 )}
               </div>
-              <span className="text-xs font-extrabold">Bag</span>
+              <span className="text-xs font-extrabold text-[#2B1B2E]">Bag</span>
             </Link>
 
             <Link
               href={user ? "/user" : "/login"}
-              className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#3A4D39] text-white hover:bg-[#2F3A1F] text-xs font-bold shadow-sm transition active:scale-95"
+              className="btn-primary-pill flex items-center gap-2 px-5 py-2 text-xs"
             >
               <User size={14} />
               <span>{user ? (user.name || "My Account") : "Login"}</span>
@@ -404,7 +404,7 @@ useEffect(() => {
             />
 
             <motion.div
-              className="fixed top-0 left-0 h-full w-[80%] max-w-[320px] bg-white z-[70] p-8 border-r border-blue-100 shadow-2xl"
+              className="fixed top-0 left-0 h-full w-[80%] max-w-[320px] bg-white z-[70] p-8 border-r border-[#F1DFE8] shadow-2xl"
               initial={{ x: "-100%" }}
               animate={{ x: 0 }}
               exit={{ x: "-100%" }}
@@ -418,28 +418,28 @@ useEffect(() => {
               </div>
 
               <div className="space-y-6">
-                <p className="text-gray-400 text-xs font-bold uppercase tracking-widest">
+                <p className="text-[#8D788D] text-xs font-bold uppercase tracking-widest">
                   Quick Links
                 </p>
                 {sliderItems.map((item) => (
                   <Link
-                    key={item}
+                    key={item.name}
                     href={item.href}
                     onClick={() => setMenuOpen(false)}
-                    className="flex justify-between items-center text-gray-700 font-medium hover:text-blue-600"
+                    className="flex justify-between items-center text-[#2B1B2E] font-medium hover:text-[#C2306B]"
                   >
                     {item.name}
-                    <span className="text-gray-400">→</span>
+                    <span className="text-[#8D788D]">→</span>
                   </Link>
                 ))}
               </div>
 
-              <div className="absolute bottom-10 left-8 right-8 p-4 bg-blue-50 rounded-2xl border border-blue-100">
-                <div className="flex items-center gap-2 text-blue-600 mb-2">
+              <div className="absolute bottom-10 left-8 right-8 p-4 bg-[#FCEAF1] rounded-2xl border border-[#F1DFE8]">
+                <div className="flex items-center gap-2 text-[#C2306B] mb-2">
                   <BsShieldCheck />
                   <span className="text-xs font-bold">Verified Professionals</span>
                 </div>
-                <p className="text-[10px] text-gray-500">
+                <p className="text-[10px] text-[#8D788D]">
                   All partners are background verified.
                 </p>
               </div>
@@ -467,7 +467,7 @@ function NavItem({ label, icon, active = false, onClick }) {
           transition-all duration-200
           ${
             active
-              ? "bg-gradient-to-br from-[#8a9a5b] to-[#6f7f46] text-white shadow-[0_6px_14px_rgba(0,0,0,0.25),inset_0_1px_0_rgba(255,255,255,0.25)]"
+              ? "bg-gradient-to-br from-[#C2306B] to-[#A82058] text-white shadow-[0_6px_14px_rgba(194,48,107,0.25),inset_0_1px_0_rgba(255,255,255,0.25)]"
               : "text-gray-500"
           }
         `}
@@ -481,7 +481,7 @@ function NavItem({ label, icon, active = false, onClick }) {
           mt-1 text-[10px] leading-none tracking-wide
           ${
             active
-              ? "text-[#8a9a5b] font-semibold"
+              ? "text-[#C2306B] font-semibold"
               : "text-gray-500 font-medium"
           }
         `}

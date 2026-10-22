@@ -35,10 +35,10 @@ export default function CleaningPage() {
   const MIN_CART_VALUE = 299;
 
   // Theme Colors
-  const SAGA_GREEN = "#3A4D39";
-  const SAGA_SOFT = "#f2f4ed";
+  const SAGA_GREEN = "#C2306B";
+  const SAGA_SOFT = "#FCEAF1";
   const SAGA_ACCENT = "#f7b614";
-  const SAGA_MAROON = "#a61d33";
+  const SAGA_MAROON = "#C2306B";
 
   const CATEGORY_LIST = [
     "ALL",
@@ -128,31 +128,31 @@ export default function CleaningPage() {
   if (loading) return <CleaningSkeleton />;
 
   return (
-    <div className="min-h-screen bg-[#F8F9F5] text-[#1A2421] font-sans antialiased pb-28 lg:pb-16 selection:bg-[#E5EAD7]">
+    <div className="min-h-screen bg-[#FFF7F3] text-[#2B1B2E] font-sans antialiased pb-28 lg:pb-16 selection:bg-[#F1DFE8]">
       {/* =========================================================================
           1. PROFESSIONAL LANDSCAPE / RESPONSIVE STICKY HEADER
           ========================================================================= */}
-      <header className="sticky top-0 z-40 bg-white/90 backdrop-blur-xl border-b border-[#EAEFE0] shadow-[0_4px_20px_rgba(58,77,57,0.04)]">
+      <header className="sticky top-0 z-40 bg-white/90 backdrop-blur-xl border-b border-[#F1DFE8] shadow-[0_4px_20px_rgba(58,77,57,0.04)]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex items-center justify-between gap-4">
           {/* Left: Back button + Title / Breadcrumb */}
           <div className="flex items-center gap-3.5">
             <button
               onClick={() => router.back()}
-              className="p-2.5 rounded-full bg-[#F5F7F0] hover:bg-[#EAEFE0] text-[#3A4D39] border border-[#E5EAD7] shadow-sm hover:shadow transition-all active:scale-95"
+              className="btn-icon w-10 h-10 text-[#C2306B]"
               aria-label="Go Back"
             >
               <ChevronLeft size={20} />
             </button>
 
             <div>
-              <div className="hidden sm:flex items-center gap-1.5 text-[11px] font-bold tracking-wider uppercase text-[#4F6F52] opacity-80">
+              <div className="hidden sm:flex items-center gap-1.5 text-[11px] font-bold tracking-wider uppercase text-[#8D788D] opacity-80">
                 <span>Sparky Services</span>
                 <span>/</span>
-                <span className="text-[#3A4D39] font-extrabold">Rituals</span>
+                <span className="text-[#C2306B] font-extrabold">Rituals</span>
               </div>
-              <h1 className="text-lg lg:text-2xl font-[900] tracking-tight text-[#1A2421] flex items-center gap-2">
+              <h1 className="text-lg lg:text-2xl font-[900] tracking-tight text-[#2B1B2E] flex items-center gap-2">
                 <span>{selectedCategory === "ALL" ? "All Services" : `${selectedCategory}`}</span>
-                <span className="text-xs font-semibold text-[#4F6F52] bg-[#EAEFE0] px-2.5 py-0.5 rounded-full">
+                <span className="text-xs font-semibold text-[#8D788D] bg-[#F1DFE8] px-2.5 py-0.5 rounded-full">
                   {filteredServices.length} available
                 </span>
               </h1>
@@ -164,20 +164,20 @@ export default function CleaningPage() {
             {/* Desktop Quick Cart Badge Button */}
             <button
               onClick={() => setCartOpen(true)}
-              className="relative flex items-center gap-2.5 px-4 py-2 rounded-full bg-gradient-to-r from-white to-[#F5F7F0] border border-[#E0E6D4] text-[#3A4D39] hover:border-[#3A4D39]/30 shadow-sm hover:shadow-md transition-all active:scale-95"
+              className="btn-secondary-pill px-4 py-2 flex items-center gap-2.5"
             >
               <div className="relative">
                 <ShoppingCart size={19} color={SAGA_GREEN} />
                 {cart.length > 0 && (
-                  <span className="absolute -top-2 -right-2 bg-[#A61D33] text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-extrabold border-2 border-white shadow-sm">
+                  <span className="absolute -top-2 -right-2 bg-[#C2306B] text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-extrabold border-2 border-white shadow-sm">
                     {cart.length}
                   </span>
                 )}
               </div>
 
               <div className="hidden sm:flex flex-col text-left leading-none">
-                <span className="text-[10px] text-[#4F6F52] font-semibold">Your Bag</span>
-                <span className="text-xs font-black text-[#1A2421]">
+                <span className="text-[10px] text-[#8D788D] font-semibold">Your Bag</span>
+                <span className="text-xs font-black text-[#2B1B2E]">
                   ₹{cartTotal}
                 </span>
               </div>
@@ -193,10 +193,10 @@ export default function CleaningPage() {
               <button
                 key={cat}
                 onClick={() => setSelectedCategory(cat)}
-                className={`px-3.5 py-1.5 rounded-full text-[11px] font-semibold whitespace-nowrap transition-all duration-200 ${
+                className={`px-3.5 py-1.5 text-[11px] font-bold whitespace-nowrap transition-all duration-300 ${
                   isActive
-                    ? "bg-[#3A4D39] text-white shadow-md shadow-[#3A4D39]/20 border border-[#3A4D39]"
-                    : "bg-white text-[#4F6F52] border border-[#E0E6D4] hover:bg-[#F5F7F0]"
+                    ? "btn-primary-pill text-white shadow-md shadow-[#C2306B]/20"
+                    : "btn-secondary-pill text-[#8D788D]"
                 }`}
               >
                 {cat}
@@ -216,10 +216,10 @@ export default function CleaningPage() {
               ------------------------------------------------------------- */}
           <aside className="hidden lg:block lg:col-span-3 xl:col-span-3 sticky top-24 space-y-6">
             {/* Category Navigator Card */}
-            <div className="bg-white rounded-3xl p-5 border border-[#EAEFE0] shadow-sm">
-              <div className="flex items-center gap-2 mb-4 pb-3 border-b border-[#F0F4E8]">
-                <Filter size={16} className="text-[#3A4D39]" />
-                <h3 className="text-xs font-black uppercase tracking-wider text-[#3A4D39]">
+            <div className="bg-white rounded-3xl p-5 border border-[#F1DFE8] shadow-sm">
+              <div className="flex items-center gap-2 mb-4 pb-3 border-b border-[#F1DFE8]">
+                <Filter size={16} className="text-[#C2306B]" />
+                <h3 className="text-xs font-black uppercase tracking-wider text-[#C2306B]">
                   Filter Rituals
                 </h3>
               </div>
@@ -231,16 +231,16 @@ export default function CleaningPage() {
                     <button
                       key={cat}
                       onClick={() => setSelectedCategory(cat)}
-                      className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-2xl text-xs font-bold transition-all duration-200 text-left ${
+                      className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-2xl text-xs font-bold transition-all duration-300 text-left ${
                         isActive
-                          ? "bg-gradient-to-r from-[#3A4D39] to-[#2F3A1F] text-white shadow-md shadow-[#3A4D39]/20"
-                          : "text-[#4F6F52] hover:bg-[#F5F7F0] hover:text-[#1A2421]"
+                          ? "btn-primary text-white shadow-md shadow-[#C2306B]/20"
+                          : "text-[#8D788D] hover:bg-[#FFF7F3] hover:text-[#2B1B2E]"
                       }`}
                     >
                       <div className="flex items-center gap-2.5">
                         <span
                           className={`w-2 h-2 rounded-full transition-all ${
-                            isActive ? "bg-[#F7B614] scale-125" : "bg-[#D2DAC2]"
+                            isActive ? "bg-white scale-125" : "bg-[#F1DFE8]"
                           }`}
                         />
                         <span>{cat}</span>
@@ -254,24 +254,24 @@ export default function CleaningPage() {
             </div>
 
             {/* Sparky Trust & Quality Assurance Badge */}
-            <div className="bg-gradient-to-br from-[#F5F7F0] to-[#EAEFE0] rounded-3xl p-5 border border-[#E0E6D4] space-y-3">
+            <div className="bg-gradient-to-br from-[#FFF7F3] to-[#F1DFE8] rounded-3xl p-5 border border-[#F1DFE8] space-y-3">
               <div className="flex items-center gap-2">
-                <ShieldCheck size={18} className="text-[#3A4D39]" />
-                <span className="text-xs font-black uppercase tracking-wider text-[#3A4D39]">
+                <ShieldCheck size={18} className="text-[#C2306B]" />
+                <span className="text-xs font-black uppercase tracking-wider text-[#C2306B]">
                   Sparky Assured
                 </span>
               </div>
-              <ul className="text-[11px] text-[#4F6F52] space-y-2 font-medium">
+              <ul className="text-[11px] text-[#8D788D] space-y-2 font-medium">
                 <li className="flex items-center gap-2">
-                  <CheckCircle2 size={13} className="text-[#3A4D39] shrink-0" />
+                  <CheckCircle2 size={13} className="text-[#C2306B] shrink-0" />
                   <span>100% Certified Salon Specialists</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <CheckCircle2 size={13} className="text-[#3A4D39] shrink-0" />
+                  <CheckCircle2 size={13} className="text-[#C2306B] shrink-0" />
                   <span>Hygienic Single-Use Sealed Kits</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <CheckCircle2 size={13} className="text-[#3A4D39] shrink-0" />
+                  <CheckCircle2 size={13} className="text-[#C2306B] shrink-0" />
                   <span>Transparent Upfront Pricing</span>
                 </li>
               </ul>
@@ -279,18 +279,18 @@ export default function CleaningPage() {
 
             {/* Desktop Sticky Bag Quick Widget */}
             {cart.length > 0 && (
-              <div className="bg-white rounded-3xl p-5 border border-[#EAEFE0] shadow-md space-y-3">
+              <div className="bg-white rounded-3xl p-5 border border-[#F1DFE8] shadow-md space-y-3">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-black uppercase tracking-wider text-[#1A2421]">
+                  <span className="text-xs font-black uppercase tracking-wider text-[#2B1B2E]">
                     Quick Bag ({cart.length})
                   </span>
-                  <span className="text-sm font-black text-[#3A4D39]">
+                  <span className="text-sm font-black text-[#C2306B]">
                     ₹{cartTotal}
                   </span>
                 </div>
                 <button
                   onClick={() => setCartOpen(true)}
-                  className="w-full py-2.5 rounded-xl bg-gradient-to-r from-[#3A4D39] to-[#2F3A1F] text-white text-xs font-bold uppercase tracking-wider shadow-md hover:shadow-lg transition-all active:scale-95 flex items-center justify-center gap-1.5"
+                  className="btn-primary w-full py-2.5 text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-1.5"
                 >
                   <span>Review Bag</span>
                   <ChevronRight size={14} />
@@ -304,26 +304,26 @@ export default function CleaningPage() {
               ------------------------------------------------------------- */}
           <div className="lg:col-span-9 xl:col-span-9 space-y-6">
             {/* Desktop Category Banner Header */}
-            <div className="hidden lg:flex items-center justify-between pb-2 border-b border-[#EAEFE0]">
+            <div className="hidden lg:flex items-center justify-between pb-2 border-b border-[#F1DFE8]">
               <div>
-                <h2 className="text-xl font-[900] text-[#1A2421]">
+                <h2 className="text-xl font-[900] text-[#2B1B2E]">
                   {selectedCategory === "ALL" ? "All Available Rituals" : `${selectedCategory} Rituals`}
                 </h2>
-                <p className="text-xs text-[#5F6B4A] mt-0.5">
+                <p className="text-xs text-[#8D788D] mt-0.5">
                   Showing curated beauty treatments with transparent pricing & premium ingredients.
                 </p>
               </div>
-              <div className="text-xs font-bold text-[#4F6F52] bg-white border border-[#E0E6D4] px-3.5 py-1.5 rounded-full shadow-sm">
+              <div className="text-xs font-bold text-[#8D788D] bg-white border border-[#F1DFE8] px-3.5 py-1.5 rounded-full shadow-sm">
                 {filteredServices.length} services found
               </div>
             </div>
 
             {/* Grid Container: 1 col on mobile, 2 cols on tablet/laptop, 3 cols on xl wide screens */}
             {filteredServices.length === 0 ? (
-              <div className="bg-white rounded-3xl p-12 text-center border border-[#EAEFE0] shadow-sm">
-                <Sparkles size={36} className="mx-auto text-[#4F6F52] mb-3 opacity-60" />
-                <h3 className="text-base font-extrabold text-[#1A2421]">No rituals found</h3>
-                <p className="text-xs text-[#5F6B4A] mt-1">
+              <div className="bg-white rounded-3xl p-12 text-center border border-[#F1DFE8] shadow-sm">
+                <Sparkles size={36} className="mx-auto text-[#8D788D] mb-3 opacity-60" />
+                <h3 className="text-base font-extrabold text-[#2B1B2E]">No rituals found</h3>
+                <p className="text-xs text-[#8D788D] mt-1">
                   Try selecting another category or check back soon for new services.
                 </p>
               </div>
@@ -334,7 +334,7 @@ export default function CleaningPage() {
                   return (
                     <div
                       key={service._id || service.title}
-                      className="group bg-white rounded-3xl p-5 border border-[#EAEFE0] shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-[#D2DAC2] transition-all duration-300 flex flex-col justify-between"
+                      className="group bg-white rounded-3xl p-5 border border-[#F1DFE8] shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-[#F1DFE8] transition-all duration-300 flex flex-col justify-between"
                     >
                       <div>
                         {/* Top: Rating + Category Tag */}
@@ -344,27 +344,27 @@ export default function CleaningPage() {
                             <span>{service.rating || "4.8"}</span>
                           </div>
 
-                          <span className="text-[10px] font-bold uppercase tracking-wider text-[#4F6F52] bg-[#F2F4ED] px-2.5 py-0.5 rounded-full">
+                          <span className="text-[10px] font-bold uppercase tracking-wider text-[#8D788D] bg-[#FCEAF1] px-2.5 py-0.5 rounded-full">
                             {service.category || "Beauty"}
                           </span>
                         </div>
 
                         {/* Title & Short Description */}
-                        <h3 className="text-base font-extrabold text-[#1A2421] leading-snug tracking-tight mb-1.5 group-hover:text-[#3A4D39] transition-colors">
+                        <h3 className="text-base font-extrabold text-[#2B1B2E] leading-snug tracking-tight mb-1.5 group-hover:text-[#C2306B] transition-colors">
                           {service.title}
                         </h3>
 
-                        <p className="text-[12px] text-[#5F6B4A] leading-relaxed mb-4 line-clamp-2">
+                        <p className="text-[12px] text-[#8D788D] leading-relaxed mb-4 line-clamp-2">
                           {service.description || "Deluxe skincare session with natural herbal extracts and soothing massage."}
                         </p>
                       </div>
 
                       {/* Bottom Layout: Image + Price + Add Button */}
-                      <div className="pt-3 border-t border-[#F2F4ED] flex items-center justify-between gap-3">
+                      <div className="pt-3 border-t border-[#FCEAF1] flex items-center justify-between gap-3">
                         {/* Price & View Details Link */}
                         <div className="flex flex-col">
                           <div className="flex items-baseline gap-1.5">
-                            <span className="text-xl font-[900] text-[#1A2421]">
+                            <span className="text-xl font-[900] text-[#2B1B2E]">
                               ₹{service.price}
                             </span>
                             <span className="text-[11px] text-gray-400 line-through">
@@ -374,7 +374,7 @@ export default function CleaningPage() {
 
                           <button
                             onClick={() => router.push(`services/${service.title}`)}
-                            className="text-[11px] font-bold text-[#A61D33] flex items-center gap-0.5 hover:gap-1.5 transition-all mt-1"
+                            className="text-[11px] font-bold text-[#C2306B] flex items-center gap-0.5 hover:gap-1.5 transition-all mt-1"
                           >
                             <span>View Details</span>
                             <ChevronRight size={13} />
@@ -383,7 +383,7 @@ export default function CleaningPage() {
 
                         {/* Image Thumbnail with Overlay Add Button */}
                         <div className="relative flex flex-col items-center shrink-0">
-                          <div className="relative w-24 h-24 rounded-2xl overflow-hidden bg-[#F2F4ED] border border-[#EAEFE0] shadow-inner">
+                          <div className="relative w-24 h-24 rounded-2xl overflow-hidden bg-[#FCEAF1] border border-[#F1DFE8] shadow-inner">
                             <Image
                               src={service.image || "/images/goldfacial.jpg"}
                               alt={service.title}
@@ -394,10 +394,10 @@ export default function CleaningPage() {
 
                           <button
                             onClick={() => addToCart(service)}
-                            className={`absolute -bottom-2.5 px-4 py-1.5 rounded-xl text-[11px] font-bold shadow-md transition-all active:scale-90 ${
+                            className={`absolute -bottom-2.5 px-4 py-1.5 text-[11px] font-bold shadow-md transition-all active:scale-95 ${
                               inCart
-                                ? "bg-[#3A4D39] text-white border border-[#2F3A1F]"
-                                : "bg-white text-[#3A4D39] border border-[#D2DAC2] hover:bg-[#3A4D39] hover:text-white hover:border-[#3A4D39]"
+                                ? "btn-primary rounded-xl"
+                                : "btn-secondary rounded-xl"
                             }`}
                           >
                             {inCart ? "Added ✓" : "Add +"}
@@ -421,10 +421,10 @@ export default function CleaningPage() {
           <div className="max-w-md mx-auto">
             <div
               onClick={() => setCartOpen(true)}
-              className="flex items-center justify-between px-4 py-3 rounded-2xl bg-gradient-to-r from-[#3A4D39] via-[#465F45] to-[#2F3A1F] text-white shadow-xl shadow-[#3A4D39]/30 active:scale-[0.98] transition-all border border-white/10 backdrop-blur-xl cursor-pointer"
+              className="flex items-center justify-between px-4 py-3 rounded-2xl bg-gradient-to-r from-[#C2306B] via-[#A82058] to-[#A82058] text-white shadow-xl shadow-[#C2306B]/30 active:scale-[0.98] transition-all border border-white/10 backdrop-blur-xl cursor-pointer"
             >
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-xl bg-[#F7B614] flex items-center justify-center text-[#1A2421] shadow-md">
+                <div className="w-8 h-8 rounded-xl bg-[#F7B614] flex items-center justify-center text-[#2B1B2E] shadow-md">
                   <ShoppingCart size={16} />
                 </div>
                 <div className="flex flex-col leading-tight">
@@ -460,29 +460,29 @@ export default function CleaningPage() {
           className={`
             fixed transition-transform duration-500 ease-out bg-white shadow-2xl flex flex-col
             /* Mobile Style: Bottom Sheet */
-            bottom-0 left-0 right-0 max-h-[85vh] rounded-t-[2.5rem] p-6 border-t border-[#EAEFE0]
+            bottom-0 left-0 right-0 max-h-[85vh] rounded-t-[2.5rem] p-6 border-t border-[#F1DFE8]
             /* Laptop Style: Right Slide-over Sidebar */
             lg:top-0 lg:bottom-0 lg:left-auto lg:right-0 lg:w-[460px] lg:max-h-full lg:rounded-l-[2rem] lg:rounded-tr-none lg:border-l lg:border-t-0 lg:p-8
             ${cartOpen ? "translate-y-0 lg:translate-x-0" : "translate-y-full lg:translate-y-0 lg:translate-x-full"}
           `}
         >
           {/* Mobile Handle (hidden on laptop) */}
-          <div className="w-12 h-1 bg-[#D2DAC2] rounded-full mx-auto mb-4 lg:hidden" />
+          <div className="w-12 h-1 bg-[#F1DFE8] rounded-full mx-auto mb-4 lg:hidden" />
 
           {/* Drawer Header */}
-          <div className="flex justify-between items-center pb-4 border-b border-[#F0F4E8] mb-4">
+          <div className="flex justify-between items-center pb-4 border-b border-[#F1DFE8] mb-4">
             <div>
-              <h2 className="text-2xl font-[1000] italic text-[#1A2421]">
-                My <span className="text-[#A61D33]">Bag</span>
+              <h2 className="text-2xl font-[1000] italic text-[#2B1B2E]">
+                My <span className="text-[#C2306B]">Bag</span>
               </h2>
-              <span className="text-[11px] font-bold uppercase tracking-wider text-[#4F6F52]">
+              <span className="text-[11px] font-bold uppercase tracking-wider text-[#8D788D]">
                 {cart.length} Ritual{cart.length > 1 ? "s" : ""} Selected
               </span>
             </div>
 
             <button
               onClick={() => setCartOpen(false)}
-              className="p-2.5 rounded-full bg-[#F5F7F0] hover:bg-[#EAEFE0] text-[#3A4D39] transition-all active:scale-90"
+              className="btn-icon w-9 h-9 text-[#C2306B]"
             >
               <X size={18} />
             </button>
@@ -491,7 +491,7 @@ export default function CleaningPage() {
           {/* Cart Items List */}
           <div className="flex-1 overflow-y-auto no-scrollbar space-y-3.5 pr-1 py-2">
             {cart.length === 0 ? (
-              <div className="text-center py-16 text-[#5F6B4A]">
+              <div className="text-center py-16 text-[#8D788D]">
                 <ShoppingCart size={36} className="mx-auto mb-2 opacity-40" />
                 <p className="text-sm font-bold">Your bag is empty</p>
                 <p className="text-xs opacity-75 mt-0.5">Add treatments to proceed</p>
@@ -500,10 +500,10 @@ export default function CleaningPage() {
               cart.map((item, i) => (
                 <div
                   key={i}
-                  className="flex items-center justify-between p-3.5 rounded-2xl bg-[#F8F9F5] border border-[#EAEFE0] hover:border-[#D2DAC2] transition"
+                  className="flex items-center justify-between p-3.5 rounded-2xl bg-[#FFF7F3] border border-[#F1DFE8] hover:border-[#F1DFE8] transition"
                 >
                   <div className="flex items-center gap-3 min-w-0">
-                    <div className="relative w-12 h-12 rounded-xl overflow-hidden bg-white border border-[#EAEFE0] shrink-0">
+                    <div className="relative w-12 h-12 rounded-xl overflow-hidden bg-white border border-[#F1DFE8] shrink-0">
                       <Image
                         src={item.image || "/images/goldfacial.jpg"}
                         fill
@@ -513,10 +513,10 @@ export default function CleaningPage() {
                     </div>
 
                     <div className="min-w-0">
-                      <p className="text-xs font-black text-[#1A2421] truncate">
+                      <p className="text-xs font-black text-[#2B1B2E] truncate">
                         {item.title}
                       </p>
-                      <p className="text-[#3A4D39] font-black text-xs mt-0.5">
+                      <p className="text-[#C2306B] font-black text-xs mt-0.5">
                         ₹{item.price}
                       </p>
                     </div>
@@ -528,7 +528,7 @@ export default function CleaningPage() {
                       setCart(updated);
                       localStorage.setItem("cart", JSON.stringify(updated));
                     }}
-                    className="p-2 rounded-xl text-[#A61D33] hover:bg-rose-50 transition active:scale-90"
+                    className="btn-icon w-8 h-8 text-[#C2306B] hover:text-red-600 hover:bg-rose-50"
                     title="Remove item"
                   >
                     <Trash2 size={16} />
@@ -540,15 +540,15 @@ export default function CleaningPage() {
 
           {/* Drawer Footer & Checkout Action */}
           {cart.length > 0 && (
-            <div className="pt-4 border-t border-[#F0F4E8] space-y-4 mt-auto">
+            <div className="pt-4 border-t border-[#F1DFE8] space-y-4 mt-auto">
               <div className="flex justify-between items-end px-1">
                 <div>
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#4F6F52]">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#8D788D]">
                     Total Payable
                   </span>
-                  <p className="text-[11px] text-[#5F6B4A]">Taxes and single-use kit included</p>
+                  <p className="text-[11px] text-[#8D788D]">Taxes and single-use kit included</p>
                 </div>
-                <span className="text-2xl font-[1000] text-[#1A2421]">
+                <span className="text-2xl font-[1000] text-[#2B1B2E]">
                   ₹{cartTotal}
                 </span>
               </div>
@@ -563,10 +563,10 @@ export default function CleaningPage() {
                   }
                   router.push("/checkout");
                 }}
-                className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-[#3A4D39] to-[#2F3A1F] text-white font-extrabold uppercase tracking-widest text-xs shadow-lg shadow-[#3A4D39]/30 hover:shadow-xl transition-all active:scale-[0.98] flex items-center justify-center gap-2"
+                className="btn-primary w-full py-3.5 text-xs font-extrabold uppercase tracking-widest flex items-center justify-center gap-2 group"
               >
                 <span>Proceed to Checkout</span>
-                <ChevronRight size={16} />
+                <ChevronRight size={16} className="group-hover:translate-x-1 transition-transform" />
               </button>
             </div>
           )}
@@ -577,15 +577,15 @@ export default function CleaningPage() {
           5. MIN-CART TOAST WARNING
           ========================================================================= */}
       {minCartError && (
-        <div className="fixed bottom-20 left-1/2 -translate-x-1/2 z-[110] w-[90%] max-w-sm bg-white/95 backdrop-blur-2xl border border-[#EAEFE0] shadow-2xl rounded-2xl p-3.5 flex items-center gap-3">
+        <div className="fixed bottom-20 left-1/2 -translate-x-1/2 z-[110] w-[90%] max-w-sm bg-white/95 backdrop-blur-2xl border border-[#F1DFE8] shadow-2xl rounded-2xl p-3.5 flex items-center gap-3">
           <div className="w-9 h-9 rounded-xl bg-[#FFF9E6] text-[#F7B614] flex items-center justify-center font-black text-sm shrink-0 border border-[#F7B614]/20">
             ₹
           </div>
           <div className="flex-1 min-w-0">
-            <p className="text-xs font-bold text-[#1A2421] truncate">
+            <p className="text-xs font-bold text-[#2B1B2E] truncate">
               {minCartError}
             </p>
-            <p className="text-[10px] text-[#5F6B4A]">
+            <p className="text-[10px] text-[#8D788D]">
               Minimum order value is ₹{MIN_CART_VALUE}
             </p>
           </div>
@@ -614,16 +614,16 @@ export default function CleaningPage() {
 // --- Skeleton Loader matching the new Landscape structure ---
 function CleaningSkeleton() {
   return (
-    <div className="min-h-screen bg-[#F8F9F5] p-4 lg:p-8 animate-pulse">
+    <div className="min-h-screen bg-[#FFF7F3] p-4 lg:p-8 animate-pulse">
       <div className="max-w-7xl mx-auto space-y-8">
-        <div className="h-16 bg-white rounded-2xl border border-[#EAEFE0]" />
+        <div className="h-16 bg-white rounded-2xl border border-[#F1DFE8]" />
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-          <div className="hidden lg:block lg:col-span-3 h-96 bg-white rounded-3xl border border-[#EAEFE0]" />
+          <div className="hidden lg:block lg:col-span-3 h-96 bg-white rounded-3xl border border-[#F1DFE8]" />
           <div className="lg:col-span-9 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5">
             {Array.from({ length: 6 }).map((_, i) => (
               <div
                 key={i}
-                className="h-64 bg-white rounded-3xl border border-[#EAEFE0]"
+                className="h-64 bg-white rounded-3xl border border-[#F1DFE8]"
               />
             ))}
           </div>
